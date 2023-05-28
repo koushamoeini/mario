@@ -1,5 +1,6 @@
-package com.example.mario;
+package com.example.mario.controllers;
 
+import com.example.mario.SuperMario;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,7 +12,7 @@ public class accountController {
 
 
     public void login() throws IOException {
-        Stage stage=SuperMario.getLevelStage();
+        Stage stage= SuperMario.getLevelStage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("login.fxml"));
         Parent content = loader.load();

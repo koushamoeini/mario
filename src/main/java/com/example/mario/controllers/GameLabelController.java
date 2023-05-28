@@ -1,5 +1,6 @@
-package com.example.mario;
+package com.example.mario.controllers;
 
+import com.example.mario.GameData;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,7 +26,7 @@ public class GameLabelController implements Initializable {
     public Label coin;
     @FXML
     public Label point;
-    static Timeline timeline;
+    public static Timeline timeline;
     private static GameLabelController instance;
     public GameLabelController(){
         instance=this;

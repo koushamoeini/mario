@@ -1,5 +1,9 @@
-package com.example.mario;
+package com.example.mario.levels;
 
+import com.example.mario.*;
+import com.example.mario.blocks.Block;
+import com.example.mario.enemies.Enemy;
+import com.example.mario.enemies.Flower;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,7 +18,7 @@ import java.util.ArrayList;
 public class Level1_2 {
     private Stage stage;
 
-    Level1_2() throws IOException {
+    public Level1_2() throws IOException {
         setStage(SuperMario.getLevelStage());
         Pane pane = new Pane();
         ArrayList<Coin> coins = new ArrayList<>();

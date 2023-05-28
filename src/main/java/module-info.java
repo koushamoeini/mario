@@ -9,4 +9,12 @@ module com.example.supermario {
 
     opens com.example.mario to javafx.fxml,com.fasterxml.jackson.databind;
     exports com.example.mario;
+    exports com.example.mario.levels;
+    opens com.example.mario.levels to com.fasterxml.jackson.databind, javafx.fxml;
+    exports com.example.mario.blocks;
+    opens com.example.mario.blocks to com.fasterxml.jackson.databind, javafx.fxml;
+    exports com.example.mario.enemies;
+    opens com.example.mario.enemies to com.fasterxml.jackson.databind, javafx.fxml;
+    exports com.example.mario.controllers;
+    opens com.example.mario.controllers to com.fasterxml.jackson.databind, javafx.fxml;
 }

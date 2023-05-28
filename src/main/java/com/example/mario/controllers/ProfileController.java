@@ -1,5 +1,7 @@
-package com.example.mario;
+package com.example.mario.controllers;
 
+import com.example.mario.SuperMario;
+import com.example.mario.UserData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,7 +43,7 @@ public class ProfileController implements Initializable {
         chosenCharacter.setImage(new Image("Images"+str+"/runner.png"));
     }
     public void back() throws IOException {
-        Stage stage=SuperMario.getLevelStage();
+        Stage stage= SuperMario.getLevelStage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("MainMenu.fxml"));
         Parent content = loader.load();

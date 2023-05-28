@@ -1,8 +1,8 @@
-package com.example.mario;
+package com.example.mario.enemies;
 
 import javafx.scene.image.Image;
 
-public class Spike extends Enemy{
+public class Spike extends Enemy {
     public Spike(int edgeX, int edgeY, int blockX, int blockY,boolean isRight) {
         super(edgeX, edgeY, blockX, blockY);
         Image image;

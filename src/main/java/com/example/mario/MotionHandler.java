@@ -1,5 +1,11 @@
 package com.example.mario;
 
+import com.example.mario.blocks.Block;
+import com.example.mario.controllers.ChooseSaveController;
+import com.example.mario.controllers.GameLabelController;
+import com.example.mario.enemies.Enemy;
+import com.example.mario.enemies.Flower;
+import com.example.mario.levels.Level1_2;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -54,7 +60,7 @@ public class MotionHandler {
     JsonManager jsonManager2 = new JsonManager("./src/main/resources/GamaData/" + userData.getCurrentUser().getUserName() + "/game2.json");
     JsonManager jsonManager3 = new JsonManager("./src/main/resources/GamaData/" + userData.getCurrentUser().getUserName() + "/game3.json");
 
-    MotionHandler(ArrayList<Block> objects, ArrayList<Enemy> enemy, ArrayList<BackGround> images, ArrayList<Coin> coin, Stage stage0, Pane pane) throws IOException {
+    public MotionHandler(ArrayList<Block> objects, ArrayList<Enemy> enemy, ArrayList<BackGround> images, ArrayList<Coin> coin, Stage stage0, Pane pane) throws IOException {
         stage = stage0;
         gameLabelController.setPointChange(gameData.getPoint());
         gameLabelController.setHpChange(gameData.getHp());

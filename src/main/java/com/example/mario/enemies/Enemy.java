@@ -1,4 +1,4 @@
-package com.example.mario;
+package com.example.mario.enemies;
 
 import javafx.scene.image.ImageView;
 
