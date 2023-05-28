@@ -1,5 +1,9 @@
 package com.example.mario;
 
+import com.example.mario.manager.JsonManager;
+import com.example.mario.manager.VoicePlayer;
+import com.example.mario.user.User;
+import com.example.mario.user.UserData;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -23,7 +27,7 @@ public class SuperMario extends Application {
     private static final String stageTitle = "super mario";
     private static final Image icon=new Image("Images/icon.png");
      Timeline timerMenu=new Timeline();
-    static VoicePlayer menuSong=new VoicePlayer("C:\\Users\\koush\\IdeaProjects\\Mario\\src\\main\\resources\\Media\\menuSong.mp3");
+    public static VoicePlayer menuSong=new VoicePlayer("C:\\Users\\koush\\IdeaProjects\\Mario\\src\\main\\resources\\Media\\menuSong.mp3");
 
     KeyFrame keyFrame = new KeyFrame(Duration.seconds(70), event -> menuSong.stop());
     public static void main(String[] args) {

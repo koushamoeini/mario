@@ -1,5 +1,6 @@
 package com.example.mario;
 
+import com.example.mario.user.UserData;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

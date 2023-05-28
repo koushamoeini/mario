@@ -1,5 +1,9 @@
-package com.example.mario;
+package com.example.mario.controllers;
 
+import com.example.mario.manager.JsonManager;
+import com.example.mario.SuperMario;
+import com.example.mario.user.User;
+import com.example.mario.user.UserData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +16,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
-public class CreateAccount {
+public class CreateAccountController {
     private UserData userData=UserData.getInstance();
     @FXML
     private Label createError;
@@ -22,7 +26,7 @@ public class CreateAccount {
     private PasswordField createPass;
     public void CheckUserPass() throws IOException {
         JsonManager jsonManager=new JsonManager("./src/main/resources/GamaData/users.json");
-        Stage stage=SuperMario.getLevelStage();
+        Stage stage= SuperMario.getLevelStage();
         for(User user :userData.getUsers()){
             if(user.getUserName().equals(createUser.getText())){
                 createError.setText("Username is already taken");

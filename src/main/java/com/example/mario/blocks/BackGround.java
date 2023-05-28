@@ -1,4 +1,4 @@
-package com.example.mario;
+package com.example.mario.blocks;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

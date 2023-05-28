@@ -1,5 +1,8 @@
-package com.example.mario;
+package com.example.mario.controllers;
 
+import com.example.mario.SuperMario;
+import com.example.mario.user.User;
+import com.example.mario.user.UserData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Login {
+public class LoginController {
     private UserData userData=UserData.getInstance();
     @FXML
     private Label loginError;
@@ -21,7 +24,7 @@ public class Login {
     private PasswordField passUser;
 
     public void isValidUserPass() throws IOException {
-        Stage stage=SuperMario.getLevelStage();
+        Stage stage= SuperMario.getLevelStage();
         for(User user :userData.getUsers()) {
             if(user.getUserName().equals(logUser.getText())&&user.getPassword().equals(passUser.getText())){
                 FXMLLoader loader = new FXMLLoader();

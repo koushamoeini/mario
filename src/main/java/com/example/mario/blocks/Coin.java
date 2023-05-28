@@ -1,4 +1,4 @@
-package com.example.mario;
+package com.example.mario.blocks;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

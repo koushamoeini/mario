@@ -1,8 +1,8 @@
 package com.example.mario.controllers;
 
-import com.example.mario.JsonManager;
+import com.example.mario.manager.JsonManager;
 import com.example.mario.SuperMario;
-import com.example.mario.UserData;
+import com.example.mario.user.UserData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

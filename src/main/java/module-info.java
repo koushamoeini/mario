@@ -17,4 +17,8 @@ module com.example.supermario {
     opens com.example.mario.enemies to com.fasterxml.jackson.databind, javafx.fxml;
     exports com.example.mario.controllers;
     opens com.example.mario.controllers to com.fasterxml.jackson.databind, javafx.fxml;
+    exports com.example.mario.user;
+    opens com.example.mario.user to com.fasterxml.jackson.databind, javafx.fxml;
+    exports com.example.mario.manager;
+    opens com.example.mario.manager to com.fasterxml.jackson.databind, javafx.fxml;
 }

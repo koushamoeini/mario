@@ -1,4 +1,4 @@
-package com.example.mario;
+package com.example.mario.user;
 
 import java.util.ArrayList;
 import java.util.List;

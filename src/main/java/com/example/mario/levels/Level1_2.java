@@ -1,7 +1,9 @@
 package com.example.mario.levels;
 
 import com.example.mario.*;
+import com.example.mario.blocks.BackGround;
 import com.example.mario.blocks.Block;
+import com.example.mario.blocks.Coin;
 import com.example.mario.enemies.Enemy;
 import com.example.mario.enemies.Flower;
 import javafx.fxml.FXMLLoader;

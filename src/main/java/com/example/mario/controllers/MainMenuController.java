@@ -1,6 +1,9 @@
-package com.example.mario;
+package com.example.mario.controllers;
 
 
+import com.example.mario.user.GameData;
+import com.example.mario.SuperMario;
+import com.example.mario.manager.VoicePlayer;
 import com.example.mario.levels.Level1_1;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,7 +15,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class MainMenu  {
+public class MainMenuController {
     Timeline timerShop=new Timeline();
     static VoicePlayer shopVoice=new VoicePlayer("C:\\Users\\koush\\IdeaProjects\\Mario\\src\\main\\resources\\Media\\shopWelcome.wav");
 
@@ -25,7 +28,7 @@ public class MainMenu  {
         timerShop.getKeyFrames().addAll(keyFrame);
         timerShop.play();
         shopVoice.play();
-        Stage stage=SuperMario.getLevelStage();
+        Stage stage= SuperMario.getLevelStage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("Shop.fxml"));
         Parent content = loader.load();

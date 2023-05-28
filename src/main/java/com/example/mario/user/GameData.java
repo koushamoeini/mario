@@ -1,4 +1,4 @@
-package com.example.mario;
+package com.example.mario.user;
 
 public class GameData {
     private static GameData object;

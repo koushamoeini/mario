@@ -1,11 +1,17 @@
 package com.example.mario;
 
+import com.example.mario.blocks.BackGround;
 import com.example.mario.blocks.Block;
+import com.example.mario.blocks.Coin;
 import com.example.mario.controllers.ChooseSaveController;
 import com.example.mario.controllers.GameLabelController;
 import com.example.mario.enemies.Enemy;
 import com.example.mario.enemies.Flower;
 import com.example.mario.levels.Level1_2;
+import com.example.mario.manager.JsonManager;
+import com.example.mario.manager.VoicePlayer;
+import com.example.mario.user.GameData;
+import com.example.mario.user.UserData;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;

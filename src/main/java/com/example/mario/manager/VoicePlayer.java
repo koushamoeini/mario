@@ -1,4 +1,4 @@
-package com.example.mario;
+package com.example.mario.manager;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

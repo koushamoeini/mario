@@ -1,5 +1,6 @@
-package com.example.mario;
+package com.example.mario.manager;
 
+import com.example.mario.user.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;

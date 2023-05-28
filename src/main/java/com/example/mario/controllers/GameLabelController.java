@@ -1,6 +1,6 @@
 package com.example.mario.controllers;
 
-import com.example.mario.GameData;
+import com.example.mario.user.GameData;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
