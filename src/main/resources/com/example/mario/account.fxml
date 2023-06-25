@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mario.controllers.accountController">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="1039.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-19.0">
+         <image>
+            <Image url="@../../../Images/menuBack.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="243.0" layoutY="124.0" mnemonicParsing="false" onAction="#login" prefHeight="65.0" prefWidth="223.0" text="login" AnchorPane.leftAnchor="243.0" AnchorPane.rightAnchor="554.0">
+         <font>
+            <Font size="23.0" />
+         </font>
+         <effect>
+            <InnerShadow choke="0.6" height="47.38" radius="25.387500000000003" width="56.17" />
+         </effect>
+      </Button>
+      <Button layoutX="629.0" layoutY="124.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="65.0" prefWidth="223.0" text="create accouunt" AnchorPane.leftAnchor="554.0" AnchorPane.rightAnchor="243.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <InnerShadow choke="0.6" height="52.0" radius="26.5" width="56.0" />
+         </effect>
+      </Button>
+      <Button layoutX="22.0" layoutY="522.0" mnemonicParsing="false" onAction="#exit" prefHeight="51.0" prefWidth="109.0" text="exit" AnchorPane.topAnchor="537.0">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+         <effect>
+            <InnerShadow choke="0.41" height="50.31" radius="23.9225" width="47.38" />
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>

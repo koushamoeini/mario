@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mario.controllers.LoginController">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="1020.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Images/menuBack.jpg" />
+         </image>
+      </ImageView>
+      <PasswordField fx:id="passUser" layoutX="621.0" layoutY="126.0" prefHeight="48.0" prefWidth="222.0" promptText="Password" AnchorPane.leftAnchor="550.0" AnchorPane.rightAnchor="234.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <InnerShadow choke="0.4" height="30.0" radius="27.0" width="80.0" />
+         </effect>
+      </PasswordField>
+      <TextField fx:id="logUser" layoutX="283.0" layoutY="126.0" maxWidth="-Infinity" prefHeight="48.0" prefWidth="227.0" promptText="Username" AnchorPane.leftAnchor="234.0" AnchorPane.rightAnchor="550.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <InnerShadow choke="0.4" height="30.0" radius="27.0" width="80.0" />
+         </effect>
+      </TextField>
+      <Button layoutX="428.0" layoutY="235.0" mnemonicParsing="false" onAction="#isValidUserPass" prefHeight="51.0" prefWidth="154.0" text="login">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <InnerShadow choke="0.4" height="20.0" radius="24.5" width="80.0" />
+         </effect>
+      </Button>
+      <Label fx:id="loginError" layoutX="342.0" layoutY="51.0" prefHeight="51.0" prefWidth="362.0" textFill="#bc0b0b">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="24.0" layoutY="537.0" mnemonicParsing="false" onAction="#back" prefHeight="51.0" prefWidth="109.0" text="back" AnchorPane.topAnchor="537.0">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+         <effect>
+            <InnerShadow choke="0.41" height="50.31" radius="23.9225" width="47.38" />
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>
