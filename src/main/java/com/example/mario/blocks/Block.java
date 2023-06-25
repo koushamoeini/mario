@@ -1,16 +1,9 @@
 package com.example.mario.blocks;
-
-import com.example.mario.Mario;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
-import java.util.ArrayList;
 
 public class Block extends ImageView {
 
-    private Image image;
     private int edgeX;
     private int edgeY;
     private int blockX;
@@ -25,7 +18,6 @@ public class Block extends ImageView {
         setLayoutY(blockY);
         setFitWidth(edgeX);
         setFitHeight(edgeY);
-        this.setImage(image);
     }
 
     public int getEdgeX() {

@@ -10,19 +10,11 @@ import javafx.util.Duration;
 public class Coin extends ImageView {
     Timeline timeline;
     int counter=0;
-    private int edgeX;
-    private int edgeY;
-    private int blockX;
-    private int blockY;
     KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
         counter++;
         setImage(new Image("Images/coin"+(counter%4+1)+".png"));
     });
     public Coin(int edgeX, int edgeY, int blockX, int blockY) {
-        this.edgeX = edgeX;
-        this.edgeY = edgeY;
-        this.blockX = blockX;
-        this.blockY = blockY;
         timeline=new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
