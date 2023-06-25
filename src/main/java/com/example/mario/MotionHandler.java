@@ -2,6 +2,7 @@ package com.example.mario;
 
 import com.example.mario.blocks.BackGround;
 import com.example.mario.blocks.Block;
+import com.example.mario.blocks.BlockCollision;
 import com.example.mario.blocks.Coin;
 import com.example.mario.controllers.ChooseSaveController;
 import com.example.mario.controllers.GameLabelController;
@@ -56,6 +57,7 @@ public class MotionHandler {
     private GameData gameData = GameData.getInstance();
     private UserData userData = UserData.getInstance();
     private List<Integer> saveData = new ArrayList<>();
+    private BlockCollision blockCollision;
     AnimationTimer timer;
     Timeline andBeginTime = new Timeline();
     private VoicePlayer andBegin = new VoicePlayer("./src/main/resources/Media/and begin.mp3");
@@ -83,6 +85,7 @@ public class MotionHandler {
         this.enemies = enemies;
         this.backGrounds = backGrounds;
         this.coins = coins;
+        blockCollision=new BlockCollision(this.stage,this.pane,this.coins,this.blocks);
         if (ChooseSaveController.isFirstSave()) {
             ChooseSaveController.setFirstSave(false);
             mapMoverRight(jsonManager1.readArray(JsonManager.integerReference).get(0));
@@ -358,8 +361,8 @@ public class MotionHandler {
                                 mario.setDead(true);
                             } else {
                                 if(block.getType().equals(Block.Type.Brick)||block.getType().equals(Block.Type.coinBrick)||block.getType().equals(Block.Type.superCoinBrick)){
-                                    superCoinBrickBreak(block);
-                                    coinBrickBreak(block);
+                                    blockCollision.superCoinBrickBreak(block);
+                                    blockCollision.coinBrickBreak(block);
                                     removeBlock.add(block);
                                     block.setVisible(false);
                                 }
@@ -619,25 +622,6 @@ public class MotionHandler {
         }
         for (Coin coin : coins) {
             coin.setLayoutY(coin.getLayoutY() - num * 5);
-        }
-    }
-    public void coinBrickBreak(Block block){
-        if(block.getType().equals(Block.Type.coinBrick)) {
-            Coin coin = new Coin(block.getEdgeX(), block.getEdgeY(), block.getBlockX(), block.getBlockY() - block.getEdgeY());
-            pane.getChildren().add(coin);
-            coins.add(coin);
-        }
-    } public void superCoinBrickBreak(Block block){
-        if(block.getType().equals(Block.Type.superCoinBrick)) {
-            int max = 5;
-            int min = 2;
-            int range = max - min + 1;
-            int rand = (int) (Math.random() * range) + min;
-            for (int i = 0; i < rand; i++) {
-                Coin coin =new Coin(block.getEdgeX(), block.getEdgeY(), block.getBlockX(), block.getBlockY() - block.getEdgeY());
-                pane.getChildren().add(coin);
-                coins.add(coin);
-            }
         }
     }
     long lastTime=0;

@@ -19,19 +19,12 @@ public class Block extends ImageView {
     private int blockX;
     private int blockY;
     private final Type type;
-    private Stage stage;
-    private Pane pane;
-    private ArrayList<Coin> coins;
-
-    public Block(Type type, int edgeX, int edgeY, int blockX, int blockY, Stage stage, Pane pane,  ArrayList<Coin> coins) {
+    public Block(Type type, int edgeX, int edgeY, int blockX, int blockY) {
         this.edgeX = edgeX;
         this.edgeY = edgeY;
         this.blockX = blockX;
         this.blockY = blockY;
         this.type = type;
-        this.pane=pane;
-        this.stage=stage;
-        this.coins=coins;
         if (type.equals(Type.Mystery)) {
             image = new Image("Images/prize_active.png");
         }
@@ -92,23 +85,5 @@ public class Block extends ImageView {
     public void setBlockY(int blockY) {
         this.blockY = blockY;
     }
-    public void coinBrickBreak(Block block){
-        if(block.getType().equals(Block.Type.coinBrick)) {
-            Coin coin = new Coin(block.getEdgeX(), block.getEdgeY(), block.getBlockX(), block.getBlockY() - block.getEdgeY());
-            pane.getChildren().add(coin);
-            coins.add(coin);
-        }
-    } public void superCoinBrickBreak(Block block){
-        if(block.getType().equals(Block.Type.superCoinBrick)) {
-            int max = 5;
-            int min = 2;
-            int range = max - min + 1;
-            int rand = (int) (Math.random() * range) + min;
-            for (int i = 0; i < rand; i++) {
-                Coin coin =new Coin(block.getEdgeX(), block.getEdgeY(), block.getBlockX(), block.getBlockY() - block.getEdgeY());
-                pane.getChildren().add(coin);
-                coins.add(coin);
-            }
-        }
-    }
+
 }
