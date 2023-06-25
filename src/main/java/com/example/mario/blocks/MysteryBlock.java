@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 public class MysteryBlock extends Block{
-    Timeline timeline;
+    private Timeline timeline;
     int counter=0;
     KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
         counter++;
@@ -24,5 +24,9 @@ public class MysteryBlock extends Block{
         timeline=new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+    public Timeline getTimeline() {
+        return timeline;
     }
 }

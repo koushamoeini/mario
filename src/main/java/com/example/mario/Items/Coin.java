@@ -1,4 +1,4 @@
-package com.example.mario.blocks;
+package com.example.mario.Items;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class Coin extends ImageView {
-    Timeline timeline;
+    private Timeline timeline;
     int counter=0;
     KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
         counter++;
@@ -24,5 +24,9 @@ public class Coin extends ImageView {
         setFitWidth(edgeX);
         setFitHeight(edgeY);
         this.setImage(image);
+    }
+
+    public Timeline getTimeline() {
+        return timeline;
     }
 }

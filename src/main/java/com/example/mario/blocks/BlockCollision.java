@@ -1,5 +1,6 @@
 package com.example.mario.blocks;
 
+import com.example.mario.Items.Coin;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 

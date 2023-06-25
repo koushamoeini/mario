@@ -1,5 +1,6 @@
 package com.example.mario;
 
+import com.example.mario.Items.Coin;
 import com.example.mario.blocks.*;
 import com.example.mario.controllers.ChooseSaveController;
 import com.example.mario.controllers.GameLabelController;
@@ -33,6 +34,7 @@ public class MotionHandler {
     private double velocity = 0;
     private boolean isLeft = false;
     private boolean isRight = false;
+    private boolean jumpStop=false;
     private boolean isMapMoving = false;
     private int mapMoveCounter = 0;
     private int mapMoveDownCounter = 0;
@@ -126,39 +128,14 @@ public class MotionHandler {
                 case RIGHT -> isRight = true;
                 case LEFT -> isLeft = true;
                 case UP -> {
-                    if (downCollusion) {
+                    if (downCollusion&&!jumpStop) {
                         mario.setJumping(true);
                         mario.startMoving();
                         velocity = 15;
                         mario.setLayoutY(mario.getLayoutY() - 5);
                     }
                 }
-                case ESCAPE -> {
-                    GameLabelController.timeline.stop();
-                    andBegin.stop();
-                    andBeginTime.stop();
-                    beppi.stop();
-                    timer.stop();
-                    gameData = GameData.resetInstance();
-                    FXMLLoader loader = new FXMLLoader();
-                    Parent content;
-                    try {
-                        loader.setLocation(new File("./src/main/resources/com/example/mario/MainMenu.fxml").toURI().toURL());
-                        content = loader.load();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    Scene scene = new Scene(content);
-                    stage.setScene(scene);
-                    stage.setHeight(SuperMario.getHeight());
-                    stage.setWidth(1020);
-                    stage.getIcons().add(SuperMario.getIcon());
-                    stage.setResizable(false);
-                    stage.setTitle(SuperMario.getStageTitle());
-                    stage.setX(SuperMario.getStageX());
-                    stage.setY(SuperMario.getStageY());
-                    stage.show();
-                }
+                case ESCAPE -> gameStop();
                 case S -> {
                     saveData.add(mapMoveCounter);
                     saveData.add(mapMoveDownCounter);
@@ -599,5 +576,38 @@ public class MotionHandler {
         for (Coin coin : coins) {
             coin.setLayoutY(coin.getLayoutY() - num * 5);
         }
+    }
+    public void gameStop(){
+        GameLabelController.timeline.stop();
+        andBegin.stop();
+        andBeginTime.stop();
+        beppi.stop();
+        timer.stop();
+        jumpStop=true;
+        for(Enemy enemy:enemies){
+            if(enemy instanceof Flower) ((Flower) enemy).getTimeline().stop();
+        }
+        for(Block block:blocks){
+            if(block instanceof MysteryBlock) ((MysteryBlock) block).getTimeline().stop();
+        }
+        for(Coin coin:coins)
+            if(coin instanceof Coin) coin.getTimeline().stop();
+    }
+    public void gameStart(){
+        GameLabelController.timeline.play();
+        andBegin.play();
+        andBeginTime.play();
+        beppi.play();
+        timer.start();
+        jumpStop=true;
+        for(Enemy enemy:enemies){
+            if(enemy instanceof Flower) ((Flower) enemy).getTimeline().play();
+        }
+        for(Block block:blocks){
+            if(block instanceof MysteryBlock) ((MysteryBlock) block).getTimeline().play();
+        }
+        for(Coin coin:coins)
+            if(coin instanceof Coin) coin.getTimeline().play();
+
     }
 }
