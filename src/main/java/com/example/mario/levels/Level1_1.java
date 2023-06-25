@@ -1,9 +1,7 @@
 package com.example.mario.levels;
 
 import com.example.mario.*;
-import com.example.mario.blocks.BackGround;
-import com.example.mario.blocks.Block;
-import com.example.mario.blocks.Coin;
+import com.example.mario.blocks.*;
 import com.example.mario.enemies.Enemy;
 import com.example.mario.enemies.Flower;
 import com.example.mario.enemies.Spike;
@@ -94,12 +92,12 @@ public class Level1_1 {
         }
         otherBlock:
         while (true) {
-            Block stair0 = new Block(Block.Type.Stair, 30, 30, 480, 480 );
-            Block stair1 = new Block(Block.Type.Stair, 30, 30, 510, 480 );
-            Block stair2 = new Block(Block.Type.Stair, 30, 30, 510, 450 );
+            Stairs stair0 = new Stairs( 30, 30, 480, 480 );
+            Stairs stair1 = new Stairs( 30, 30, 510, 480 );
+            Stairs stair2 = new Stairs( 30, 30, 510, 450 );
             Flower enemyPipe = new Flower(50, 100, 710, 300);
-            Block pipe = new Block(Block.Type.Pipe, 90, 150, 690, 360 );
-            Block pipe2 = new Block(Block.Type.Pipe, 60, 90, 2250, 420 );
+            Pipe pipe1 = new Pipe(90, 150, 690, 360 );
+            Pipe pipe2 = new Pipe( 60, 90, 2250, 420 );
             pane.getChildren().add(stair0);
             blocks.add(stair0);
             pane.getChildren().add(stair1);
@@ -108,8 +106,8 @@ public class Level1_1 {
             blocks.add(stair2);
             pane.getChildren().add(enemyPipe);
             enemies.add(enemyPipe);
-            pane.getChildren().add(pipe);
-            blocks.add(pipe);
+            pane.getChildren().add(pipe1);
+            blocks.add(pipe1);
             pane.getChildren().add(pipe2);
             blocks.add(pipe2);
             for (int i = 2760; i <= 3030; i += 90) {
@@ -118,68 +116,56 @@ public class Level1_1 {
                     pane.getChildren().add(enemyPipe3);
                     enemies.add(enemyPipe3);
                 }
-                Block pipe3 = new Block(Block.Type.Pipe, 90, 100 + (i - 2760) / 5, i, 450 - (i - 2760) / 3 );
+                Pipe pipe3 = new Pipe( 90, 100 + (i - 2760) / 5, i, 450 - (i - 2760) / 3 );
                 pane.getChildren().add(pipe3);
                 blocks.add(pipe3);
             }
-            /*for (int i = 180; i < 390; i += 30) {
-                if (i == 240 || i == 360) {
-                    Block mystery = new Block(Block.Type.Mystery, 30, 30, i, 370);
-                    pane.getChildren().add(mystery);
-                    blocks.add(mystery);
-
-                } else {
-                    Block brick = new Block(Block.Type.Brick, 30, 30, i, 370);
-                    pane.getChildren().add(brick);
-                    blocks.add(brick);
-                }
-            }*/
-            Block brick1 = new Block(Block.Type.Brick, 30, 30, 180, 370 );
+            Brick brick1=new Brick( 30, 30, 180, 370 );
             pane.getChildren().add(brick1);
             blocks.add(brick1);
-            Block coinBrick = new Block(Block.Type.coinBrick, 30, 30, 210, 370 );
+            CoinBlock coinBrick = new CoinBlock( 30, 30, 210, 370 );
             pane.getChildren().add(coinBrick);
             blocks.add(coinBrick);
-            Block superCoinBrick = new Block(Block.Type.superCoinBrick, 30, 30, 240, 370 );
+            SuperCoinBlock superCoinBrick = new SuperCoinBlock( 30, 30, 240, 370 );
             pane.getChildren().add(superCoinBrick);
             blocks.add(superCoinBrick);
             for (int i = 310; i < 490; i += 30) {
                 if (i == 310 || i == 340) {
-                    Block mystery = new Block(Block.Type.Mystery, 30, 30, i, 220 );
-                    pane.getChildren().add(mystery);
-                    blocks.add(mystery);
+                    MysteryBlock mysteryBlock = new MysteryBlock( 30, 30, i, 220 );
+                    pane.getChildren().add(mysteryBlock);
+                    blocks.add(mysteryBlock);
                 } else {
-                    Block brick = new Block(Block.Type.Brick, 30, 30, i, 220 );
+                    Brick brick = new Brick(30, 30, i, 220 );
                     pane.getChildren().add(brick);
                     blocks.add(brick);
                 }
             }
             for (int i = 1800; i <= 1980; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, i, 390 );
+                Brick brick = new Brick(30, 30, i, 390 );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
 
             for (int i = 1800; i <= 1980; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, i, 390 );
+                Brick brick = new Brick(30, 30, i, 390 );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
-            Block mystery1 = new Block(Block.Type.Mystery, 30, 30, 1860, 240 );
-            pane.getChildren().add(mystery1);
-            blocks.add(mystery1);
-            Block mystery2 = new Block(Block.Type.Mystery, 30, 30, 1950, 240 );
-            pane.getChildren().add(mystery2);
-            blocks.add(mystery2);
+            MysteryBlock mysteryBlock1 = new MysteryBlock( 30, 30, 1860, 240 );
+            pane.getChildren().add(mysteryBlock1);
+            blocks.add(mysteryBlock1);
+            MysteryBlock mysteryBlock2 = new MysteryBlock( 30, 30, 1950, 240 );
+            pane.getChildren().add(mysteryBlock2);
+            blocks.add(mysteryBlock2);
             for (int i = 2550; i < 2700; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, i, 390 );
+                Brick brick = new Brick(30, 30, i, 390 );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 2820; i <= 2970; i += 30) {
-                Block brick = new Block(Block.Type.Mystery, 30, 30, i, 270 );
-                pane.getChildren().add(brick);
-                blocks.add(brick);
+                MysteryBlock mysteryBlock = new MysteryBlock( 30, 30, i, 270 );
+                pane.getChildren().add(mysteryBlock);
+                blocks.add(mysteryBlock);
             }
             break;
         }
@@ -188,51 +174,51 @@ public class Level1_1 {
             for (int j = 420; j < 510; j += 30) {
                 for (int i = 2160; i <= 2220; i += 30) {
                     if (i - 2160 + j - 420 >= 60) {
-                        Block brick = new Block(Block.Type.Stair, 30, 30, i, j );
-                        pane.getChildren().add(brick);
-                        blocks.add(brick);
+                        Stairs stairs = new Stairs( 30, 30, i, j );
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
                     }
                 }
             }
             for (int i = 2310; i <= 2370; i += 30) {
                 for (int j = 420; j < 510; j += 30) {
                     if (i - 2310 <= j - 420) {
-                        Block brick = new Block(Block.Type.Stair, 30, 30, i, j);
-                        pane.getChildren().add(brick);
-                        blocks.add(brick);
+                        Stairs stairs = new Stairs( 30, 30, i, j);
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
                     }
                 }
             }
             for (int j = 360; j < 510; j += 30) {
                 for (int i = 3270; i <= 3420; i += 30) {
                     if (i - 3270 + j - 360 >= 120) {
-                        Block brick = new Block(Block.Type.Stair, 30, 30, i, j );
-                        pane.getChildren().add(brick);
-                        blocks.add(brick);
+                        Stairs stairs = new Stairs( 30, 30, i, j );
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
                     }
                 }
             }
             for (int i = 3630; i <= 3720; i += 30) {
                 for (int j = 420; j < 510; j += 30) {
                     if (i - 3630 <= j - 420) {
-                        Block brick = new Block(Block.Type.Stair, 30, 30, i, j );
-                        pane.getChildren().add(brick);
-                        blocks.add(brick);
+                        Stairs stairs = new Stairs(  30, 30, i, j );
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
                     }
                 }
             }
             for (int j = 210; j < 510; j += 30) {
                 for (int i = 4190; i <= 4490; i += 30) {
                     if (i - 4190 + j - 210 >= 270) {
-                        Block brick = new Block(Block.Type.Stair, 30, 30, i, j );
-                        pane.getChildren().add(brick);
-                        blocks.add(brick);
+                        Stairs stairs = new Stairs(  30, 30, i, j );
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
                     }
                 }
             }
             for (int i = 0; i <= 5800; i += 30) {
                 if ((i >= 540 && i < 630) || (i >= 990 && i < 1110) || (i >= 1170 && i < 1260) || (i >= 1290 && i < 1350) || (i >= 1380 && i < 1440) || (i >= 1740 && i < 2100) || (i >= 3450 && i < 3630)) {
-                    Block killBlock = new Block(Block.Type.killBlock, 30, 30, i, 600 );
+                    KillBlock killBlock = new KillBlock(30, 30, i, 600 );
                     pane.getChildren().add(killBlock);
                     blocks.add(killBlock);
                 }
@@ -240,22 +226,22 @@ public class Level1_1 {
             for (int i = 510; i < 600; i += 30) {
                 for (int j = 0; j <= 5910; j += 30) {
                     if (!(j >= 540 && j < 630) && !(j >= 990 && j < 1110) && !(j >= 1170 && j < 1260) && !(j >= 1290 && j < 1350) && !(j >= 1380 && j < 1440) && !(j >= 1740 && j < 2100) && !(j >= 3450 && j < 3630) && !(j > 5370 && j < 5610)) {
-                        Block block = new Block(Block.Type.Surface, 30, 30, j, i );
-                        pane.getChildren().add(block);
-                        blocks.add(block);
+                        SurfaceBlock surfaceBlock=new SurfaceBlock(30, 30, j, i );
+                        pane.getChildren().add(surfaceBlock);
+                        blocks.add(surfaceBlock);
                     }
                 }
             }
             //////////////////////////////////////////////////////////
             for (int i = 600; i < 1300; i += 30) {
-                Block block = new Block(Block.Type.Stair, 30, 30, 5370, i );
-                pane.getChildren().add(block);
-                blocks.add(block);
+                Stairs stairs = new Stairs(  30, 30, 5370, i );
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
             }
             for (int i = 600; i < 1320; i += 30) {
-                Block block = new Block(Block.Type.Stair, 30, 30, 5610, i );
-                pane.getChildren().add(block);
-                blocks.add(block);
+                Stairs stairs = new Stairs(  30, 30, 5610, i );
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
             }
             for (int i = 900; i < 1320; i += 30) {
                 Spike spike = new Spike(30, 30,5400,i,true);
@@ -269,14 +255,14 @@ public class Level1_1 {
             }
             //////////////////////////////////////////////////////////
             for (int i = 1320; i < 1860; i += 30) {
-                Block block = new Block(Block.Type.Stair, 30, 30, 5430, i );
-                pane.getChildren().add(block);
-                blocks.add(block);
+                Stairs stairs = new Stairs( 30, 30, 5430, i );
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
             }
             for (int i = 1320; i < 1860; i += 30) {
-                Block block = new Block(Block.Type.Stair, 30, 30, 5670, i );
-                pane.getChildren().add(block);
-                blocks.add(block);
+                Stairs stairs = new Stairs(30, 30, 5670, i );
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
             }
             for (int i = 1320; i <1860; i += 30) {
                 Spike spike = new Spike(30, 30,5460,i,true);
@@ -290,14 +276,14 @@ public class Level1_1 {
             }
             //////////////////////////////////////////////////////////
             for (int i = 1860; i < 2520; i += 30) {
-                Block block = new Block(Block.Type.Stair, 30, 30, 5340, i );
-                pane.getChildren().add(block);
-                blocks.add(block);
+                Stairs stairs = new Stairs( 30, 30, 5340, i );
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
             }
             for (int i = 1860; i < 2520; i += 30) {
-                Block block = new Block(Block.Type.Stair, 30, 30, 5580, i );
-                pane.getChildren().add(block);
-                blocks.add(block);
+                Stairs stairs = new Stairs(30, 30, 5580, i );
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
             }
             for (int i = 1860; i < 2520; i += 30) {
                 Spike spike = new Spike(30, 30,5370,i,true);
@@ -309,7 +295,7 @@ public class Level1_1 {
                 pane.getChildren().add(spike);
                 enemies.add(spike);
             }
-            Block win=new Block(Block.Type.WinBlock,120,60,5400,2600 );
+            WinBlock win=new WinBlock(120,60,5400,2600 );
             pane.getChildren().add(win);
             blocks.add(win);
             break;

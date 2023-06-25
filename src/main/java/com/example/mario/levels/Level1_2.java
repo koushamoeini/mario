@@ -1,9 +1,7 @@
 package com.example.mario.levels;
 
 import com.example.mario.*;
-import com.example.mario.blocks.BackGround;
-import com.example.mario.blocks.Block;
-import com.example.mario.blocks.Coin;
+import com.example.mario.blocks.*;
 import com.example.mario.enemies.Enemy;
 import com.example.mario.enemies.Flower;
 import javafx.fxml.FXMLLoader;
@@ -100,7 +98,7 @@ public class Level1_2 {
         otherBlock:
         while (true) {
             Flower enemyPipe = new Flower(50, 100, 520, 30);
-            Block pipe = new Block(Block.Type.Pipe, 90, 150, 500, 90 );
+            Pipe pipe = new Pipe(90, 150, 500, 90 );
             pane.getChildren().add(enemyPipe);
             enemies.add(enemyPipe);
             pane.getChildren().add(pipe);
@@ -111,90 +109,90 @@ public class Level1_2 {
                     pane.getChildren().add(enemyPipe3);
                     enemies.add(enemyPipe3);
                 }
-                Block pipe3 = new Block(Block.Type.Pipe, 90, 100 + (i - 2760) / 5, i, 450 - (i - 2760) / 3 );
+                Pipe pipe3 = new Pipe( 90, 100 + (i - 2760) / 5, i, 450 - (i - 2760) / 3 );
                 pane.getChildren().add(pipe3);
                 blocks.add(pipe3);
             }
-            Block mystery = new Block(Block.Type.Mystery, 30, 30, 240, 370 );
+            MysteryBlock mystery = new MysteryBlock(30, 30, 240, 370 );
             pane.getChildren().add(mystery);
             blocks.add(mystery);
             /////////////////////////////////////////////////
             for (int i = 1800; i <= 1980; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, i, 360 );
+                Block brick = new Brick( 30, 30, i, 360 );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 1890; i <= 1980; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, i, 270 );
+                Block brick = new Brick( 30, 30, i, 270 );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 270; i <= 360; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, 1800, i );
+                Block brick = new Brick( 30, 30, 1800, i );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 360; i <= 450; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, 1980, i );
+                Block brick = new Brick( 30, 30, 1980, i );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 1770; i <= 1890; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, i, 450 );
+                Brick brick = new Brick( 30, 30, i, 450 );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 300; i <= 450; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, 1890, i );
+                Brick brick = new Brick( 30, 30, 1890, i );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             /////////////////////////////////////////
             for (int i = 2160; i <= 2340; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, i, 300 );
+                Brick brick = new Brick( 30, 30, i, 300 );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 2250; i <= 2340; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, i, 210 );
+                Brick brick = new Brick( 30, 30, i, 210 );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 210; i <= 300; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, 2160, i );
+                Brick brick = new Brick( 30, 30, 2160, i );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 300; i <= 390; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, 2340, i );
+                Brick brick = new Brick( 30, 30, 2340, i );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 2160; i <= 2250; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, i, 390 );
+                Brick brick = new Brick( 30, 30, i, 390 );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 240; i <= 390; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, 2250, i );
+                Brick brick= new Brick (30, 30, 2250, i );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             /////////////////////////////////////////
             for (int i = 240; i <= 450; i += 30) {
-                Block brick = new Block(Block.Type.Stair, 30, 30, 2430, i );
-                pane.getChildren().add(brick);
-                blocks.add(brick);
+                Stairs stairs= new Stairs( 30, 30, 2430, i );
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
             }
             for (int i = 2550; i < 2700; i += 30) {
-                Block brick = new Block(Block.Type.Brick, 30, 30, i, 390 );
+                Brick brick = new Brick( 30, 30, i, 390 );
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
             for (int i = 2820; i <= 2970; i += 30) {
-                Block brick = new Block(Block.Type.Mystery, 30, 30, i, 270 );
-                pane.getChildren().add(brick);
-                blocks.add(brick);
+                MysteryBlock mysteryBlock = new MysteryBlock( 30, 30, i, 270 );
+                pane.getChildren().add(mysteryBlock);
+                blocks.add(mysteryBlock);
             }
             break;
         }
@@ -203,24 +201,24 @@ public class Level1_2 {
             for (int i = 300; i <= 600; i += 30) {
                 for (int j = 180; j < 510; j += 30) {
                     if (i - 300 >= j - 180) {
-                        Block brick = new Block(Block.Type.Stair, 30, 30, i, j );
-                        pane.getChildren().add(brick);
-                        blocks.add(brick);
+                        Stairs stairs = new Stairs( 30, 30, i, j );
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
                     }
                 }
             }
             for (int i = 780; i <= 1080; i += 30) {
                 for (int j = 180; j < 510; j += 30) {
                     if (i - 780 + j - 180 <= 300) {
-                        Block brick = new Block(Block.Type.Stair, 30, 30, i, j );
-                        pane.getChildren().add(brick);
-                        blocks.add(brick);
+                        Stairs stairs = new Stairs(30, 30, i, j );
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
                     }
                 }
             }
             for (int i = 0; i <= 5800; i += 30) {
                 if ((i >= 0 && i < 120) || (i >= 340 && i < 630) || (i >= 990 && i < 1110) || (i >= 1170 && i < 1260) || (i >= 1290 && i < 1350) || (i >= 1380 && i < 1440) || (i >= 1740 && i < 2100) || (i >= 3450 && i < 3690)) {
-                    Block killBlock = new Block(Block.Type.killBlock, 30, 30, i, 600 );
+                    KillBlock killBlock = new KillBlock( 30, 30, i, 600 );
                     pane.getChildren().add(killBlock);
                     blocks.add(killBlock);
                 }
@@ -228,18 +226,18 @@ public class Level1_2 {
             for (int i = 510; i < 600; i += 30) {
                 for (int j = 0; j <= 4200; j += 30) {
                     if (!(j >= 0 && j < 120) && !(j >= 340 && j < 630) && !(j >= 990 && j < 1110) && !(j >= 1170 && j < 1260) && !(j >= 1290 && j < 1350) && !(j >= 1380 && j < 1440) && !(j >= 1740 && j < 2100) && !(j >= 3450 && j < 3690)) {
-                        Block block = new Block(Block.Type.Surface, 30, 30, j, i );
-                        pane.getChildren().add(block);
-                        blocks.add(block);
+                        SurfaceBlock surfaceBlock=new SurfaceBlock(30, 30, j, i );
+                        pane.getChildren().add(surfaceBlock);
+                        blocks.add(surfaceBlock);
                     }
                 }
             }
             for (int i = 660; i <= 3690; i += 30) {
-                Block brick = new Block(Block.Type.Surface, 30, 30, i, -100 );
-                pane.getChildren().add(brick);
-                blocks.add(brick);
+                SurfaceBlock surfaceBlock = new SurfaceBlock(30, 30, i, -100 );
+                pane.getChildren().add(surfaceBlock);
+                blocks.add(surfaceBlock);
             }
-            Block win=new Block(Block.Type.WinBlock,60,150,4020,330 );
+            WinBlock win=new WinBlock(60,150,4020,330 );
             pane.getChildren().add(win);
             blocks.add(win);
             break;
