@@ -1,21 +1,30 @@
 package com.example.mario.enemies;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 
 public class Flower extends Enemy {
-    private final int firstLayOutY;
-    private double enemyVelocity=0.7;
-    private int c=0;
+    private int firstLayOutY;
+    private double enemyVelocity= (Math.random() * 0.5) + 0.5;
+    Timeline timeline;
+    private int counter=0;
+
     public Flower(int edgeX, int edgeY, int blockX, int blockY) {
         super(edgeX, edgeY, blockX, blockY);
         this.firstLayOutY=blockY;
         Image image = new Image("Images/flower(cagney).png");
         this.setImage(image);
+        timeline=new Timeline(keyFrame);
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
-    public void cagneyController() {
-        c++;
-        if ((this.getLayoutY() >= firstLayOutY + this.getFitHeight() || this.getLayoutY() < firstLayOutY)&&c%5==0)
+    KeyFrame keyFrame = new KeyFrame(Duration.millis(10), event -> {
+        counter++;
+        if ((this.getLayoutY() >= firstLayOutY + this.getFitHeight() || this.getLayoutY() < firstLayOutY)&&counter%5==0)
             enemyVelocity *= -1;
         this.setLayoutY(this.getLayoutY() + enemyVelocity);
-    }
+    });
 }
