@@ -26,7 +26,7 @@ public class SuperMario extends Application {
     private static final int stageY = 0;
     private UserData userData=UserData.getInstance();
     private static final String stageTitle = "super mario";
-    private static final Image icon=new Image("Images/icon.png");
+    private static final Image icon=new Image("Images/backGrounds/icon.png");
      Timeline timerMenu=new Timeline();
     public static VoicePlayer menuSong=new VoicePlayer("./src/main/resources/Media/menuSong.mp3");
 

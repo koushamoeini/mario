@@ -60,13 +60,13 @@ public class GameLabelController implements Initializable {
     }
     public void setHpChange(int num){
        if(num==1){
-           HpBar.setImage(new Image("Images/Hp1.png"));
+           HpBar.setImage(new Image("Images/backGrounds/Hp1.png"));
        }
        if(num==2){
-           HpBar.setImage(new Image("Images/Hp2.png"));
+           HpBar.setImage(new Image("Images/backGrounds/Hp2.png"));
        }
        if(num==3){
-           HpBar.setImage(new Image("Images/Hp3.png"));
+           HpBar.setImage(new Image("Images/backGrounds/Hp3.png"));
        }
     }
     public void setTimeChange(int num){

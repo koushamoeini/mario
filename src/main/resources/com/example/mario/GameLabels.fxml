@@ -14,7 +14,7 @@
          </font></Label>
       <ImageView fx:id="HpBar" fitHeight="29.0" fitWidth="78.0" layoutX="23.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Images/Hp3.png" />
+            <Image url="@../../../Images/backGrounds/Hp3.png" />
          </image></ImageView>
       <Label fx:id="coin" layoutX="821.0" layoutY="-7.0" prefHeight="72.0" prefWidth="78.0" text="0" textFill="WHITE">
          <font>
@@ -26,7 +26,7 @@
          </font></Label>
       <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="767.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Images/coin1.png" />
+            <Image url="@../../../Images/Items/coin1.png" />
          </image>
       </ImageView>
    </children>

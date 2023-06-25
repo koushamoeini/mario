@@ -80,7 +80,7 @@ public class Mario extends ImageView {
         dyingCounter++;
         if(dyingCounter%10<5)
         this.setImage(new Image("Images"+str+"/marioDie.png"));
-        else this.setImage(new Image("Images/null.png"));
+        else this.setImage(new Image("Images/blocks/null.png"));
         if(dyingCounter==1&&this.getLayoutY()>SuperMario.getHeight()){
             this.setLayoutY(SuperMario.getHeight()-60);
         }
@@ -124,9 +124,5 @@ public class Mario extends ImageView {
 
     public double getxVelocity() {
         return xVelocity;
-    }
-
-    public void setxVelocity(int xVelocity) {
-        this.xVelocity = xVelocity;
     }
 }

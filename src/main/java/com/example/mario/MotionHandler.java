@@ -34,12 +34,12 @@ public class MotionHandler {
     private double velocity = 0;
     private boolean isLeft = false;
     private boolean isRight = false;
-    private boolean jumpStop=false;
+    private boolean jumpStop = false;
     private boolean isMapMoving = false;
     private int mapMoveCounter = 0;
     private int mapMoveDownCounter = 0;
     private boolean isMapMustMovingDown = false;
-    private final Mario mario = new Mario(30, 60, 30, -60);
+    private final Mario mario = new Mario(30, 30, 30, -60);
     private final ArrayList<Enemy> enemies;
     private final ArrayList<Block> blocks;
     private final ArrayList<BackGround> backGrounds;
@@ -128,7 +128,7 @@ public class MotionHandler {
                 case RIGHT -> isRight = true;
                 case LEFT -> isLeft = true;
                 case UP -> {
-                    if (downCollusion&&!jumpStop) {
+                    if (downCollusion && !jumpStop) {
                         mario.setJumping(true);
                         mario.startMoving();
                         velocity = 15;
@@ -306,60 +306,58 @@ public class MotionHandler {
     }
 
     public void isCollision() {
-        ArrayList<Block> removeBlocks=new ArrayList<>();
+        ArrayList<Block> removeBlocks = new ArrayList<>();
         for (Block block : blocks) {
-            if (!(block instanceof WinBlock)) {
-                if (mario.getLayoutY() + mario.getFitHeight() >= block.getLayoutY() && mario.getLayoutY() + mario.getFitHeight() <= block.getLayoutY() + block.getFitHeight()) {
-                    for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
-                        if (j >= block.getLayoutX() && j <= block.getLayoutX() + block.getFitWidth()) {
-                            if (block instanceof KillBlock) {
-                                mario.setDead(true);
-                            } else {
-                                mario.setLayoutY(block.getLayoutY() - mario.getFitHeight());
-                                downCollusion = true;
-                                break;
-                            }
+            if (mario.getLayoutY() + mario.getFitHeight() >= block.getLayoutY() && mario.getLayoutY() + mario.getFitHeight() <= block.getLayoutY() + block.getFitHeight()) {
+                for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
+                    if (j >= block.getLayoutX() && j <= block.getLayoutX() + block.getFitWidth()) {
+                        if (block instanceof KillBlock) {
+                            mario.setDead(true);
+                        } else {
+                            mario.setLayoutY(block.getLayoutY() - mario.getFitHeight());
+                            downCollusion = true;
+                            break;
                         }
                     }
                 }
-                if (mario.getLayoutY() > block.getLayoutY() && mario.getLayoutY() < block.getLayoutY() + block.getFitHeight()) {
-                    for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
-                        if (j > block.getLayoutX() && j < block.getLayoutX() + block.getFitWidth()) {
-                            if (block instanceof KillBlock) {
-                                mario.setDead(true);
-                            } else {
-                                if(
-                                blockCollision.superCoinBrickBreak(block)
-                                ||blockCollision.coinBrickBreak(block)
-                                ||blockCollision.BrickBreak(block)) removeBlocks.add(block);
-                                mario.setLayoutY(block.getLayoutY() + block.getFitHeight());
-                                upCollusion = true;
-                                break;
-                            }
+            }
+            if (mario.getLayoutY() > block.getLayoutY() && mario.getLayoutY() < block.getLayoutY() + block.getFitHeight()) {
+                for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
+                    if (j > block.getLayoutX() && j < block.getLayoutX() + block.getFitWidth()) {
+                        if (block instanceof KillBlock) {
+                            mario.setDead(true);
+                        } else {
+                            if (
+                                    blockCollision.superCoinBrickBreak(block)
+                                            || blockCollision.coinBrickBreak(block)
+                                            || blockCollision.BrickBreak(block)) removeBlocks.add(block);
+                            mario.setLayoutY(block.getLayoutY() + block.getFitHeight());
+                            upCollusion = true;
+                            break;
                         }
                     }
                 }
-                if (mario.getLayoutX() + mario.getFitWidth() > block.getLayoutX() - 5 && mario.getLayoutX() + mario.getFitWidth() < block.getLayoutX() + block.getFitWidth() + 5) {
-                    for (int j = (int) mario.getLayoutY(); j <= mario.getLayoutY() + mario.getFitHeight(); j++) {
-                        if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
-                            if (block instanceof KillBlock) {
-                                mario.setDead(true);
-                            } else {
-                                rightCollusion = true;
-                                break;
-                            }
+            }
+            if (mario.getLayoutX() + mario.getFitWidth() > block.getLayoutX() - 5 && mario.getLayoutX() + mario.getFitWidth() < block.getLayoutX() + block.getFitWidth() + 5) {
+                for (int j = (int) mario.getLayoutY(); j <= mario.getLayoutY() + mario.getFitHeight(); j++) {
+                    if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
+                        if (block instanceof KillBlock) {
+                            mario.setDead(true);
+                        } else {
+                            rightCollusion = true;
+                            break;
                         }
                     }
                 }
-                if (mario.getLayoutX() > block.getLayoutX() - 5 && mario.getLayoutX() < block.getLayoutX() + block.getFitWidth() + 5) {
-                    for (int j = (int) mario.getLayoutY(); j <= mario.getLayoutY() + mario.getFitHeight(); j++) {
-                        if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
-                            if (block instanceof KillBlock) {
-                                mario.setDead(true);
-                            } else {
-                                leftCollusion = true;
-                                break;
-                            }
+            }
+            if (mario.getLayoutX() > block.getLayoutX() - 5 && mario.getLayoutX() < block.getLayoutX() + block.getFitWidth() + 5) {
+                for (int j = (int) mario.getLayoutY(); j <= mario.getLayoutY() + mario.getFitHeight(); j++) {
+                    if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
+                        if (block instanceof KillBlock) {
+                            mario.setDead(true);
+                        } else {
+                            leftCollusion = true;
+                            break;
                         }
                     }
                 }
@@ -577,37 +575,39 @@ public class MotionHandler {
             coin.setLayoutY(coin.getLayoutY() - num * 5);
         }
     }
-    public void gameStop(){
+
+    public void gameStop() {
         GameLabelController.timeline.stop();
         andBegin.stop();
         andBeginTime.stop();
         beppi.stop();
         timer.stop();
-        jumpStop=true;
-        for(Enemy enemy:enemies){
-            if(enemy instanceof Flower) ((Flower) enemy).getTimeline().stop();
+        jumpStop = true;
+        for (Enemy enemy : enemies) {
+            if (enemy instanceof Flower) ((Flower) enemy).getTimeline().stop();
         }
-        for(Block block:blocks){
-            if(block instanceof MysteryBlock) ((MysteryBlock) block).getTimeline().stop();
+        for (Block block : blocks) {
+            if (block instanceof MysteryBlock) ((MysteryBlock) block).getTimeline().stop();
         }
-        for(Coin coin:coins)
-            if(coin instanceof Coin) coin.getTimeline().stop();
+        for (Coin coin : coins)
+            coin.getTimeline().stop();
     }
-    public void gameStart(){
+
+    public void gameStart() {
         GameLabelController.timeline.play();
         andBegin.play();
         andBeginTime.play();
         beppi.play();
         timer.start();
-        jumpStop=true;
-        for(Enemy enemy:enemies){
-            if(enemy instanceof Flower) ((Flower) enemy).getTimeline().play();
+        jumpStop = true;
+        for (Enemy enemy : enemies) {
+            if (enemy instanceof Flower) ((Flower) enemy).getTimeline().play();
         }
-        for(Block block:blocks){
-            if(block instanceof MysteryBlock) ((MysteryBlock) block).getTimeline().play();
+        for (Block block : blocks) {
+            if (block instanceof MysteryBlock) ((MysteryBlock) block).getTimeline().play();
         }
-        for(Coin coin:coins)
-            if(coin instanceof Coin) coin.getTimeline().play();
+        for (Coin coin : coins)
+            coin.getTimeline().play();
 
     }
 }

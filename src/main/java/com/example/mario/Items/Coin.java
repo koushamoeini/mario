@@ -12,13 +12,13 @@ public class Coin extends ImageView {
     int counter=0;
     KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
         counter++;
-        setImage(new Image("Images/coin"+(counter%4+1)+".png"));
+        setImage(new Image("Images/Items/coin"+(counter%4+1)+".png"));
     });
     public Coin(int edgeX, int edgeY, int blockX, int blockY) {
         timeline=new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        Image image=new Image("Images/coin1.png");
+        Image image=new Image("Images/Items/coin1.png");
         setLayoutX(blockX);
         setLayoutY(blockY);
         setFitWidth(edgeX);

@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 public class Brick extends Block{
     public Brick( int edgeX, int edgeY, int blockX, int blockY) {
         super( edgeX, edgeY, blockX, blockY);
-        Image image = new Image("Images/brick.png");
+        Image image = new Image("Images/blocks/brick.png");
         this.setImage(image);
     }
 }

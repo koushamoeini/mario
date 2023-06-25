@@ -12,14 +12,14 @@ public class MysteryBlock extends Block{
     KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
         counter++;
         if(counter%24<12)
-        setImage(new Image("Images/prize_active.png"));
+        setImage(new Image("Images/blocks/prize_active.png"));
         else
-            setImage(new Image("Images/prize_normal.png"));
+            setImage(new Image("Images/blocks/prize_normal.png"));
     });
 
     public MysteryBlock( int edgeX, int edgeY, int blockX, int blockY) {
         super( edgeX, edgeY, blockX, blockY);
-        Image image = new Image("Images/prize_active.png");
+        Image image = new Image("Images/blocks/prize_active.png");
         this.setImage(image);
         timeline=new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);

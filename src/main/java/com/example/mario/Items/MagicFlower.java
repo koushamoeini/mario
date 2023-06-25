@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 public class MagicFlower extends ImageView {
     public MagicFlower(int edgeX, int edgeY, int blockX, int blockY) {
-        Image image=new Image("Images/coin1.png");
+        Image image=new Image("Images/Items/magicFlower.png");
         setLayoutX(blockX);
         setLayoutY(blockY);
         setFitWidth(edgeX);

@@ -11,7 +11,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="1039.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-19.0">
          <image>
-            <Image url="@../../../Images/menuBack.jpg" />
+            <Image url="@../../../Images/backGrounds/menuBack.jpg" />
          </image>
       </ImageView>
       <Button layoutX="243.0" layoutY="124.0" mnemonicParsing="false" onAction="#login" prefHeight="65.0" prefWidth="223.0" text="login" AnchorPane.leftAnchor="243.0" AnchorPane.rightAnchor="554.0">

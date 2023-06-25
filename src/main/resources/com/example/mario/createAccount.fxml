@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="1020.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Images/menuBack.jpg" />
+            <Image url="@../../../Images/backGrounds/menuBack.jpg" />
          </image>
       </ImageView>
       <PasswordField fx:id="createPass" layoutX="621.0" layoutY="126.0" prefHeight="48.0" prefWidth="222.0" promptText="Password" AnchorPane.leftAnchor="550.0" AnchorPane.rightAnchor="234.0">

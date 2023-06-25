@@ -11,12 +11,12 @@
    <children>
       <ImageView fitHeight="444.0" fitWidth="679.0" layoutX="-44.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Images/cream.jpg" />
+            <Image url="@../../../Images/backGrounds/cream.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="157.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Images/profile.png" />
+            <Image url="@../../../Images/backGrounds/profile.png" />
          </image>
       </ImageView>
       <Label fx:id="username" layoutX="183.0" layoutY="30.0" prefHeight="40.0" prefWidth="166.0" text="username">
