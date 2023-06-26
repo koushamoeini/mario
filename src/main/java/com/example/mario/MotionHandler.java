@@ -227,8 +227,8 @@ public class MotionHandler {
                     }
                     isMapMustMovingDown();
                     isEnemyCollision();
-                    marioCollision.isCollision();
-                    itemCollision.coinCollision();
+                    marioCollision.collision();
+                    itemCollision.allCollision();
                     if (!marioCollision.isRightCollusion() && isRight && mario.getLayoutX() > (float) SuperMario.getWidth() / 2 && !isAllBlockMoveRight()) {
                         mapRightController();
                         isMapMoving = true;
@@ -272,8 +272,6 @@ public class MotionHandler {
         };
         timer.start();
     }
-
-
     public void isEnemyCollision() {
         for (Enemy block : enemies) {
             for (int i = (int) mario.getLayoutY(); i <= mario.getLayoutY() + mario.getFitHeight(); i++) {
@@ -288,12 +286,6 @@ public class MotionHandler {
             }
         }
     }
-
-
-    public void isItemCollision(){
-
-    }
-
     public boolean isWin()  {
         for (Block win : blocks) {
             for (int i = (int) mario.getLayoutY(); i <= mario.getLayoutY() + mario.getFitHeight(); i++) {

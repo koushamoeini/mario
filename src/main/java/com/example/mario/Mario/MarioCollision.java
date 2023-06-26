@@ -19,7 +19,7 @@ public class MarioCollision {
         this.blocks=blocks;
         this.blockCollision=blockCollision;
     }
-    public void isCollision() {
+    public void collision() {
         rightCollusion = false;
         leftCollusion = false;
         upCollusion = false;

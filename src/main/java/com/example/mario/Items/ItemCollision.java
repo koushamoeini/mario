@@ -12,49 +12,73 @@ public class ItemCollision {
     private GameData gameData = GameData.getInstance();
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
 
-    public ItemCollision(Mario mario,ArrayList<Item> items) {
-        this.mario=mario;
-        this.items=items;
+    public ItemCollision(Mario mario, ArrayList<Item> items) {
+        this.mario = mario;
+        this.items = items;
     }
+
+    public void allCollision() {
+        coinCollision();
+        mushroomCollision();
+        magicFlowerCollision();
+        starCollision();
+    }
+
     public void coinCollision() {
         ArrayList<Item> removeItem = new ArrayList<>();
         a:
         for (Item item : items) {
-            for (int i = (int) mario.getLayoutY(); i <= mario.getLayoutY() + mario.getFitHeight(); i++) {
-                if (i >= item.getLayoutY() && i <= item.getLayoutY() + item.getFitHeight()) {
-                    for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
-                        if (j >= item.getLayoutX() && j <= item.getLayoutX() + item.getFitWidth()) {
-                            gameData.setCoin(gameData.getCoin() + 1);
-                            gameLabelController.setCoinChange(gameData.getCoin());
-                            gameData.setPoint(gameData.getPoint() + 10);
-                            gameLabelController.setPointChange(gameData.getPoint());
-                            removeItem.add(item);
-                            item.setVisible(false);
-                            continue a;
-                        }
-                    }
+            if (item instanceof Coin) {
+                if (item.getBoundsInParent().intersects(mario.getBoundsInParent())) {
+                    gameData.setCoin(gameData.getCoin() + 1);
+                    gameLabelController.setCoinChange(gameData.getCoin());
+                    gameData.setPoint(gameData.getPoint() + 10);
+                    gameLabelController.setPointChange(gameData.getPoint());
+                    removeItem.add(item);
+                    item.setVisible(false);
                 }
             }
         }
         items.removeAll(removeItem);
     }
-    public void isMushroomCollision() {
+
+    public void magicFlowerCollision() {
         ArrayList<Item> removeItem = new ArrayList<>();
-        a:
         for (Item item : items) {
-            for (int i = (int) mario.getLayoutY(); i <= mario.getLayoutY() + mario.getFitHeight(); i++) {
-                if (i >= item.getLayoutY() && i <= item.getLayoutY() + item.getFitHeight()) {
-                    for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
-                        if (j >= item.getLayoutX() && j <= item.getLayoutX() + item.getFitWidth()) {
-                            gameData.setCoin(gameData.getCoin() + 1);
-                            gameLabelController.setCoinChange(gameData.getCoin());
-                            gameData.setPoint(gameData.getPoint() + 10);
-                            gameLabelController.setPointChange(gameData.getPoint());
-                            removeItem.add(item);
-                            item.setVisible(false);
-                            continue a;
-                        }
-                    }
+            if (item instanceof MagicFlower) {
+                if (item.getBoundsInParent().intersects(mario.getBoundsInParent())) {
+                    gameData.setPoint(gameData.getPoint() + 20);
+                    gameLabelController.setPointChange(gameData.getPoint());
+                    removeItem.add(item);
+                    item.setVisible(false);
+                }
+            }
+        }
+        items.removeAll(removeItem);
+    }
+    public void mushroomCollision() {
+        ArrayList<Item> removeItem = new ArrayList<>();
+        for (Item item : items) {
+            if (item instanceof Mushroom) {
+                if (item.getBoundsInParent().intersects(mario.getBoundsInParent())) {
+                    gameData.setPoint(gameData.getPoint() + 30);
+                    gameLabelController.setPointChange(gameData.getPoint());
+                    removeItem.add(item);
+                    item.setVisible(false);
+                }
+            }
+        }
+        items.removeAll(removeItem);
+    }
+    public void starCollision() {
+        ArrayList<Item> removeItem = new ArrayList<>();
+        for (Item item : items) {
+            if (item instanceof Star) {
+                if (item.getBoundsInParent().intersects(mario.getBoundsInParent())) {
+                    gameData.setPoint(gameData.getPoint() + 40);
+                    gameLabelController.setPointChange(gameData.getPoint());
+                    removeItem.add(item);
+                    item.setVisible(false);
                 }
             }
         }
