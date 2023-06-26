@@ -1,6 +1,7 @@
 package com.example.mario;
 
 import com.example.mario.Items.Coin;
+import com.example.mario.Items.Item;
 import com.example.mario.blocks.*;
 import com.example.mario.controllers.ChooseSaveController;
 import com.example.mario.controllers.GameLabelController;
@@ -44,6 +45,7 @@ public class MotionHandler {
     private final ArrayList<Block> blocks;
     private final ArrayList<BackGround> backGrounds;
     private final ArrayList<Coin> coins;
+    private final ArrayList<Item> items = new ArrayList<>();
     private boolean rightCollusion;
     private boolean leftCollusion;
     private boolean upCollusion;
@@ -60,14 +62,15 @@ public class MotionHandler {
     private final VoicePlayer beppi = new VoicePlayer("./src/main/resources/Media/beppi.mp3");
     KeyFrame keyFrame = new KeyFrame(Duration.seconds(4), event -> {
         andBegin.stop();
-        beppi.play();
+        //beppi.play();
     });
     JsonManager jsonManager = new JsonManager("./src/main/resources/GamaData/users.json");
     JsonManager jsonManager1 = new JsonManager("./src/main/resources/GamaData/" + userData.getCurrentUser().getUserName() + "/game1.json");
     JsonManager jsonManager2 = new JsonManager("./src/main/resources/GamaData/" + userData.getCurrentUser().getUserName() + "/game2.json");
     JsonManager jsonManager3 = new JsonManager("./src/main/resources/GamaData/" + userData.getCurrentUser().getUserName() + "/game3.json");
 
-    public MotionHandler(ArrayList<Block> blocks, ArrayList<Enemy> enemies, ArrayList<BackGround> backGrounds, ArrayList<Coin> coins, Stage stage, Pane pane) throws IOException {
+    public MotionHandler(ArrayList<Block> blocks, ArrayList<Enemy> enemies, ArrayList<BackGround> backGrounds,
+                         ArrayList<Coin> coins, Stage stage, Pane pane) throws IOException {
         this.stage = stage;
         this.pane = pane;
         gameLabelController.setPointChange(gameData.getPoint());
@@ -81,7 +84,7 @@ public class MotionHandler {
         this.enemies = enemies;
         this.backGrounds = backGrounds;
         this.coins = coins;
-        blockCollision = new BlockCollision(this.stage, this.pane, this.coins);
+        blockCollision = new BlockCollision(this.pane, this.coins, items);
         //skinChooser:
         {
             if (ChooseSaveController.isFirstSave()) {
@@ -152,24 +155,11 @@ public class MotionHandler {
                     beppi.stop();
                     timer.stop();
                     gameData = GameData.resetInstance();
-                    FXMLLoader loader = new FXMLLoader();
-                    Parent content;
                     try {
-                        loader.setLocation(new File("./src/main/resources/com/example/mario/MainMenu.fxml").toURI().toURL());
-                        content = loader.load();
-                    } catch (IOException e) {
+                        loadMainMenu();
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-                    Scene scene = new Scene(content);
-                    stage.setScene(scene);
-                    stage.setHeight(SuperMario.getHeight());
-                    stage.setWidth(1020);
-                    stage.getIcons().add(SuperMario.getIcon());
-                    stage.setResizable(false);
-                    stage.setTitle(SuperMario.getStageTitle());
-                    stage.setX(SuperMario.getStageX());
-                    stage.setY(SuperMario.getStageY());
-                    stage.show();
                     try {
                         jsonManager3.writeArray(jsonManager2.readArray(JsonManager.integerReference));
                         jsonManager2.writeArray(jsonManager1.readArray(JsonManager.integerReference));
@@ -200,11 +190,8 @@ public class MotionHandler {
         timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                itemMovement();
                 isMapMoving = false;
-                rightCollusion = false;
-                leftCollusion = false;
-                upCollusion = false;
-                downCollusion = false;
                 checkTime();
                 if (mario.isDead()) {
                     mario.startMoving();
@@ -212,7 +199,7 @@ public class MotionHandler {
                 if (mario.isDyingFinished()) {
                     try {
                         doDead();
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                 }
@@ -225,35 +212,16 @@ public class MotionHandler {
                         gameData.setTime(100);
                         GameLabelController.timeline.stop();
                         gameLabelController.setPointChange(gameData.getPoint());
-                        if (section == 1) {
-                            try {
-                                new Level1_2();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
+                        try {
+                            if (section == 1) new Level1_2();
+                            else {
+                                gameData.setPoint(gameData.getPoint() + gameData.getHp() * 20);
+                                userData.getCurrentUser().checkPoint(gameData.getPoint());
+                                userData.getCurrentUser().setCoins(userData.getCurrentUser().getCoins() + gameData.getCoin());
+                                loadMainMenu();
                             }
-                        } else {
-                            gameData.setPoint(gameData.getPoint() + gameData.getHp() * 20);
-                            userData.getCurrentUser().checkPoint(gameData.getPoint());
-                            userData.getCurrentUser().setCoins(userData.getCurrentUser().getCoins() + gameData.getCoin());
-                            FXMLLoader loader = new FXMLLoader();
-                            Parent content;
-                            try {
-                                loader.setLocation(new File("./src/main/resources/com/example/mario/MainMenu.fxml").toURI().toURL());
-                                content = loader.load();
-                                jsonManager.writeArray(userData.getUsers());
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                            Scene scene = new Scene(content);
-                            stage.setScene(scene);
-                            stage.setHeight(SuperMario.getHeight());
-                            stage.setWidth(1020);
-                            stage.getIcons().add(SuperMario.getIcon());
-                            stage.setResizable(false);
-                            stage.setTitle(SuperMario.getStageTitle());
-                            stage.setX(SuperMario.getStageX());
-                            stage.setY(SuperMario.getStageY());
-                            stage.show();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
                         }
                     }
                     isMapMustMovingDown();
@@ -301,11 +269,14 @@ public class MotionHandler {
                 }
             }
         };
-
         timer.start();
     }
 
     public void isCollision() {
+        rightCollusion = false;
+        leftCollusion = false;
+        upCollusion = false;
+        downCollusion = false;
         ArrayList<Block> removeBlocks = new ArrayList<>();
         for (Block block : blocks) {
             if (mario.getLayoutY() + mario.getFitHeight() >= block.getLayoutY() && mario.getLayoutY() + mario.getFitHeight() <= block.getLayoutY() + block.getFitHeight()) {
@@ -327,10 +298,7 @@ public class MotionHandler {
                         if (block instanceof KillBlock) {
                             mario.setDead(true);
                         } else {
-                            if (
-                                    blockCollision.superCoinBrickBreak(block)
-                                            || blockCollision.coinBrickBreak(block)
-                                            || blockCollision.BrickBreak(block)) removeBlocks.add(block);
+                            if (blockCollision.allMethodRun(block)) removeBlocks.add(block);
                             mario.setLayoutY(block.getLayoutY() + block.getFitHeight());
                             upCollusion = true;
                             break;
@@ -393,7 +361,6 @@ public class MotionHandler {
                             gameLabelController.setCoinChange(gameData.getCoin());
                             gameData.setPoint(gameData.getPoint() + 10);
                             gameLabelController.setPointChange(gameData.getPoint());
-
                             removeCoin.add(coin);
                             coin.setVisible(false);
                             continue a;
@@ -404,8 +371,11 @@ public class MotionHandler {
         }
         coins.removeAll(removeCoin);
     }
+    public void isItemCollision(){
 
-    public boolean isWin() {
+    }
+
+    public boolean isWin()  {
         for (Block win : blocks) {
             for (int i = (int) mario.getLayoutY(); i <= mario.getLayoutY() + mario.getFitHeight(); i++) {
                 if (i >= win.getLayoutY() && i <= win.getLayoutY() + win.getFitHeight()) {
@@ -420,7 +390,7 @@ public class MotionHandler {
         return false;
     }
 
-    public void doDead() throws IOException {
+    public void doDead() throws Exception {
         mario.setDead(false);
         isMapMustMovingDown = false;
         mario.setDyingFinished(false);
@@ -438,45 +408,19 @@ public class MotionHandler {
             userData.getCurrentUser().checkPoint(gameData.getPoint());
             jsonManager.writeArray(userData.getUsers());
             gameData = GameData.resetInstance();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(new File("./src/main/resources/com/example/mario/MainMenu.fxml").toURI().toURL());
-            Parent content = loader.load();
-            Scene scene = new Scene(content);
-            stage.setScene(scene);
-            stage.setHeight(SuperMario.getHeight());
-            stage.setWidth(SuperMario.getWidth());
-            stage.getIcons().add(SuperMario.getIcon());
-            stage.setResizable(false);
-            stage.setTitle(SuperMario.getStageTitle());
-            stage.setX(SuperMario.getStageX());
-            stage.setY(SuperMario.getStageY());
-            stage.show();
+            loadMainMenu();
             SuperMario.menuSong.stop();
         }
-        for (Block block : blocks) {
-            block.setLayoutX(block.getLayoutX() + mapMoveCounter * 3);
-        }
-        for (Enemy enemy : enemies) {
-            enemy.setLayoutX(enemy.getLayoutX() + mapMoveCounter * 3);
-        }
-        for (BackGround backGround : backGrounds) {
-            backGround.setLayoutX(backGround.getLayoutX() + mapMoveCounter * 3);
-        }
-        for (Coin coin : coins) {
-            coin.setLayoutX(coin.getLayoutX() + mapMoveCounter * 3);
-        }
-        for (Block block : blocks) {
-            block.setLayoutY(block.getLayoutY() + mapMoveDownCounter * 4);
-        }
-        for (Enemy enemy : enemies) {
-            enemy.setLayoutY(enemy.getLayoutY() + mapMoveDownCounter * 4);
-        }
-        for (BackGround backGround : backGrounds) {
-            backGround.setLayoutY(backGround.getLayoutY() + mapMoveDownCounter * 4);
-        }
-        for (Coin coin : coins) {
-            coin.setLayoutY(coin.getLayoutY() + mapMoveDownCounter * 4);
-        }
+        for (Block block : blocks) block.setLayoutX(block.getLayoutX() + mapMoveCounter * 3);
+        for (Block block : blocks) block.setLayoutY(block.getLayoutY() + mapMoveDownCounter * 4);
+        for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() + mapMoveCounter * 3);
+        for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() + mapMoveDownCounter * 4);
+        for (BackGround backGround : backGrounds) backGround.setLayoutX(backGround.getLayoutX() + mapMoveCounter * 3);
+        for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() + mapMoveDownCounter * 4);
+        for (Coin coin : coins) coin.setLayoutX(coin.getLayoutX() + mapMoveCounter * 3);
+        for (Coin coin : coins) coin.setLayoutY(coin.getLayoutY() + mapMoveDownCounter * 4);
+        for (Item item : items) item.setLayoutX(item.getLayoutX() + mapMoveCounter * 3);
+        for (Item item : items) item.setLayoutY(item.getLayoutY() + mapMoveDownCounter * 4);
         mapMoveDownCounter = 0;
         mapMoveCounter = 0;
     }
@@ -499,36 +443,23 @@ public class MotionHandler {
 
     public void mapRightController() {
         mapMoveCounter++;
-        for (Block block : blocks) {
-            block.setLayoutX(block.getLayoutX() - 3);
-        }
-        for (Enemy enemy : enemies) {
-            enemy.setLayoutX(enemy.getLayoutX() - 3);
-        }
-        for (BackGround backGround : backGrounds) {
-            backGround.setLayoutX(backGround.getLayoutX() - 3);
-        }
-        for (Coin coin : coins) {
-            coin.setLayoutX(coin.getLayoutX() - 3);
-        }
+        for (Block block : blocks) block.setLayoutX(block.getLayoutX() - 3);
+        for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() - 3);
+        for (BackGround backGround : backGrounds) backGround.setLayoutX(backGround.getLayoutX() - 3);
+        for (Coin coin : coins) coin.setLayoutX(coin.getLayoutX() - 3);
+        for (Item item : items) item.setLayoutX(item.getLayoutX() - 3);
     }
 
     public void mapDownController() {
         mapMoveDownCounter++;
         mario.falling();
         if (mario.getLayoutY() >= 210) mario.setLayoutY(mario.getLayoutY() - 10);
-        for (Block block : blocks) {
-            block.setLayoutY(block.getLayoutY() - 4);
-        }
-        for (BackGround backGround : backGrounds) {
-            backGround.setLayoutY(backGround.getLayoutY() - 4);
-        }
-        for (Enemy enemy : enemies) {
-            enemy.setLayoutY(enemy.getLayoutY() - 4);
-        }
-        for (Coin coin : coins) {
-            coin.setLayoutY(coin.getLayoutY() - 4);
-        }
+        for (Block block : blocks) block.setLayoutY(block.getLayoutY() - 4);
+        for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() - 4);
+        for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() - 4);
+        for (Coin coin : coins) coin.setLayoutY(coin.getLayoutY() - 4);
+        for (Item item : items) item.setLayoutX(item.getLayoutX() - 4);
+
     }
 
     public void isMapMustMovingDown() {
@@ -547,33 +478,19 @@ public class MotionHandler {
     }
 
     public void mapMoverRight(int num) {
-        for (Block block : blocks) {
-            block.setLayoutX(block.getLayoutX() - num * 3);
-        }
-        for (Enemy enemy : enemies) {
-            enemy.setLayoutX(enemy.getLayoutX() - num * 3);
-        }
-        for (BackGround backGround : backGrounds) {
-            backGround.setLayoutX(backGround.getLayoutX() - num * 3);
-        }
-        for (Coin coin : coins) {
-            coin.setLayoutX(coin.getLayoutX() - num * 3);
-        }
+        for (Block block : blocks) block.setLayoutX(block.getLayoutX() - num * 3);
+        for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() - num * 3);
+        for (BackGround backGround : backGrounds) backGround.setLayoutX(backGround.getLayoutX() - num * 3);
+        for (Coin coin : coins) coin.setLayoutX(coin.getLayoutX() - num * 3);
+        for (Item item : items) item.setLayoutX(item.getLayoutX() - num * 3);
     }
 
     public void mapMoverDown(int num) {
-        for (Block block : blocks) {
-            block.setLayoutY(block.getLayoutY() - num * 5);
-        }
-        for (Enemy enemy : enemies) {
-            enemy.setLayoutY(enemy.getLayoutY() - num * 5);
-        }
-        for (BackGround backGround : backGrounds) {
-            backGround.setLayoutY(backGround.getLayoutY() - num * 5);
-        }
-        for (Coin coin : coins) {
-            coin.setLayoutY(coin.getLayoutY() - num * 5);
-        }
+        for (Block block : blocks) block.setLayoutY(block.getLayoutY() - num * 5);
+        for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() - num * 5);
+        for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() - num * 5);
+        for (Coin coin : coins) coin.setLayoutY(coin.getLayoutY() - num * 5);
+        for (Item item : items) item.setLayoutX(item.getLayoutX() - num * 5);
     }
 
     public void gameStop() {
@@ -606,8 +523,24 @@ public class MotionHandler {
         for (Block block : blocks) {
             if (block instanceof MysteryBlock) ((MysteryBlock) block).getTimeline().play();
         }
-        for (Coin coin : coins)
-            coin.getTimeline().play();
-
+        for (Coin coin : coins) coin.getTimeline().play();
+    }
+    public void loadMainMenu() throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(new File("./src/main/resources/com/example/mario/MainMenu.fxml").toURI().toURL());
+        Parent content = loader.load();
+        Scene scene = new Scene(content);
+        stage.setScene(scene);
+        stage.setHeight(SuperMario.getHeight());
+        stage.setWidth(SuperMario.getWidth());
+        stage.getIcons().add(SuperMario.getIcon());
+        stage.setResizable(false);
+        stage.setTitle(SuperMario.getStageTitle());
+        stage.setX(SuperMario.getStageX());
+        stage.setY(SuperMario.getStageY());
+        stage.show();
+    }
+    public void itemMovement(){
+        for(Item item : items)item.itemCollision(blocks);
     }
 }

@@ -2,6 +2,7 @@ package com.example.mario.levels;
 
 import com.example.mario.*;
 import com.example.mario.Items.Coin;
+import com.example.mario.Items.Item;
 import com.example.mario.blocks.*;
 import com.example.mario.enemies.Enemy;
 import com.example.mario.enemies.Flower;
@@ -143,16 +144,11 @@ public class Level1_1 {
                 }
             }
             for (int i = 1800; i <= 1980; i += 30) {
-                Brick brick = new Brick(30, 30, i, 390);
+                SuperCoinBlock brick = new SuperCoinBlock(30, 30, i, 390);
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
 
-            for (int i = 1800; i <= 1980; i += 30) {
-                Brick brick = new Brick(30, 30, i, 390);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
             MysteryBlock mysteryBlock1 = new MysteryBlock(30, 30, 1860, 240);
             pane.getChildren().add(mysteryBlock1);
             blocks.add(mysteryBlock1);
@@ -160,7 +156,7 @@ public class Level1_1 {
             pane.getChildren().add(mysteryBlock2);
             blocks.add(mysteryBlock2);
             for (int i = 2550; i < 2700; i += 30) {
-                Brick brick = new Brick(30, 30, i, 390);
+                SuperCoinBlock brick = new SuperCoinBlock(30, 30, i, 390);
                 pane.getChildren().add(brick);
                 blocks.add(brick);
             }
