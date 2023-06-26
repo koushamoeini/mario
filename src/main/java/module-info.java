@@ -25,4 +25,6 @@ module com.example.supermario {
     opens com.example.mario.Items to com.fasterxml.jackson.databind, javafx.fxml;
     exports com.example.mario.Mario;
     opens com.example.mario.Mario to com.fasterxml.jackson.databind, javafx.fxml;
+    exports com.example.mario.GameHandle;
+    opens com.example.mario.GameHandle to com.fasterxml.jackson.databind, javafx.fxml;
 }

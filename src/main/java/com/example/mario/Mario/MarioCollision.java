@@ -11,9 +11,9 @@ public class MarioCollision {
     private boolean leftCollusion;
     private boolean upCollusion;
     private boolean downCollusion;
-    private Mario mario;
-    private ArrayList<Block> blocks;
-    private BlockCollision blockCollision;
+    private final Mario mario;
+    private final ArrayList<Block> blocks;
+    private final BlockCollision blockCollision;
     public MarioCollision(Mario mario,ArrayList<Block> blocks,BlockCollision blockCollision) {
         this.mario=mario;
         this.blocks=blocks;
