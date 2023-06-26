@@ -9,7 +9,7 @@ import javafx.util.Duration;
 public class Flower extends Enemy {
     private int firstLayOutY;
     private double enemyVelocity= (Math.random() * 0.5) + 0.5;
-    private Timeline timeline;
+    private final Timeline timeline;
     private int counter=0;
 
     public Flower(int edgeX, int edgeY, int blockX, int blockY) {

@@ -1,9 +1,6 @@
 package com.example.mario.blocks;
 
-import com.example.mario.Items.Coin;
-import com.example.mario.Items.Item;
-import com.example.mario.Items.MagicFlower;
-import com.example.mario.Items.Mushroom;
+import com.example.mario.Items.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
@@ -11,13 +8,11 @@ import java.util.ArrayList;
 
 public class BlockCollision {
     private final Pane pane;
-    private final ArrayList<Coin> coins;
     private final ArrayList<Item> items;
 
 
-    public BlockCollision(Pane pane, ArrayList<Coin> coins, ArrayList<Item> items) {
+    public BlockCollision(Pane pane, ArrayList<Item> items) {
         this.pane = pane;
-        this.coins = coins;
         this.items = items;
     }
 
@@ -39,7 +34,7 @@ public class BlockCollision {
             Coin coin = new Coin(block.getEdgeX(), block.getEdgeY(), block.getBlockX(), block.getBlockY() - block.getEdgeY());
             block.setVisible(false);
             pane.getChildren().add(coin);
-            coins.add(coin);
+            items.add(coin);
             return true;
         }
         return false;
@@ -54,7 +49,7 @@ public class BlockCollision {
             }
             Coin coin = new Coin(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
             pane.getChildren().add(coin);
-            coins.add(coin);
+            items.add(coin);
         }
         return false;
     }
@@ -65,7 +60,12 @@ public class BlockCollision {
                 ((MysteryBlock) block).setActive(false);
                 block.setImage(new Image("Images/blocks/prize_inactive.png"));
                 int randomNumber = (int) (Math.random() * 10) + 1;
-                if (randomNumber < 6) {
+                if (randomNumber <5){
+                    Coin coin = new Coin(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
+                    pane.getChildren().add(coin);
+                    items.add(coin);
+                }
+                else if (randomNumber < 8) {
                     MagicFlower magicFlower = new MagicFlower(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
                     pane.getChildren().add(magicFlower);
                     items.add(magicFlower);
@@ -73,6 +73,11 @@ public class BlockCollision {
                     Mushroom mushroom = new Mushroom(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
                     pane.getChildren().add(mushroom);
                     items.add(mushroom);
+                }
+                else {
+                    Star star = new Star(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
+                    pane.getChildren().add(star);
+                    items.add(star);
                 }
             }
         }

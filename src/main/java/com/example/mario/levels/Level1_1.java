@@ -24,7 +24,7 @@ public class Level1_1 {
     public Level1_1() throws IOException {
         setStage(SuperMario.getLevelStage());
         Pane pane = new Pane();
-        ArrayList<Coin> coins = new ArrayList<>();
+        ArrayList<Item> items = new ArrayList<>();
         ArrayList<BackGround> images = new ArrayList<>();
         ArrayList<Block> blocks = new ArrayList<>();
         ArrayList<Enemy> enemies = new ArrayList<>();
@@ -300,13 +300,13 @@ public class Level1_1 {
         {
             Coin coin = new Coin(30, 30, 460, 190);
             pane.getChildren().add(coin);
-            coins.add(coin);
+            items.add(coin);
             Coin coin1 = new Coin(30, 30, 1950, 150);
             pane.getChildren().add(coin1);
-            coins.add(coin1);
+            items.add(coin1);
             Coin coin2 = new Coin(30, 30, 2970, 360);
             pane.getChildren().add(coin2);
-            coins.add(coin2);
+            items.add(coin2);
         }
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(new File("./src/main/resources/com/example/mario/GameLabels.fxml").toURI().toURL());
@@ -317,7 +317,7 @@ public class Level1_1 {
         Scene scene1 = new Scene(pane);
         stage.setScene(scene1);
         stage.show();
-        MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, coins, stage, pane);
+        MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, items, stage, pane);
         motionHandler.setSection(1);
     }
 

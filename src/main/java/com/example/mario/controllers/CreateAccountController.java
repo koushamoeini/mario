@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class CreateAccountController {
-    private UserData userData=UserData.getInstance();
+    private final UserData userData=UserData.getInstance();
     @FXML
     private Label createError;
     @FXML
@@ -51,7 +51,7 @@ public class CreateAccountController {
         jsonManager2.nothing();
         jsonManager1.nothing();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("account.fxml"));
+        loader.setLocation(new File("./src/main/resources/com/example/mario/account.fxml").toURI().toURL());
         Parent content = loader.load();
         Scene scene = new Scene(content);
         stage.setScene(scene);

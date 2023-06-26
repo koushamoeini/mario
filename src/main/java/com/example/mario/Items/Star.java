@@ -6,24 +6,24 @@ import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
-public class Mushroom extends Item {
+public class Star extends Item {
     private final int xVelocity = 1;
-    private Timeline delayTimeLine;
+    private Timeline delayTimeline;
     private Timeline timeline;
 
-    public Mushroom(int edgeX, int edgeY, int blockX, int blockY) {
-        super(edgeX, edgeY, blockX, blockY,0);
-        Image image = new Image("Images/Items/mushroom.png");
+    public Star(int edgeX, int edgeY, int blockX, int blockY) {
+        super(edgeX, edgeY, blockX, blockY,5);
+        Image image = new Image("Images/Items/star.png");
         this.setImage(image);
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
-        delayTimeLine = new Timeline(delayKeyFrame);
-        delayTimeLine.setCycleCount(Animation.INDEFINITE);
-        delayTimeLine.play();
+        delayTimeline = new Timeline(delayKeyFrame);
+        delayTimeline.setCycleCount(Animation.INDEFINITE);
+        delayTimeline.play();
     }
     KeyFrame delayKeyFrame=new KeyFrame(Duration.seconds(3), event ->{
         timeline.play();
-        delayTimeLine.stop();
+        delayTimeline.stop();
     });
     KeyFrame keyFrame = new KeyFrame(Duration.millis(10), event ->movement(xVelocity) );
 }

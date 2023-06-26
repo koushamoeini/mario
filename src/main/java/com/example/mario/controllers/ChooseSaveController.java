@@ -80,8 +80,4 @@ public class ChooseSaveController {
     public static void setThirdSave(boolean thirdSave) {
         ChooseSaveController.thirdSave = thirdSave;
     }
-
-    public static int getSection() {
-        return section;
-    }
 }

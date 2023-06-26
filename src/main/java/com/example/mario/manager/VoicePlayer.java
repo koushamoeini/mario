@@ -12,7 +12,7 @@ public class VoicePlayer {
     public VoicePlayer(String path){
         Media sound=new Media(new File(path).toURI().toString());
         mediaPlayer =new MediaPlayer(sound);
-        MediaView mediaView=new MediaView();
+        new MediaView();
         mediaPlayer.setOnEndOfMedia(() ->{
             mediaPlayer.seek(Duration.ZERO);
             mediaPlayer.play();

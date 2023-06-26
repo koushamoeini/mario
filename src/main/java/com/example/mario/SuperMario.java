@@ -27,7 +27,7 @@ public class SuperMario extends Application {
     private UserData userData=UserData.getInstance();
     private static final String stageTitle = "super mario";
     private static final Image icon=new Image("Images/backGrounds/icon.png");
-     Timeline timerMenu=new Timeline();
+    Timeline timerMenu=new Timeline();
     public static VoicePlayer menuSong=new VoicePlayer("./src/main/resources/Media/menuSong.mp3");
 
     KeyFrame keyFrame = new KeyFrame(Duration.seconds(70), event -> menuSong.stop());
@@ -43,7 +43,7 @@ public class SuperMario extends Application {
         timerMenu.getKeyFrames().addAll(keyFrame);
         timerMenu.setCycleCount(Animation.INDEFINITE);
         timerMenu.play();
-        menuSong.play();
+        //menuSong.play();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(new File("./src/main/resources/com/example/mario/account.fxml").toURI().toURL());
         Parent content= loader.load();

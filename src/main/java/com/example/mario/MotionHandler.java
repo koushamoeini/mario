@@ -2,6 +2,9 @@ package com.example.mario;
 
 import com.example.mario.Items.Coin;
 import com.example.mario.Items.Item;
+import com.example.mario.Items.ItemCollision;
+import com.example.mario.Mario.Mario;
+import com.example.mario.Mario.MarioCollision;
 import com.example.mario.blocks.*;
 import com.example.mario.controllers.ChooseSaveController;
 import com.example.mario.controllers.GameLabelController;
@@ -44,18 +47,15 @@ public class MotionHandler {
     private final ArrayList<Enemy> enemies;
     private final ArrayList<Block> blocks;
     private final ArrayList<BackGround> backGrounds;
-    private final ArrayList<Coin> coins;
-    private final ArrayList<Item> items = new ArrayList<>();
-    private boolean rightCollusion;
-    private boolean leftCollusion;
-    private boolean upCollusion;
-    private boolean downCollusion;
+    private final ArrayList<Item> items;
+
     private int section;
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
     private GameData gameData = GameData.getInstance();
     private final UserData userData = UserData.getInstance();
     private final List<Integer> saveData = new ArrayList<>();
-    private final BlockCollision blockCollision;
+    private final ItemCollision  itemCollision;
+    private final MarioCollision marioCollision;
     AnimationTimer timer;
     Timeline andBeginTime = new Timeline();
     private final VoicePlayer andBegin = new VoicePlayer("./src/main/resources/Media/and begin.mp3");
@@ -70,7 +70,7 @@ public class MotionHandler {
     JsonManager jsonManager3 = new JsonManager("./src/main/resources/GamaData/" + userData.getCurrentUser().getUserName() + "/game3.json");
 
     public MotionHandler(ArrayList<Block> blocks, ArrayList<Enemy> enemies, ArrayList<BackGround> backGrounds,
-                         ArrayList<Coin> coins, Stage stage, Pane pane) throws IOException {
+                         ArrayList<Item> items, Stage stage, Pane pane) throws IOException {
         this.stage = stage;
         this.pane = pane;
         gameLabelController.setPointChange(gameData.getPoint());
@@ -79,12 +79,13 @@ public class MotionHandler {
         andBeginTime.getKeyFrames().addAll(keyFrame);
         andBeginTime.setCycleCount(Animation.INDEFINITE);
         andBeginTime.play();
-        andBegin.play();
+        //andBegin.play();
         this.blocks = blocks;
         this.enemies = enemies;
         this.backGrounds = backGrounds;
-        this.coins = coins;
-        blockCollision = new BlockCollision(this.pane, this.coins, items);
+        this.items = items;
+        marioCollision=new MarioCollision(mario,this.blocks,new BlockCollision(this.pane,this.items));
+        itemCollision=new ItemCollision(mario,items);
         //skinChooser:
         {
             if (ChooseSaveController.isFirstSave()) {
@@ -131,7 +132,7 @@ public class MotionHandler {
                 case RIGHT -> isRight = true;
                 case LEFT -> isLeft = true;
                 case UP -> {
-                    if (downCollusion && !jumpStop) {
+                    if (marioCollision.isDownCollusion() && !jumpStop) {
                         mario.setJumping(true);
                         mario.startMoving();
                         velocity = 15;
@@ -175,13 +176,13 @@ public class MotionHandler {
             switch (event.getCode()) {
                 case RIGHT -> {
                     isRight = false;
-                    if (downCollusion) mario.stopMoving();
+                    if (marioCollision.isDownCollusion()) mario.stopMoving();
                     mario.setMoving(false);
                 }
 
                 case LEFT -> {
                     isLeft = false;
-                    if (downCollusion) mario.stopMoving();
+                    if (marioCollision.isDownCollusion()) mario.stopMoving();
                     mario.setMarioMovingLeft(false);
                     mario.setMoving(false);
                 }
@@ -226,14 +227,14 @@ public class MotionHandler {
                     }
                     isMapMustMovingDown();
                     isEnemyCollision();
-                    isCollision();
-                    isCoinCollision();
-                    if (!rightCollusion && isRight && mario.getLayoutX() > (float) SuperMario.getWidth() / 2 && !isAllBlockMoveRight()) {
+                    marioCollision.isCollision();
+                    itemCollision.coinCollision();
+                    if (!marioCollision.isRightCollusion() && isRight && mario.getLayoutX() > (float) SuperMario.getWidth() / 2 && !isAllBlockMoveRight()) {
                         mapRightController();
                         isMapMoving = true;
                     }
                     a:
-                    if (isRight && !rightCollusion) {
+                    if (isRight && !marioCollision.isRightCollusion()) {
                         mario.setMoving(true);
                         mario.startMoving();
                         if (mario.getLayoutX() + mario.getFitWidth() > SuperMario.getWidth() - 20)
@@ -242,7 +243,7 @@ public class MotionHandler {
                             mario.setLayoutX(mario.getLayoutX() + mario.getxVelocity());
                     }
                     b:
-                    if (isLeft && !leftCollusion) {
+                    if (isLeft && !marioCollision.isLeftCollusion()) {
                         mario.setMarioMovingLeft(true);
                         mario.setMoving(true);
                         mario.startMoving();
@@ -250,11 +251,11 @@ public class MotionHandler {
                             break b;
                         mario.setLayoutX(mario.getLayoutX() - mario.getxVelocity());
                     }
-                    if (!downCollusion && !mario.isDead()) {
+                    if (!marioCollision.isDownCollusion() && !mario.isDead()) {
                         if (isMapMustMovingDown && !isAllBlockMoveDown()) {
                             mapDownController();
                         } else {
-                            if (upCollusion) velocity = 0;
+                            if (marioCollision.isUpCollusion()) velocity = 0;
                             velocity -= gravity;
                             mario.setLayoutY(mario.getLayoutY() - velocity);
                         }
@@ -272,67 +273,6 @@ public class MotionHandler {
         timer.start();
     }
 
-    public void isCollision() {
-        rightCollusion = false;
-        leftCollusion = false;
-        upCollusion = false;
-        downCollusion = false;
-        ArrayList<Block> removeBlocks = new ArrayList<>();
-        for (Block block : blocks) {
-            if (mario.getLayoutY() + mario.getFitHeight() >= block.getLayoutY() && mario.getLayoutY() + mario.getFitHeight() <= block.getLayoutY() + block.getFitHeight()) {
-                for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
-                    if (j >= block.getLayoutX() && j <= block.getLayoutX() + block.getFitWidth()) {
-                        if (block instanceof KillBlock) {
-                            mario.setDead(true);
-                        } else {
-                            mario.setLayoutY(block.getLayoutY() - mario.getFitHeight());
-                            downCollusion = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            if (mario.getLayoutY() > block.getLayoutY() && mario.getLayoutY() < block.getLayoutY() + block.getFitHeight()) {
-                for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
-                    if (j > block.getLayoutX() && j < block.getLayoutX() + block.getFitWidth()) {
-                        if (block instanceof KillBlock) {
-                            mario.setDead(true);
-                        } else {
-                            if (blockCollision.allMethodRun(block)) removeBlocks.add(block);
-                            mario.setLayoutY(block.getLayoutY() + block.getFitHeight());
-                            upCollusion = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            if (mario.getLayoutX() + mario.getFitWidth() > block.getLayoutX() - 5 && mario.getLayoutX() + mario.getFitWidth() < block.getLayoutX() + block.getFitWidth() + 5) {
-                for (int j = (int) mario.getLayoutY(); j <= mario.getLayoutY() + mario.getFitHeight(); j++) {
-                    if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
-                        if (block instanceof KillBlock) {
-                            mario.setDead(true);
-                        } else {
-                            rightCollusion = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            if (mario.getLayoutX() > block.getLayoutX() - 5 && mario.getLayoutX() < block.getLayoutX() + block.getFitWidth() + 5) {
-                for (int j = (int) mario.getLayoutY(); j <= mario.getLayoutY() + mario.getFitHeight(); j++) {
-                    if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
-                        if (block instanceof KillBlock) {
-                            mario.setDead(true);
-                        } else {
-                            leftCollusion = true;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        blocks.removeAll(removeBlocks);
-    }
 
     public void isEnemyCollision() {
         for (Enemy block : enemies) {
@@ -349,28 +289,7 @@ public class MotionHandler {
         }
     }
 
-    public void isCoinCollision() {
-        ArrayList<Coin> removeCoin = new ArrayList<>();
-        a:
-        for (Coin coin : coins) {
-            for (int i = (int) mario.getLayoutY(); i <= mario.getLayoutY() + mario.getFitHeight(); i++) {
-                if (i >= coin.getLayoutY() && i <= coin.getLayoutY() + coin.getFitHeight()) {
-                    for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
-                        if (j >= coin.getLayoutX() && j <= coin.getLayoutX() + coin.getFitWidth()) {
-                            gameData.setCoin(gameData.getCoin() + 1);
-                            gameLabelController.setCoinChange(gameData.getCoin());
-                            gameData.setPoint(gameData.getPoint() + 10);
-                            gameLabelController.setPointChange(gameData.getPoint());
-                            removeCoin.add(coin);
-                            coin.setVisible(false);
-                            continue a;
-                        }
-                    }
-                }
-            }
-        }
-        coins.removeAll(removeCoin);
-    }
+
     public void isItemCollision(){
 
     }
@@ -417,8 +336,6 @@ public class MotionHandler {
         for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() + mapMoveDownCounter * 4);
         for (BackGround backGround : backGrounds) backGround.setLayoutX(backGround.getLayoutX() + mapMoveCounter * 3);
         for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() + mapMoveDownCounter * 4);
-        for (Coin coin : coins) coin.setLayoutX(coin.getLayoutX() + mapMoveCounter * 3);
-        for (Coin coin : coins) coin.setLayoutY(coin.getLayoutY() + mapMoveDownCounter * 4);
         for (Item item : items) item.setLayoutX(item.getLayoutX() + mapMoveCounter * 3);
         for (Item item : items) item.setLayoutY(item.getLayoutY() + mapMoveDownCounter * 4);
         mapMoveDownCounter = 0;
@@ -446,7 +363,6 @@ public class MotionHandler {
         for (Block block : blocks) block.setLayoutX(block.getLayoutX() - 3);
         for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() - 3);
         for (BackGround backGround : backGrounds) backGround.setLayoutX(backGround.getLayoutX() - 3);
-        for (Coin coin : coins) coin.setLayoutX(coin.getLayoutX() - 3);
         for (Item item : items) item.setLayoutX(item.getLayoutX() - 3);
     }
 
@@ -457,7 +373,6 @@ public class MotionHandler {
         for (Block block : blocks) block.setLayoutY(block.getLayoutY() - 4);
         for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() - 4);
         for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() - 4);
-        for (Coin coin : coins) coin.setLayoutY(coin.getLayoutY() - 4);
         for (Item item : items) item.setLayoutX(item.getLayoutX() - 4);
 
     }
@@ -481,15 +396,15 @@ public class MotionHandler {
         for (Block block : blocks) block.setLayoutX(block.getLayoutX() - num * 3);
         for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() - num * 3);
         for (BackGround backGround : backGrounds) backGround.setLayoutX(backGround.getLayoutX() - num * 3);
-        for (Coin coin : coins) coin.setLayoutX(coin.getLayoutX() - num * 3);
-        for (Item item : items) item.setLayoutX(item.getLayoutX() - num * 3);
+        for (Item item : items) {
+            item.setLayoutX(item.getLayoutX() - num * 3);
+        }
     }
 
     public void mapMoverDown(int num) {
         for (Block block : blocks) block.setLayoutY(block.getLayoutY() - num * 5);
         for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() - num * 5);
         for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() - num * 5);
-        for (Coin coin : coins) coin.setLayoutY(coin.getLayoutY() - num * 5);
         for (Item item : items) item.setLayoutX(item.getLayoutX() - num * 5);
     }
 
@@ -506,8 +421,9 @@ public class MotionHandler {
         for (Block block : blocks) {
             if (block instanceof MysteryBlock) ((MysteryBlock) block).getTimeline().stop();
         }
-        for (Coin coin : coins)
-            coin.getTimeline().stop();
+        for (Item item : items) {
+            if (item instanceof Coin) ((Coin) item).getTimeline().stop();
+        }
     }
 
     public void gameStart() {
@@ -523,7 +439,9 @@ public class MotionHandler {
         for (Block block : blocks) {
             if (block instanceof MysteryBlock) ((MysteryBlock) block).getTimeline().play();
         }
-        for (Coin coin : coins) coin.getTimeline().play();
+        for (Item item : items) {
+            if (item instanceof Coin) ((Coin) item).getTimeline().play();
+        }
     }
     public void loadMainMenu() throws Exception {
         FXMLLoader loader = new FXMLLoader();

@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class LoginController {
-    private UserData userData=UserData.getInstance();
+    private final UserData userData=UserData.getInstance();
     @FXML
     private Label loginError;
     @FXML

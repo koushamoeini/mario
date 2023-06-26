@@ -1,5 +1,6 @@
-package com.example.mario;
+package com.example.mario.Mario;
 
+import com.example.mario.SuperMario;
 import com.example.mario.user.UserData;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -81,7 +82,7 @@ public class Mario extends ImageView {
         if(dyingCounter%10<5)
         this.setImage(new Image("Images"+str+"/marioDie.png"));
         else this.setImage(new Image("Images/blocks/null.png"));
-        if(dyingCounter==1&&this.getLayoutY()>SuperMario.getHeight()){
+        if(dyingCounter==1&&this.getLayoutY()> SuperMario.getHeight()){
             this.setLayoutY(SuperMario.getHeight()-60);
         }
         dyingVelocity -= gravity;

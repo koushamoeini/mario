@@ -69,10 +69,6 @@ public class GameLabelController implements Initializable {
            HpBar.setImage(new Image("Images/backGrounds/Hp3.png"));
        }
     }
-    public void setTimeChange(int num){
-            time.setText(Integer.toString(num));
-    }
-
     public Label getTime() {
         return time;
     }
