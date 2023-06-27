@@ -196,6 +196,7 @@ public class MotionHandler {
             @Override
             public void handle(long l) {
                 itemMovement();
+                enemyMovement();
                 isMapMoving = false;
                 checkTime();
                 if (mario.isDead()) {
@@ -454,7 +455,9 @@ public class MotionHandler {
     public void itemMovement() {
         for (Item item : items) item.itemCollision(blocks);
     }
-
+    public void enemyMovement(){
+        for (Enemy enemy : enemies) enemy.enemyCollision(blocks);
+    }
     public void saveGame() {
         saveData.add(mapMoveCounter);
         saveData.add(mapMoveDownCounter);
