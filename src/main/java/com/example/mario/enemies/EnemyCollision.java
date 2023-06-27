@@ -14,7 +14,6 @@ public class EnemyCollision {
     private final ArrayList<Enemy> enemies;
     private Mario mario;
     private Timeline invincibleMario;
-
     private final GameData gameData = GameData.getInstance();
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
 
@@ -28,7 +27,28 @@ public class EnemyCollision {
 
     public void enemyActivator() {
         for (Enemy enemy : enemies) {
-            enemy.setActive(Math.pow(Math.pow(mario.getLayoutY() - enemy.getLayoutY(), 2) + Math.pow(mario.getLayoutX() - enemy.getLayoutX(), 2), 0.5) < 420);
+            if ((Math.pow(Math.pow(mario.getLayoutY() - enemy.getLayoutY(), 2) + Math.pow(mario.getLayoutX() - enemy.getLayoutX(), 2), 0.5) < 420)) {
+                enemy.setActive(true);
+                if(enemy instanceof Spiny) ((Spiny) enemy).setSpinyActive(true);
+            }
+             else {
+                if(enemy instanceof Spiny) ((Spiny) enemy).setSpinyActive(false);
+                 enemy.setActive(false);
+            }
+        }
+    }
+    public void spinyDirectionFinder(){
+        for (Enemy enemy : enemies) {
+            if (enemy instanceof Spiny){
+                if(mario.getLayoutX()-enemy.getLayoutX()<0) {
+                    if(!((Spiny) enemy).isSpinyGoingLeft())((Spiny) enemy).setSpinyChangeDirection(true);
+                    ((Spiny) enemy).setSpinyGoingLeft(true);
+                }
+                else {
+                    if(((Spiny) enemy).isSpinyGoingLeft())((Spiny) enemy).setSpinyChangeDirection(false);
+                    ((Spiny) enemy).setSpinyGoingLeft(false);
+                }
+            }
         }
     }
     KeyFrame invicibleKeyFrame = new KeyFrame(Duration.seconds(1), event -> {
@@ -39,6 +59,7 @@ public class EnemyCollision {
 
     public void isEnemyCollision() {
         enemyActivator();
+        spinyDirectionFinder();
         isUpCollision();
         if (!mario.isInvincible()) {
             for (Enemy enemy : enemies) {
@@ -59,7 +80,7 @@ public class EnemyCollision {
     public void isUpCollision() {
         ArrayList<Enemy> deadEnemies = new ArrayList<>();
         for (Enemy enemy : enemies) {
-            if(!(enemy instanceof Spiny)) {
+            if (!(enemy instanceof Spiny)) {
                 if (mario.getLayoutY() + mario.getFitHeight() > enemy.getLayoutY() && mario.getLayoutY() + mario.getFitHeight() < enemy.getLayoutY() + enemy.getFitHeight()) {
                     for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
                         if (j > enemy.getLayoutX() && j < enemy.getLayoutX() + enemy.getFitWidth()) {
@@ -73,13 +94,14 @@ public class EnemyCollision {
         }
         enemies.removeAll(deadEnemies);
     }
-    public boolean enemyDamaged(Enemy enemy){
+
+    public boolean enemyDamaged(Enemy enemy) {
         mario.setInvincible(true);
         invincibleMario.play();
-        if(!enemy.isInvincible()) {
+        if (!enemy.isInvincible()) {
             enemy.setEnemyHp(enemy.getEnemyHp() - 1);
             enemy.setInvincible(true);
-            if(enemy instanceof Koopa) {
+            if (enemy instanceof Koopa) {
                 ((Koopa) enemy).doAngry();
             }
             enemy.getInvincibleEnemy().play();

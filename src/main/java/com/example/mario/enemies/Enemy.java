@@ -18,8 +18,7 @@ public abstract class Enemy extends ImageView {
     private boolean goingLeft = false;
     private int fallVelocity = 0;
     private int enemyScore;
-    private int xVelocity;
-    private Timeline timeline;
+    private double xVelocity;
     private boolean isActive = false;
     private boolean isInvincible = false;
     private Timeline invincibleEnemy;
@@ -41,8 +40,6 @@ public abstract class Enemy extends ImageView {
         isInvincible = false;
         invincibleEnemy.stop();
     });
-
-
     public int getEnemyHp() {
         return enemyHp;
     }
@@ -58,11 +55,6 @@ public abstract class Enemy extends ImageView {
     public int getEnemyScore() {
         return enemyScore;
     }
-
-    public Timeline getTimeline() {
-        return timeline;
-    }
-
     public void setActive(boolean active) {
         isActive = active;
     }
@@ -113,32 +105,25 @@ public abstract class Enemy extends ImageView {
     public Timeline getInvincibleEnemy() {
         return invincibleEnemy;
     }
-
-    public void setxVelocity(int xVelocity) {
+    public void setxVelocity(double xVelocity) {
         this.xVelocity = xVelocity;
     }
-
     public boolean isDownCollusion() {
         return downCollusion;
     }
-
     public boolean isGoingLeft() {
         return goingLeft;
     }
-
     public int getFallVelocity() {
         return fallVelocity;
     }
-
     public void setFallVelocity(int fallVelocity) {
         this.fallVelocity = fallVelocity;
     }
-
     public boolean isActive() {
         return isActive;
     }
-
-    public int getxVelocity() {
+    public double getxVelocity() {
         return xVelocity;
     }
 }

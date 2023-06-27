@@ -55,7 +55,7 @@ public class Koopa extends Enemy {
         }
     }
     KeyFrame keyFrame0 = new KeyFrame(Duration.millis(20), event -> {
-        movement(this.getxVelocity());
+        movement((int)this.getxVelocity());
     });
     public void movement(int xVelocity) {
         if (this.isActive()) xMovement(xVelocity);

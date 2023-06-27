@@ -4,12 +4,8 @@ import com.example.mario.*;
 import com.example.mario.GameHandle.MotionHandler;
 import com.example.mario.Items.Coin;
 import com.example.mario.Items.Item;
-import com.example.mario.enemies.Koopa;
+import com.example.mario.enemies.*;
 import com.example.mario.blocks.*;
-import com.example.mario.enemies.Enemy;
-import com.example.mario.enemies.Flower;
-import com.example.mario.enemies.Goompa;
-import com.example.mario.enemies.Spike;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -109,7 +105,7 @@ public class Level1_1 {
                     enemies.add(enemyPipe3);
                 }
             }
-            Koopa koopa=new Koopa(30,30,420,450);
+            Spiny koopa=new Spiny(30,30,420,450);
             pane.getChildren().add(koopa);
             enemies.add(koopa);
             Goompa goompa1=new Goompa(30,30,4130,420);
