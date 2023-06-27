@@ -33,9 +33,6 @@ public abstract class Enemy extends ImageView {
         this.enemyHp = enemyHp;
         this.enemyScore = enemyScore;
         this.xVelocity = xVelocity;
-        timeline = new Timeline(keyFrame);
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
         invincibleEnemy = new Timeline(invicibleEnemyKeyFrame);
         invincibleEnemy.setCycleCount(Animation.INDEFINITE);
     }
@@ -45,30 +42,6 @@ public abstract class Enemy extends ImageView {
         invincibleEnemy.stop();
     });
 
-    KeyFrame keyFrame = new KeyFrame(Duration.millis(20), event -> {
-        movement(xVelocity);
-    });
-
-    public void movement(int xVelocity) {
-        if (isActive) xMovement(xVelocity);
-        if (!(this instanceof Flower || this instanceof Spike)) {
-            yMovement();
-        }
-    }
-
-    public void xMovement(int xVelocity) {
-        if (goingLeft) xVelocity *= -1;
-        this.setLayoutX(this.getLayoutX() + xVelocity);
-    }
-
-    public void yMovement() {
-        int random = (int) (Math.random() * 4 + 1);
-        int gravity = 1;
-        if (!downCollusion) {
-            if (random % 4 == 0) fallVelocity -= gravity;
-            this.setLayoutY(this.getLayoutY() - fallVelocity);
-        }
-    }
 
     public int getEnemyHp() {
         return enemyHp;
@@ -143,5 +116,29 @@ public abstract class Enemy extends ImageView {
 
     public void setxVelocity(int xVelocity) {
         this.xVelocity = xVelocity;
+    }
+
+    public boolean isDownCollusion() {
+        return downCollusion;
+    }
+
+    public boolean isGoingLeft() {
+        return goingLeft;
+    }
+
+    public int getFallVelocity() {
+        return fallVelocity;
+    }
+
+    public void setFallVelocity(int fallVelocity) {
+        this.fallVelocity = fallVelocity;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public int getxVelocity() {
+        return xVelocity;
     }
 }

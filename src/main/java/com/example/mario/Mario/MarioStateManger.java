@@ -8,12 +8,10 @@ import javafx.util.Duration;
 
 public class MarioStateManger {
     private Mario mario;
-    private Timeline timeline;
     private ColorAdjust colorAdjust=new ColorAdjust();
     public MarioStateManger(Mario mario) {
         this.mario = mario;
-        timeline=new Timeline(keyFrame);
-        timeline.setCycleCount(Animation.INDEFINITE);
+
     }
     public void backToMiniState(){
         colorAdjust.setBrightness(0);
@@ -22,7 +20,6 @@ public class MarioStateManger {
         mario.setCanBreakBlock(false);
         mario.setJumpVelocity(13);
         mario.setCanShoot(false);
-        mario.setInvincible(false);
         mario.setEffect(colorAdjust);
     }
     public void transformToMegaState(){
@@ -32,13 +29,9 @@ public class MarioStateManger {
         mario.setCanBreakBlock(true);
         mario.setJumpVelocity(15);
         mario.setCanShoot(false);
-        mario.setInvincible(false);
         mario.setEffect(colorAdjust);
     }
-    KeyFrame keyFrame = new KeyFrame(Duration.seconds(5), event -> {
-        mario.setInvincible(false);
-        timeline.stop();
-    });
+
     public void transformToFireState(){
         colorAdjust.setBrightness(1);
         mario.setFitHeight(60);
@@ -46,8 +39,6 @@ public class MarioStateManger {
         mario.setCanBreakBlock(true);
         mario.setJumpVelocity(17);
         mario.setCanShoot(false);
-        mario.setInvincible(true);
         mario.setEffect(colorAdjust);
-        timeline.play();
     }
 }

@@ -59,11 +59,13 @@ public class EnemyCollision {
     public void isUpCollision() {
         ArrayList<Enemy> deadEnemies = new ArrayList<>();
         for (Enemy enemy : enemies) {
-            if (mario.getLayoutY() + mario.getFitHeight() > enemy.getLayoutY() && mario.getLayoutY() + mario.getFitHeight() < enemy.getLayoutY() + enemy.getFitHeight()) {
-                for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
-                    if (j > enemy.getLayoutX() && j < enemy.getLayoutX() + enemy.getFitWidth()) {
-                        if (enemy.isJumpDie()) {
-                           if(enemyDamaged(enemy))  deadEnemies.add(enemy);
+            if(!(enemy instanceof Spiny)) {
+                if (mario.getLayoutY() + mario.getFitHeight() > enemy.getLayoutY() && mario.getLayoutY() + mario.getFitHeight() < enemy.getLayoutY() + enemy.getFitHeight()) {
+                    for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
+                        if (j > enemy.getLayoutX() && j < enemy.getLayoutX() + enemy.getFitWidth()) {
+                            if (enemy.isJumpDie()) {
+                                if (enemyDamaged(enemy)) deadEnemies.add(enemy);
+                            }
                         }
                     }
                 }
@@ -83,6 +85,8 @@ public class EnemyCollision {
             enemy.getInvincibleEnemy().play();
             if (enemy.getEnemyHp() == 0) {
                 enemy.setVisible(false);
+                gameData.setCoin(gameData.getCoin() + 3);
+                gameLabelController.setCoinChange(gameData.getCoin());
                 gameData.setPoint(gameData.getPoint() + enemy.getEnemyScore());
                 gameLabelController.setPointChange(gameData.getPoint());
                 return true;

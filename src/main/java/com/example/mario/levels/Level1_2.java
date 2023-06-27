@@ -199,6 +199,9 @@ public class Level1_2 {
         }
         //addBlock
         {
+            Stairs stairs1 = new Stairs(30, 30, 270, 240);
+            pane.getChildren().add(stairs1);
+            blocks.add(stairs1);
             for (int i = 300; i <= 600; i += 30) {
                 for (int j = 180; j < 510; j += 30) {
                     if (i - 300 >= j - 180) {
@@ -208,6 +211,7 @@ public class Level1_2 {
                     }
                 }
             }
+
             for (int i = 780; i <= 1080; i += 30) {
                 for (int j = 180; j < 510; j += 30) {
                     if (i - 780 + j - 180 <= 300) {

@@ -2,6 +2,9 @@ package com.example.mario.blocks;
 
 import com.example.mario.Items.*;
 import com.example.mario.Mario.Mario;
+import com.example.mario.controllers.GameLabelController;
+import com.example.mario.user.GameData;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
@@ -11,6 +14,8 @@ public class BlockCollision {
     private final Pane pane;
     private final ArrayList<Item> items;
     private final Mario mario;
+    private GameData gameData = GameData.getInstance();
+    private final GameLabelController gameLabelController = GameLabelController.getInstance();
 
     public BlockCollision(Pane pane, ArrayList<Item> items,Mario mario) {
         this.pane = pane;
@@ -21,6 +26,8 @@ public class BlockCollision {
     public boolean brickBreak(Block block) {
         if (block instanceof Brick) {
             block.setVisible(false);
+            gameData.setPoint(gameData.getPoint() + 1);
+            gameLabelController.setPointChange(gameData.getPoint());
             return true;
         }
         return false;

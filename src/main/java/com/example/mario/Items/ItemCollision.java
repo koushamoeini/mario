@@ -3,6 +3,10 @@ package com.example.mario.Items;
 import com.example.mario.Mario.Mario;
 import com.example.mario.controllers.GameLabelController;
 import com.example.mario.user.GameData;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -10,11 +14,14 @@ public class ItemCollision {
     private Mario mario;
     private ArrayList<Item> items;
     private GameData gameData = GameData.getInstance();
+    private Timeline timeline;
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
 
     public ItemCollision(Mario mario, ArrayList<Item> items) {
         this.mario = mario;
         this.items = items;
+        timeline=new Timeline(keyFrame);
+        timeline.setCycleCount(Animation.INDEFINITE);
     }
 
     public void allCollision() {
@@ -81,10 +88,15 @@ public class ItemCollision {
                     gameData.setPoint(gameData.getPoint() + 40);
                     gameLabelController.setPointChange(gameData.getPoint());
                     removeItem.add(item);
-                    item.setVisible(false);
+                    item.setVisible(true);
+                    timeline.play();
                 }
             }
         }
         items.removeAll(removeItem);
     }
+    KeyFrame keyFrame = new KeyFrame(Duration.seconds(5), event -> {
+        mario.setInvincible(false);
+        timeline.stop();
+    });
 }

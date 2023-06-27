@@ -295,6 +295,10 @@ public class MotionHandler {
     public void doDead() throws Exception {
         mario.setDead(false);
         mario.setMarioState(0);
+        if(gameData.getPoint()>=20) {
+            gameData.setPoint(gameData.getPoint() -20);
+            gameLabelController.setPointChange(gameData.getPoint());
+        }
         isMapMustMovingDown = false;
         marioAnimation.setDyingFinished(false);
         mario.setLayoutX(30);
