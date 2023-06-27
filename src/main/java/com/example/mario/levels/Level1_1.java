@@ -7,6 +7,7 @@ import com.example.mario.Items.Item;
 import com.example.mario.blocks.*;
 import com.example.mario.enemies.Enemy;
 import com.example.mario.enemies.Flower;
+import com.example.mario.enemies.Goompa;
 import com.example.mario.enemies.Spike;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,6 +30,7 @@ public class Level1_1 {
         ArrayList<BackGround> images = new ArrayList<>();
         ArrayList<Block> blocks = new ArrayList<>();
         ArrayList<Enemy> enemies = new ArrayList<>();
+
         //addBackGround
         {
             BackGround backGround = new BackGround(1020, 600, 0, 0, new Image("Images/backGrounds/back.jpg"));
@@ -94,12 +96,31 @@ public class Level1_1 {
             pane.getChildren().add(sign2);
             images.add(sign2);
         }
+        //addEnemies
+        {
+            Flower enemyPipe = new Flower(50, 100, 710, 300);
+            pane.getChildren().add(enemyPipe);
+            enemies.add(enemyPipe);
+            for (int i = 2760; i <= 3030; i += 90) {
+                if (i != 2940) {
+                    Flower enemyPipe3 = new Flower(50, 100, i + 20, 390 - (i - 2760) / 3);
+                    pane.getChildren().add(enemyPipe3);
+                    enemies.add(enemyPipe3);
+                }
+            }
+            Goompa goompa=new Goompa(30,30,420,450);
+            pane.getChildren().add(goompa);
+            enemies.add(goompa);
+            Goompa goompa1=new Goompa(30,30,4130,420);
+            pane.getChildren().add(goompa1);
+            enemies.add(goompa1);
+        }
         //otherBlock
         {
             Stairs stair0 = new Stairs(30, 30, 480, 480);
             Stairs stair1 = new Stairs(30, 30, 510, 480);
             Stairs stair2 = new Stairs(30, 30, 510, 450);
-            Flower enemyPipe = new Flower(50, 100, 710, 300);
+
             Pipe pipe1 = new Pipe(90, 150, 690, 360);
             Pipe pipe2 = new Pipe(60, 90, 2250, 420);
             pane.getChildren().add(stair0);
@@ -108,18 +129,11 @@ public class Level1_1 {
             blocks.add(stair1);
             pane.getChildren().add(stair2);
             blocks.add(stair2);
-            pane.getChildren().add(enemyPipe);
-            enemies.add(enemyPipe);
             pane.getChildren().add(pipe1);
             blocks.add(pipe1);
             pane.getChildren().add(pipe2);
             blocks.add(pipe2);
             for (int i = 2760; i <= 3030; i += 90) {
-                if (i != 2940) {
-                    Flower enemyPipe3 = new Flower(50, 100, i + 20, 390 - (i - 2760) / 3);
-                    pane.getChildren().add(enemyPipe3);
-                    enemies.add(enemyPipe3);
-                }
                 Pipe pipe3 = new Pipe(90, 100 + (i - 2760) / 5, i, 450 - (i - 2760) / 3);
                 pane.getChildren().add(pipe3);
                 blocks.add(pipe3);

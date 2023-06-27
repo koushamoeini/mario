@@ -20,6 +20,7 @@ public abstract class Enemy extends ImageView {
     private int enemyScore;
     private int xVelocity;
     private Timeline timeline;
+    private boolean isActive=false;
 
     public Enemy(int edgeX, int edgeY, int blockX, int blockY, boolean jumpDie, int enemyHp, int enemyScore, int xVelocity) {
         setLayoutX(blockX);
@@ -35,14 +36,12 @@ public abstract class Enemy extends ImageView {
         timeline.play();
     }
 
-    KeyFrame keyFrame = new KeyFrame(Duration.millis(30), event -> {
+    KeyFrame keyFrame = new KeyFrame(Duration.millis(20), event -> {
         movement(xVelocity);
     });
-    ;
 
     public void movement(int xVelocity) {
-
-        xMovement(xVelocity);
+        if(isActive) xMovement(xVelocity);
         if(!(this instanceof Flower||this instanceof Spike)) {
             yMovement();
         }
@@ -61,7 +60,6 @@ public abstract class Enemy extends ImageView {
             this.setLayoutY(this.getLayoutY() - fallVelocity);
         }
     }
-
     public int getEnemyHp() {
         return enemyHp;
     }
@@ -80,6 +78,10 @@ public abstract class Enemy extends ImageView {
 
     public Timeline getTimeline() {
         return timeline;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public void enemyCollision(ArrayList<Block> blocks) {
