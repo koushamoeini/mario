@@ -1,9 +1,6 @@
 package com.example.mario.enemies;
 
-import com.example.mario.Items.Item;
-import com.example.mario.Items.Mushroom;
 import com.example.mario.Mario.Mario;
-import com.example.mario.blocks.KillBlock;
 import com.example.mario.controllers.GameLabelController;
 import com.example.mario.user.GameData;
 import javafx.animation.Animation;
@@ -16,15 +13,17 @@ import java.util.ArrayList;
 public class EnemyCollision {
     private final ArrayList<Enemy> enemies;
     private Mario mario;
-    private final Timeline invincibleTimer;
+    private Timeline invincibleMario;
+
     private final GameData gameData = GameData.getInstance();
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
 
     public EnemyCollision(ArrayList<Enemy> enemies, Mario mario) {
         this.enemies = enemies;
         this.mario = mario;
-        invincibleTimer = new Timeline(invicibleKeyFrame);
-        invincibleTimer.setCycleCount(Animation.INDEFINITE);
+        invincibleMario = new Timeline(invicibleKeyFrame);
+        invincibleMario.setCycleCount(Animation.INDEFINITE);
+
     }
 
     public void enemyActivator() {
@@ -32,8 +31,11 @@ public class EnemyCollision {
             enemy.setActive(Math.pow(Math.pow(mario.getLayoutY() - enemy.getLayoutY(), 2) + Math.pow(mario.getLayoutX() - enemy.getLayoutX(), 2), 0.5) < 420);
         }
     }
+    KeyFrame invicibleKeyFrame = new KeyFrame(Duration.seconds(1), event -> {
+        mario.setInvincible(false);
+        invincibleMario.stop();
+    });
 
-    KeyFrame invicibleKeyFrame = new KeyFrame(Duration.seconds(2), event -> mario.setInvincible(false));
 
     public void isEnemyCollision() {
         enemyActivator();
@@ -47,7 +49,7 @@ public class EnemyCollision {
                     }
                     mario.setMarioState(mario.getMarioState() - 1);
                     mario.setInvincible(true);
-                    invincibleTimer.play();
+                    invincibleMario.play();
                     return;
                 }
             }
@@ -61,16 +63,33 @@ public class EnemyCollision {
                 for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
                     if (j > enemy.getLayoutX() && j < enemy.getLayoutX() + enemy.getFitWidth()) {
                         if (enemy.isJumpDie()) {
-                            deadEnemies.add(enemy);
-                            enemy.setVisible(false);
-                            gameData.setPoint(gameData.getPoint() + enemy.getEnemyScore());
-                            gameLabelController.setPointChange(gameData.getPoint());
+                           if(enemyDamaged(enemy))  deadEnemies.add(enemy);
                         }
                     }
                 }
             }
         }
         enemies.removeAll(deadEnemies);
+    }
+    public boolean enemyDamaged(Enemy enemy){
+        mario.setInvincible(true);
+        invincibleMario.play();
+        if(!enemy.isInvincible()) {
+            enemy.setEnemyHp(enemy.getEnemyHp() - 1);
+            enemy.setInvincible(true);
+            if(enemy instanceof Koopa) {
+                ((Koopa) enemy).doAngry();
+            }
+            enemy.getInvincibleEnemy().play();
+            if (enemy.getEnemyHp() == 0) {
+                enemy.setVisible(false);
+                gameData.setPoint(gameData.getPoint() + enemy.getEnemyScore());
+                gameLabelController.setPointChange(gameData.getPoint());
+                return true;
+            }
+
+        }
+        return false;
     }
 }
 

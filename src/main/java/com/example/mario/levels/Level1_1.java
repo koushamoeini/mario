@@ -4,6 +4,7 @@ import com.example.mario.*;
 import com.example.mario.GameHandle.MotionHandler;
 import com.example.mario.Items.Coin;
 import com.example.mario.Items.Item;
+import com.example.mario.enemies.Koopa;
 import com.example.mario.blocks.*;
 import com.example.mario.enemies.Enemy;
 import com.example.mario.enemies.Flower;
@@ -108,9 +109,9 @@ public class Level1_1 {
                     enemies.add(enemyPipe3);
                 }
             }
-            Goompa goompa=new Goompa(30,30,420,450);
-            pane.getChildren().add(goompa);
-            enemies.add(goompa);
+            Koopa koopa=new Koopa(30,30,420,450);
+            pane.getChildren().add(koopa);
+            enemies.add(koopa);
             Goompa goompa1=new Goompa(30,30,4130,420);
             pane.getChildren().add(goompa1);
             enemies.add(goompa1);
@@ -244,6 +245,9 @@ public class Level1_1 {
                     }
                 }
             }
+            SurfaceBlock surfaceBlock=new SurfaceBlock(30,30,0,480);
+            pane.getChildren().add(surfaceBlock);
+            blocks.add(surfaceBlock);
             //////////////////////////////////////////////////////////
             for (int i = 600; i < 1300; i += 30) {
                 Stairs stairs = new Stairs(30, 30, 5370, i);

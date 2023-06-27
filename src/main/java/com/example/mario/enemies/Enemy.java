@@ -20,7 +20,9 @@ public abstract class Enemy extends ImageView {
     private int enemyScore;
     private int xVelocity;
     private Timeline timeline;
-    private boolean isActive=false;
+    private boolean isActive = false;
+    private boolean isInvincible = false;
+    private Timeline invincibleEnemy;
 
     public Enemy(int edgeX, int edgeY, int blockX, int blockY, boolean jumpDie, int enemyHp, int enemyScore, int xVelocity) {
         setLayoutX(blockX);
@@ -34,15 +36,22 @@ public abstract class Enemy extends ImageView {
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        invincibleEnemy = new Timeline(invicibleEnemyKeyFrame);
+        invincibleEnemy.setCycleCount(Animation.INDEFINITE);
     }
+
+    KeyFrame invicibleEnemyKeyFrame = new KeyFrame(Duration.seconds(1), event -> {
+        isInvincible = false;
+        invincibleEnemy.stop();
+    });
 
     KeyFrame keyFrame = new KeyFrame(Duration.millis(20), event -> {
         movement(xVelocity);
     });
 
     public void movement(int xVelocity) {
-        if(isActive) xMovement(xVelocity);
-        if(!(this instanceof Flower||this instanceof Spike)) {
+        if (isActive) xMovement(xVelocity);
+        if (!(this instanceof Flower || this instanceof Spike)) {
             yMovement();
         }
     }
@@ -60,6 +69,7 @@ public abstract class Enemy extends ImageView {
             this.setLayoutY(this.getLayoutY() - fallVelocity);
         }
     }
+
     public int getEnemyHp() {
         return enemyHp;
     }
@@ -85,7 +95,7 @@ public abstract class Enemy extends ImageView {
     }
 
     public void enemyCollision(ArrayList<Block> blocks) {
-        if(!(this instanceof Flower)) {
+        if (!(this instanceof Flower)) {
             downCollusion = false;
             for (Block block : blocks) {
                 if (!(block instanceof WinBlock || block instanceof KillBlock)) {
@@ -98,7 +108,7 @@ public abstract class Enemy extends ImageView {
                             }
                         }
                     }
-                    if (this.getLayoutX() + this.getFitWidth() > block.getLayoutX() - 2 && this.getLayoutX() + this.getFitWidth() < block.getLayoutX() + block.getFitWidth() + 2) {
+                    if (this.getLayoutX() + this.getFitWidth() > block.getLayoutX() - xVelocity && this.getLayoutX() + this.getFitWidth() < block.getLayoutX() + block.getFitWidth() + xVelocity) {
                         for (int j = (int) this.getLayoutY(); j <= this.getLayoutY() + this.getFitHeight(); j++) {
                             if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
                                 goingLeft = true;
@@ -106,7 +116,7 @@ public abstract class Enemy extends ImageView {
                             }
                         }
                     }
-                    if (this.getLayoutX() > block.getLayoutX() - 2 && this.getLayoutX() < block.getLayoutX() + block.getFitWidth() + 2) {
+                    if (this.getLayoutX() > block.getLayoutX() - xVelocity && this.getLayoutX() < block.getLayoutX() + block.getFitWidth() + xVelocity) {
                         for (int j = (int) this.getLayoutY(); j <= this.getLayoutY() + this.getFitHeight(); j++) {
                             if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
                                 goingLeft = false;
@@ -117,5 +127,21 @@ public abstract class Enemy extends ImageView {
                 }
             }
         }
+    }
+
+    public boolean isInvincible() {
+        return isInvincible;
+    }
+
+    public void setInvincible(boolean invincible) {
+        isInvincible = invincible;
+    }
+
+    public Timeline getInvincibleEnemy() {
+        return invincibleEnemy;
+    }
+
+    public void setxVelocity(int xVelocity) {
+        this.xVelocity = xVelocity;
     }
 }

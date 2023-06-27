@@ -85,8 +85,8 @@ public class MotionHandler {
         gameLabelController.setCoinChange(gameData.getCoin());
         andBeginTime.getKeyFrames().addAll(keyFrame);
         andBeginTime.setCycleCount(Animation.INDEFINITE);
-        andBeginTime.play();
-        andBegin.play();
+        //andBeginTime.play();
+        //andBegin.play();
 
         this.blocks = blocks;
         this.enemies = enemies;
