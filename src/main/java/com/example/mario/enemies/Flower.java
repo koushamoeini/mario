@@ -13,7 +13,7 @@ public class Flower extends Enemy {
     private int counter=0;
 
     public Flower(int edgeX, int edgeY, int blockX, int blockY) {
-        super(edgeX, edgeY, blockX, blockY);
+        super(edgeX, edgeY, blockX, blockY,false,1,1);
         this.firstLayOutY=blockY;
         Image image = new Image("Images/enemies/flower(cagney).png");
         this.setImage(image);

@@ -3,45 +3,51 @@ package com.example.mario.Mario;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.effect.ColorAdjust;
 import javafx.util.Duration;
 
 public class MarioStateManger {
     private Mario mario;
     private Timeline timeline;
-
+    private ColorAdjust colorAdjust=new ColorAdjust();
     public MarioStateManger(Mario mario) {
         this.mario = mario;
         timeline=new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
     }
     public void backToMiniState(){
+        colorAdjust.setBrightness(0);
         mario.setFitHeight(30);
         mario.setMarioHp(0);
         mario.setCanBreakBlock(false);
-        mario.setJumpVelocity(10);
+        mario.setJumpVelocity(13);
         mario.setCanShoot(false);
-        mario.setCanSit(false);
+        mario.setInvincible(false);
+        mario.setEffect(colorAdjust);
     }
     public void transformToMegaState(){
+        colorAdjust.setBrightness(0);
         mario.setFitHeight(60);
         mario.setMarioHp(1);
         mario.setCanBreakBlock(true);
         mario.setJumpVelocity(15);
         mario.setCanShoot(false);
-        mario.setCanSit(true);
+        mario.setInvincible(false);
+        mario.setEffect(colorAdjust);
     }
     KeyFrame keyFrame = new KeyFrame(Duration.seconds(5), event -> {
         mario.setInvincible(false);
         timeline.stop();
     });
     public void transformToFireState(){
+        colorAdjust.setBrightness(1);
         mario.setFitHeight(60);
         mario.setMarioHp(2);
         mario.setCanBreakBlock(true);
-        mario.setJumpVelocity(15);
+        mario.setJumpVelocity(17);
         mario.setCanShoot(false);
-        mario.setCanSit(true);
         mario.setInvincible(true);
+        mario.setEffect(colorAdjust);
         timeline.play();
     }
 }

@@ -8,13 +8,13 @@ import javafx.scene.image.ImageView;
 
 public class Mario extends ImageView {
     private boolean isDead=false;
-    private int jumpVelocity=15;
+    private int jumpVelocity=13;
     private boolean isInvincible=false;
     private boolean canBreakBlock=false;
     private boolean canShoot=false;
-    private boolean canSit=false;
     private int marioHp=0;
-    private final String str;
+    private boolean isSit=false;
+    private String str;
     private final MarioStateManger marioStateManger;
     private final IntegerProperty marioState = new SimpleIntegerProperty(0);
     public Mario(int edgeX, int edgeY, int layoutX, int layoutY) {
@@ -86,15 +86,6 @@ public class Mario extends ImageView {
     public void setCanShoot(boolean canShoot) {
         this.canShoot = canShoot;
     }
-
-    public boolean isCanSit() {
-        return canSit;
-    }
-
-    public void setCanSit(boolean canSit) {
-        this.canSit = canSit;
-    }
-
     public String getStr() {
         return str;
     }
@@ -103,7 +94,19 @@ public class Mario extends ImageView {
         return isInvincible;
     }
 
+    public void setStr(String str) {
+        this.str = str;
+    }
+
     public void setInvincible(boolean invincible) {
         isInvincible = invincible;
     }
+    public boolean isSit() {
+        return isSit;
+    }
+
+    public void setSit(boolean sit) {
+        isSit = sit;
+    }
+
 }

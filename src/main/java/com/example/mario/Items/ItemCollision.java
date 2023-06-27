@@ -47,7 +47,7 @@ public class ItemCollision {
         for (Item item : items) {
             if (item instanceof MagicFlower) {
                 if (item.getBoundsInParent().intersects(mario.getBoundsInParent())) {
-                    mario.setMarioState(mario.getMarioState()+1);
+                    if(mario.getMarioState()<2) mario.setMarioState(mario.getMarioState()+1);
                     gameData.setPoint(gameData.getPoint() + 20);
                     gameLabelController.setPointChange(gameData.getPoint());
                     removeItem.add(item);
@@ -62,7 +62,7 @@ public class ItemCollision {
         for (Item item : items) {
             if (item instanceof Mushroom) {
                 if (item.getBoundsInParent().intersects(mario.getBoundsInParent())) {
-                    mario.setMarioState(mario.getMarioState()+1);
+                    if(mario.getMarioState()<2) mario.setMarioState(mario.getMarioState()+1);
                     gameData.setPoint(gameData.getPoint() + 30);
                     gameLabelController.setPointChange(gameData.getPoint());
                     removeItem.add(item);
@@ -77,7 +77,7 @@ public class ItemCollision {
         for (Item item : items) {
             if (item instanceof Star) {
                 if (item.getBoundsInParent().intersects(mario.getBoundsInParent())) {
-                    mario.setMarioState(mario.getMarioState()+1);
+                    if(mario.getMarioState()<2) mario.setMarioState(mario.getMarioState()+1);
                     gameData.setPoint(gameData.getPoint() + 40);
                     gameLabelController.setPointChange(gameData.getPoint());
                     removeItem.add(item);

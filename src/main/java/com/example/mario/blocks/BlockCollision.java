@@ -1,6 +1,7 @@
 package com.example.mario.blocks;
 
 import com.example.mario.Items.*;
+import com.example.mario.Mario.Mario;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
@@ -9,11 +10,12 @@ import java.util.ArrayList;
 public class BlockCollision {
     private final Pane pane;
     private final ArrayList<Item> items;
+    private final Mario mario;
 
-
-    public BlockCollision(Pane pane, ArrayList<Item> items) {
+    public BlockCollision(Pane pane, ArrayList<Item> items,Mario mario) {
         this.pane = pane;
         this.items = items;
+        this.mario=mario;
     }
 
     public boolean brickBreak(Block block) {
@@ -26,7 +28,10 @@ public class BlockCollision {
 
     public boolean allMethodRun(Block block) {
         mysteryBlockCollision(block);
-        return superCoinBrickBreak(block) || coinBrickBreak(block) || brickBreak(block);
+        if (mario.isCanBreakBlock()) {
+            return superCoinBrickBreak(block) || coinBrickBreak(block) || brickBreak(block);
+        }
+        return false;
     }
 
     public boolean coinBrickBreak(Block block) {
