@@ -105,12 +105,12 @@ public class Level1_1 {
                     enemies.add(enemyPipe3);
                 }
             }
-            Spiny koopa=new Spiny(30,30,420,450);
+            Koopa koopa=new Koopa(30,30,420,450);
             pane.getChildren().add(koopa);
             enemies.add(koopa);
-            Goompa goompa1=new Goompa(30,30,4130,420);
-            pane.getChildren().add(goompa1);
-            enemies.add(goompa1);
+            Spiny spiny=new Spiny(30,30,4130,420);
+            pane.getChildren().add(spiny);
+            enemies.add(spiny);
         }
         //otherBlock
         {

@@ -88,7 +88,7 @@ public class ItemCollision {
                     gameData.setPoint(gameData.getPoint() + 40);
                     gameLabelController.setPointChange(gameData.getPoint());
                     removeItem.add(item);
-                    item.setVisible(true);
+                    item.setVisible(false);
                     timeline.play();
                 }
             }

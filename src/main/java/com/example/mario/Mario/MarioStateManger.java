@@ -1,10 +1,7 @@
 package com.example.mario.Mario;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.effect.ColorAdjust;
-import javafx.util.Duration;
+
 
 public class MarioStateManger {
     private Mario mario;
@@ -14,7 +11,9 @@ public class MarioStateManger {
 
     }
     public void backToMiniState(){
-        colorAdjust.setBrightness(0);
+        colorAdjust.setHue(0);
+        colorAdjust.setSaturation(0);
+        colorAdjust.setContrast(0);
         mario.setFitHeight(30);
         mario.setMarioHp(0);
         mario.setCanBreakBlock(false);
@@ -23,7 +22,9 @@ public class MarioStateManger {
         mario.setEffect(colorAdjust);
     }
     public void transformToMegaState(){
-        colorAdjust.setBrightness(0);
+        colorAdjust.setHue(0);
+        colorAdjust.setSaturation(0);
+        colorAdjust.setContrast(0);
         mario.setFitHeight(60);
         mario.setMarioHp(1);
         mario.setCanBreakBlock(true);
@@ -33,7 +34,9 @@ public class MarioStateManger {
     }
 
     public void transformToFireState(){
-        colorAdjust.setBrightness(1);
+        colorAdjust.setHue(0.0);
+        colorAdjust.setSaturation(2);
+        colorAdjust.setContrast(1.0);
         mario.setFitHeight(60);
         mario.setMarioHp(2);
         mario.setCanBreakBlock(true);

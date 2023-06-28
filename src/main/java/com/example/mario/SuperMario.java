@@ -43,7 +43,7 @@ public class SuperMario extends Application {
         timerMenu.getKeyFrames().addAll(keyFrame);
         timerMenu.setCycleCount(Animation.INDEFINITE);
         timerMenu.play();
-        //menuSong.play();
+        menuSong.play();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(new File("./src/main/resources/com/example/mario/account.fxml").toURI().toURL());
         Parent content= loader.load();
