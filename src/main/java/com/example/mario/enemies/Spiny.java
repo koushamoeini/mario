@@ -41,7 +41,7 @@ public class Spiny extends Enemy {
     public void yMovement() {
         int random = (int) (Math.random() * 4 + 1);
         int gravity = 1;
-        if (!this.isDownCollusion()) {
+        if (this.isDownCollusion()) {
             if (random % 4 == 0) this.setFallVelocity(this.getFallVelocity() - gravity);
             this.setLayoutY(this.getLayoutY() - this.getFallVelocity());
         }

@@ -4,20 +4,18 @@ import com.example.mario.Items.*;
 import com.example.mario.Mario.Mario;
 import com.example.mario.controllers.GameLabelController;
 import com.example.mario.user.GameData;
-import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class BlockCollision {
     private final Pane pane;
-    private final ArrayList<Item> items;
+    private final List<Item> items;
     private final Mario mario;
-    private GameData gameData = GameData.getInstance();
+    private final GameData gameData = GameData.getInstance();
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
 
-    public BlockCollision(Pane pane, ArrayList<Item> items,Mario mario) {
+    public BlockCollision(Pane pane, List<Item> items,Mario mario) {
         this.pane = pane;
         this.items = items;
         this.mario=mario;
@@ -53,9 +51,9 @@ public class BlockCollision {
     }
 
     public boolean superCoinBrickBreak(Block block) {
-        if (block instanceof SuperCoinBlock) {
-            ((SuperCoinBlock) block).setPrizeNumbers(((SuperCoinBlock) block).getPrizeNumbers() - 1);
-            if (((SuperCoinBlock) block).getPrizeNumbers() < 0) {
+        if (block instanceof SuperCoinBlock superCoinBlock) {
+            superCoinBlock.setPrizeNumbers(superCoinBlock.getPrizeNumbers() - 1);
+            if (superCoinBlock.getPrizeNumbers() < 0) {
                 block.setVisible(false);
                 return true;
             }
@@ -67,21 +65,20 @@ public class BlockCollision {
     }
 
     public void mysteryBlockCollision(Block block) {
-        if (block instanceof MysteryBlock) {
-            if (((MysteryBlock) block).isActive()) {
-                ((MysteryBlock) block).setActive(false);
+        if (block instanceof MysteryBlock mysteryBlock && (mysteryBlock.isActive())) {
+                mysteryBlock.setActive(false);
                 block.setImage(new Image("Images/blocks/prize_inactive.png"));
                 int randomNumber = (int) (Math.random() * 10) + 1;
-                if (randomNumber >500){
+                if (randomNumber <5){
                     Coin coin = new Coin(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
                     pane.getChildren().add(coin);
                     items.add(coin);
                 }
-                else if (randomNumber > 800) {
+                else if (randomNumber <8) {
                     MagicFlower magicFlower = new MagicFlower(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
                     pane.getChildren().add(magicFlower);
                     items.add(magicFlower);
-                } else if (randomNumber > 10) {
+                } else if (randomNumber <10) {
                     Mushroom mushroom = new Mushroom(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
                     pane.getChildren().add(mushroom);
                     items.add(mushroom);
@@ -91,7 +88,7 @@ public class BlockCollision {
                     pane.getChildren().add(star);
                     items.add(star);
                 }
-            }
+
         }
     }
 }

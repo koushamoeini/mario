@@ -9,15 +9,16 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EnemyCollision {
-    private final ArrayList<Enemy> enemies;
+    private final List<Enemy> enemies;
     private Mario mario;
     private Timeline invincibleMario;
     private final GameData gameData = GameData.getInstance();
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
 
-    public EnemyCollision(ArrayList<Enemy> enemies, Mario mario) {
+    public EnemyCollision(List<Enemy> enemies, Mario mario) {
         this.enemies = enemies;
         this.mario = mario;
         invincibleMario = new Timeline(invicibleKeyFrame);

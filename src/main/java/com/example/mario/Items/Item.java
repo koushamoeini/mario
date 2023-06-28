@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Item extends ImageView {
     private boolean upCollusion = false;
@@ -40,7 +41,6 @@ public class Item extends ImageView {
     public void changeDirection() {
         xVelocity *= -1;
     }
-
     public void movement() {
         xMovement();
         yMovement();
@@ -53,13 +53,14 @@ public class Item extends ImageView {
     public void yMovement() {
         int random = (int) (Math.random() * 4 + 1);
         int gravity = 1;
-        if (!downCollusion) if (random % 4 == 0) fallVelocity -= gravity;
+        if (!downCollusion) {if (random % 4 == 0) fallVelocity -= gravity;}
         else if (fallVelocity < 0) fallVelocity = 0;
+
         if (upCollusion) fallVelocity = 0;
         this.setLayoutY(this.getLayoutY() - fallVelocity);
     }
 
-    public void itemCollision(ArrayList<Block> blocks) {
+    public void itemCollision(List<Block> blocks) {
         downCollusion = false;
         upCollusion = false;
         for (Block block : blocks) {
@@ -83,7 +84,7 @@ public class Item extends ImageView {
                     }
                 }
                 if (this.getLayoutX() + this.getFitWidth() > block.getLayoutX() - xVelocity && this.getLayoutX() + this.getFitWidth() < block.getLayoutX() + block.getFitWidth() + xVelocity) {
-                    for (int j = (int) this.getLayoutY(); j <= this.getLayoutY() + this.getFitHeight(); j++) {
+                    for (int j = (int) this.getLayoutY()+1; j <= this.getLayoutY() + this.getFitHeight()-1; j++) {
                         if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
                             changeDirection.set(true);
                             break;
@@ -91,7 +92,7 @@ public class Item extends ImageView {
                     }
                 }
                 if (this.getLayoutX() > block.getLayoutX() + xVelocity && this.getLayoutX() < block.getLayoutX() + block.getFitWidth() - xVelocity) {
-                    for (int j = (int) this.getLayoutY(); j <= this.getLayoutY() + this.getFitHeight(); j++) {
+                    for (int j = (int) this.getLayoutY()+1; j <= this.getLayoutY() + this.getFitHeight()-1; j++) {
                         if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
                             changeDirection.set(false);
                             break;

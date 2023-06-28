@@ -5,6 +5,7 @@ import com.example.mario.blocks.BlockCollision;
 import com.example.mario.blocks.KillBlock;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MarioCollision {
     private boolean rightCollusion;
@@ -12,9 +13,9 @@ public class MarioCollision {
     private boolean upCollusion;
     private boolean downCollusion;
     private final Mario mario;
-    private final ArrayList<Block> blocks;
+    private final List<Block> blocks;
     private final BlockCollision blockCollision;
-    public MarioCollision(Mario mario,ArrayList<Block> blocks,BlockCollision blockCollision) {
+    public MarioCollision(Mario mario,List<Block> blocks,BlockCollision blockCollision) {
         this.mario=mario;
         this.blocks=blocks;
         this.blockCollision=blockCollision;
@@ -24,7 +25,7 @@ public class MarioCollision {
         leftCollusion = false;
         upCollusion = false;
         downCollusion = false;
-        ArrayList<Block> removeBlocks = new ArrayList<>();
+        List<Block> removeBlocks = new ArrayList<>();
         for (Block block : blocks) {
             if (mario.getLayoutY() + mario.getFitHeight() >= block.getLayoutY() && mario.getLayoutY() + mario.getFitHeight() <= block.getLayoutY() + block.getFitHeight()) {
                 for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {

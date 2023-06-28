@@ -8,22 +8,21 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Enemy extends ImageView {
-    private boolean jumpDie;
+    private final boolean jumpDie;
     private int enemyHp;
     private boolean downCollusion = false;
     private boolean goingLeft = false;
     private int fallVelocity = 0;
-    private int enemyScore;
+    private final int enemyScore;
     private double xVelocity;
     private boolean isActive = false;
     private boolean isInvincible = false;
     private Timeline invincibleEnemy;
 
-    public Enemy(int edgeX, int edgeY, int blockX, int blockY, boolean jumpDie, int enemyHp, int enemyScore, int xVelocity) {
+    protected Enemy(int edgeX, int edgeY, int blockX, int blockY, boolean jumpDie, int enemyHp, int enemyScore, int xVelocity) {
         setLayoutX(blockX);
         setLayoutY(blockY);
         setFitWidth(edgeX);
@@ -59,7 +58,7 @@ public abstract class Enemy extends ImageView {
         isActive = active;
     }
 
-    public void enemyCollision(ArrayList<Block> blocks) {
+    public void enemyCollision(List<Block> blocks) {
         if (!(this instanceof Flower)) {
             downCollusion = false;
             for (Block block : blocks) {
@@ -109,7 +108,7 @@ public abstract class Enemy extends ImageView {
         this.xVelocity = xVelocity;
     }
     public boolean isDownCollusion() {
-        return downCollusion;
+        return !downCollusion;
     }
     public boolean isGoingLeft() {
         return goingLeft;

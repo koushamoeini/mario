@@ -9,15 +9,16 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemCollision {
     private Mario mario;
-    private ArrayList<Item> items;
+    private List<Item> items;
     private GameData gameData = GameData.getInstance();
     private Timeline timeline;
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
 
-    public ItemCollision(Mario mario, ArrayList<Item> items) {
+    public ItemCollision(Mario mario, List<Item> items) {
         this.mario = mario;
         this.items = items;
         timeline=new Timeline(keyFrame);
