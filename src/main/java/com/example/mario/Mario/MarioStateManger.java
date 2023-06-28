@@ -35,7 +35,7 @@ public class MarioStateManger {
         mario.setMarioHp(2);
         mario.setCanBreakBlock(true);
         mario.setJumpVelocity(17);
-        mario.setCanShoot(false);
+        mario.setCanShoot(true);
         mario.setEffect(colorAdjust);
     }
 }

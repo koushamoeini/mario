@@ -31,7 +31,6 @@ public class ItemCollision {
         magicFlowerCollision();
         starCollision();
     }
-
     public void coinCollision() {
         ArrayList<Item> removeItem = new ArrayList<>();
         a:
@@ -89,6 +88,7 @@ public class ItemCollision {
                     gameData.setPoint(gameData.getPoint() + 40);
                     gameLabelController.setPointChange(gameData.getPoint());
                     removeItem.add(item);
+                    mario.setInvincible(true);
                     item.setVisible(false);
                     timeline.play();
                 }

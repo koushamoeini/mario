@@ -82,6 +82,10 @@ public class MarioAnimation {
         else mario.setFitHeight(60);
     }
 
+    public boolean isMarioMovingLeft() {
+        return isMarioMovingLeft;
+    }
+
     public void setMarioMovingLeft(boolean marioMovingLeft) {
         isMarioMovingLeft = marioMovingLeft;
     }

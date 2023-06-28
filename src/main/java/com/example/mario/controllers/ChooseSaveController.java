@@ -19,21 +19,21 @@ public class ChooseSaveController {
     private static boolean secondSave=false;
     private static boolean thirdSave=false;
     private static int section;
-    public void firstSave() throws IOException {
+    public void firstSave() throws Exception {
         JsonManager jsonManager=new JsonManager("./src/main/resources/GamaData/"+userData.getCurrentUser().getUserName()+"/game1.json");
         section=jsonManager.readArray(JsonManager.integerReference).get(8);
         firstSave=true;
         if(section==2)new Level1_2();
         else new Level1_1();
     }
-    public void secondSave() throws IOException {
+    public void secondSave() throws Exception {
         JsonManager jsonManager=new JsonManager("./src/main/resources/GamaData/"+userData.getCurrentUser().getUserName()+"/game2.json");
         section=jsonManager.readArray(JsonManager.integerReference).get(8);
         secondSave=true;
         if(section==2)new Level1_2();
         else new Level1_1();
     }
-    public void thirdSave() throws IOException {
+    public void thirdSave() throws Exception {
         JsonManager jsonManager=new JsonManager("./src/main/resources/GamaData/"+userData.getCurrentUser().getUserName()+"/game3.json");
         section=jsonManager.readArray(JsonManager.integerReference).get(8);
         thirdSave=true;

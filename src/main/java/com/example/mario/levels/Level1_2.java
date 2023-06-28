@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class Level1_2 {
     private Stage stage;
 
-    public Level1_2() throws IOException {
+    public Level1_2() throws Exception {
         setStage(SuperMario.getLevelStage());
         Pane pane = new Pane();
         ArrayList<Item> items = new ArrayList<>();

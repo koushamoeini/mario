@@ -1,5 +1,7 @@
 package com.example.mario.GameHandle;
 
+import com.example.mario.Gun.Gun;
+import com.example.mario.Gun.Shot;
 import com.example.mario.Items.Coin;
 import com.example.mario.Items.Item;
 import com.example.mario.Items.ItemCollision;
@@ -127,7 +129,8 @@ public class MotionHandler {
                 case R -> mario.setDead(true);
                 case D -> {
                     if (mario.isCanShoot()) {
-
+                        Shot shot=new Shot(20,10,(int)(mario.getLayoutX()+mario.getFitWidth()),(int)(mario.getLayoutY()+mario.getFitHeight()/2-3),marioAnimation.isMarioMovingLeft());
+                        pane.getChildren().add(shot);
                     }
                 }
             }

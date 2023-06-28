@@ -21,7 +21,7 @@ public class MainMenuController {
     static VoicePlayer shopVoice=new VoicePlayer("./src/main/resources/Media/shopWelcome.wav");
 
     KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> shopVoice.stop());
-    public void level1_1() throws IOException {
+    public void level1_1() throws Exception {
         GameData.resetInstance();
         new Level1_1();
     }

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Level1_1 {
     private Stage stage;
 
-    public Level1_1() throws IOException {
+    public Level1_1() throws Exception {
         setStage(SuperMario.getLevelStage());
         Pane pane = new Pane();
         ArrayList<Item> items = new ArrayList<>();
