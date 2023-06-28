@@ -256,7 +256,7 @@ public class MotionHandler {
                             break b;
                         mario.setLayoutX(mario.getLayoutX() - mario.getxVelocity());
                     }
-                    if (!marioCollision.isDownCollusion() && !mario.isDead()) {
+                    if (!marioCollision.isDownCollusion()) {
                         if (isMapMustMovingDown && !isAllBlockMoveDown()) {
                             mapDownController();
                         } else {

@@ -312,17 +312,17 @@ public class Level1_1 {
             blocks.add(win);
         }
         //addCoins
-        {
-            Coin coin = new Coin(30, 30, 460, 190);
-            pane.getChildren().add(coin);
-            items.add(coin);
-            Coin coin1 = new Coin(30, 30, 1950, 150);
-            pane.getChildren().add(coin1);
-            items.add(coin1);
-            Coin coin2 = new Coin(30, 30, 2970, 360);
-            pane.getChildren().add(coin2);
-            items.add(coin2);
-        }
+//        {
+//            Coin coin = new Coin(30, 30, 460, 190);
+//            pane.getChildren().add(coin);
+//            items.add(coin);
+//            Coin coin1 = new Coin(30, 30, 1950, 150);
+//            pane.getChildren().add(coin1);
+//            items.add(coin1);
+//            Coin coin2 = new Coin(30, 30, 2970, 360);
+//            pane.getChildren().add(coin2);
+//            items.add(coin2);
+//        }
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(new File("./src/main/resources/com/example/mario/GameLabels.fxml").toURI().toURL());
         Parent root = loader.load();

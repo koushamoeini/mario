@@ -12,7 +12,7 @@ public class Mushroom extends Item {
     private Timeline timeline;
 
     public Mushroom(int edgeX, int edgeY, int blockX, int blockY) {
-        super(edgeX, edgeY, blockX, blockY,0);
+        super(edgeX, edgeY, blockX, blockY,0,1);
         Image image = new Image("Images/Items/mushroom.png");
         this.setImage(image);
         timeline = new Timeline(keyFrame);
@@ -25,5 +25,5 @@ public class Mushroom extends Item {
         timeline.play();
         delayTimeLine.stop();
     });
-    KeyFrame keyFrame = new KeyFrame(Duration.millis(10), event ->movement(xVelocity) );
+    KeyFrame keyFrame = new KeyFrame(Duration.millis(10), event ->movement() );
 }

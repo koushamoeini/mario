@@ -6,6 +6,8 @@ import com.example.mario.blocks.WinBlock;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
@@ -18,26 +20,35 @@ public class Item extends ImageView {
     private int fallVelocity=0;
     private Timeline timeline;
     private int yVelocity;
+    private int xVelocity;
+    private BooleanProperty changeDirection = new SimpleBooleanProperty(false);
     KeyFrame keyFrame=new KeyFrame(Duration.seconds(1), event ->{
+        System.out.println("vdfjko");
         if(downCollusion) fallVelocity=yVelocity;
     });;
 
-    public Item(int edgeX, int edgeY, int blockX, int blockY,int yVelocity) {
+    public Item(int edgeX, int edgeY, int blockX, int blockY,int yVelocity,int xVelocity) {
         setLayoutX(blockX);
         setLayoutY(blockY);
         setFitWidth(edgeX);
         setFitHeight(edgeY);
         this.yVelocity=yVelocity;
+        this.xVelocity=xVelocity;
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        changeDirection.addListener((observable, oldValue, newValue) -> {
+            changeDirection();
+        });
     }
-    public void movement(int xVelocity){
-        xMovement(xVelocity);
+    public void changeDirection(){
+        xVelocity*=-1;
+    }
+    public void movement(){
+        xMovement();
         yMovement();
     }
-    public void xMovement(int xVelocity) {
-        if(goingLeft) xVelocity*=-1;
+    public void xMovement() {
         this.setLayoutX(this.getLayoutX() + xVelocity);
     }
 
@@ -47,6 +58,10 @@ public class Item extends ImageView {
         if(!downCollusion) {
             if(random%4==0) fallVelocity-= gravity;
             this.setLayoutY(this.getLayoutY()-fallVelocity);
+        }
+        else if (fallVelocity<0) {
+            System.out.println("sib");
+            fallVelocity=0;
         }
         if(upCollusion) fallVelocity=0;
     }
@@ -73,17 +88,19 @@ public class Item extends ImageView {
                         }
                     }
                 }
-                if (this.getLayoutX() + this.getFitWidth() > block.getLayoutX() - 2 && this.getLayoutX() + this.getFitWidth() < block.getLayoutX() + block.getFitWidth() + 2) {
+                if (this.getLayoutX() + this.getFitWidth() > block.getLayoutX() - xVelocity && this.getLayoutX() + this.getFitWidth() < block.getLayoutX() + block.getFitWidth() + xVelocity ) {
                     for (int j = (int) this.getLayoutY(); j <= this.getLayoutY() + this.getFitHeight(); j++) {
                         if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
+                            changeDirection.set(true);
                             goingLeft = true;
                             break;
                         }
                     }
                 }
-                if (this.getLayoutX() > block.getLayoutX() - 2 && this.getLayoutX() < block.getLayoutX() + block.getFitWidth() + 2) {
+                if (this.getLayoutX() > block.getLayoutX() +xVelocity && this.getLayoutX() < block.getLayoutX() + block.getFitWidth() - xVelocity) {
                     for (int j = (int) this.getLayoutY(); j <= this.getLayoutY() + this.getFitHeight(); j++) {
                         if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
+                            changeDirection.set(false);
                             goingLeft = false;
                             break;
                         }

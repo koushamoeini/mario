@@ -16,7 +16,7 @@ public class Coin extends Item {
         setImage(new Image("Images/Items/coin"+(counter%4+1)+".png"));
     });
     public Coin(int edgeX, int edgeY, int blockX, int blockY) {
-        super(edgeX,edgeY,blockX,blockY,0);
+        super(edgeX,edgeY,blockX,blockY,0,0);
         timeline=new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
@@ -30,7 +30,7 @@ public class Coin extends Item {
         setFitHeight(edgeY);
         this.setImage(image);
     }
-    KeyFrame fallKeyFrame = new KeyFrame(Duration.millis(10), event ->movement(0) );
+    KeyFrame fallKeyFrame = new KeyFrame(Duration.millis(10), event ->movement() );
     public Timeline getTimeline() {
         return timeline;
     }

@@ -72,16 +72,16 @@ public class BlockCollision {
                 ((MysteryBlock) block).setActive(false);
                 block.setImage(new Image("Images/blocks/prize_inactive.png"));
                 int randomNumber = (int) (Math.random() * 10) + 1;
-                if (randomNumber <5){
+                if (randomNumber >500){
                     Coin coin = new Coin(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
                     pane.getChildren().add(coin);
                     items.add(coin);
                 }
-                else if (randomNumber < 8) {
+                else if (randomNumber > 800) {
                     MagicFlower magicFlower = new MagicFlower(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
                     pane.getChildren().add(magicFlower);
                     items.add(magicFlower);
-                } else if (randomNumber < 10) {
+                } else if (randomNumber > 10) {
                     Mushroom mushroom = new Mushroom(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
                     pane.getChildren().add(mushroom);
                     items.add(mushroom);
