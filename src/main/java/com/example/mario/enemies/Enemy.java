@@ -35,7 +35,7 @@ public abstract class Enemy extends ImageView {
         invincibleEnemy.setCycleCount(Animation.INDEFINITE);
     }
 
-    KeyFrame invicibleEnemyKeyFrame = new KeyFrame(Duration.seconds(1), event -> {
+    KeyFrame invicibleEnemyKeyFrame = new KeyFrame(Duration.millis(300), event -> {
         isInvincible = false;
         invincibleEnemy.stop();
     });

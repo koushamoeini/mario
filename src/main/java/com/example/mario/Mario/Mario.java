@@ -1,14 +1,20 @@
 package com.example.mario.Mario;
 
 import com.example.mario.user.UserData;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 public class Mario extends ImageView {
     private boolean isDead=false;
-    private int jumpVelocity=13;
+    private int jumpVelocity=15;
     private boolean isInvincible=false;
     private boolean canBreakBlock=false;
     private boolean canShoot=false;
@@ -16,8 +22,15 @@ public class Mario extends ImageView {
     private boolean isSit=false;
     private String str;
     private final MarioStateManger marioStateManger;
+    private Timeline invincibleMario;
+    private final BooleanProperty isShotCoolDown = new SimpleBooleanProperty(false);
+    private final Timeline shotCoolDown;
     private final IntegerProperty marioState = new SimpleIntegerProperty(0);
     public Mario(int edgeX, int edgeY, int layoutX, int layoutY) {
+        invincibleMario = new Timeline(invicibleKeyFrame);
+        invincibleMario.setCycleCount(Animation.INDEFINITE);
+        shotCoolDown = new Timeline(shotCoolDownKeyFrame);
+        shotCoolDown.setCycleCount(Animation.INDEFINITE);
         marioStateManger=new MarioStateManger(this);
         marioState.addListener((observable, oldValue, newValue) -> {
             if (newValue.equals(0))
@@ -26,6 +39,9 @@ public class Mario extends ImageView {
                 marioStateManger.transformToMegaState();
             else if (newValue.equals(2))
                 marioStateManger.transformToFireState();
+        });
+        isShotCoolDown.addListener((observable, oldValue, newValue) -> {
+            if(newValue) shotCoolDown.play();
         });
         setLayoutX(layoutX);
         setLayoutY(layoutY);
@@ -39,6 +55,18 @@ public class Mario extends ImageView {
         else str="/plane";
         Image marioImage = new Image("Images" + str + "/runner.png");
         this.setImage(marioImage);
+    }
+    KeyFrame invicibleKeyFrame = new KeyFrame(Duration.millis(500), event -> {
+        this.setInvincible(false);
+        invincibleMario.stop();
+    });
+    KeyFrame shotCoolDownKeyFrame = new KeyFrame(Duration.seconds(3), event -> {
+        isShotCoolDown.set(false);
+        invincibleMario.stop();
+    });
+    public void doInvincible(){
+        this.setInvincible(true);
+        invincibleMario.play();
     }
     public boolean isDead() {
         return isDead;
@@ -75,10 +103,6 @@ public class Mario extends ImageView {
         return marioState.get();
     }
 
-    public IntegerProperty marioStateProperty() {
-        return marioState;
-    }
-
     public boolean isCanShoot() {
         return canShoot;
     }
@@ -104,9 +128,14 @@ public class Mario extends ImageView {
     public boolean isSit() {
         return isSit;
     }
-
     public void setSit(boolean sit) {
         isSit = sit;
     }
 
+    public boolean isShotCoolDown() {
+        return isShotCoolDown.get();
+    }
+    public void setIsShotCoolDown(boolean isShotCoolDown) {
+        this.isShotCoolDown.set(isShotCoolDown);
+    }
 }

@@ -14,15 +14,14 @@ import java.util.List;
 public class EnemyCollision {
     private final List<Enemy> enemies;
     private Mario mario;
-    private Timeline invincibleMario;
+
     private final GameData gameData = GameData.getInstance();
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
 
     public EnemyCollision(List<Enemy> enemies, Mario mario) {
         this.enemies = enemies;
         this.mario = mario;
-        invincibleMario = new Timeline(invicibleKeyFrame);
-        invincibleMario.setCycleCount(Animation.INDEFINITE);
+
 
     }
 
@@ -30,10 +29,10 @@ public class EnemyCollision {
         for (Enemy enemy : enemies) {
             if ((Math.pow(Math.pow(mario.getLayoutY() - enemy.getLayoutY(), 2) + Math.pow(mario.getLayoutX() - enemy.getLayoutX(), 2), 0.5) < 420)) {
                 enemy.setActive(true);
-                if(enemy instanceof Spiny) ((Spiny) enemy).setSpinyActive(true);
+                if(enemy instanceof Spiny spiny) spiny.setSpinyActive(true);
             }
              else {
-                if(enemy instanceof Spiny) ((Spiny) enemy).setSpinyActive(false);
+                if(enemy instanceof Spiny spiny) spiny.setSpinyActive(false);
                  enemy.setActive(false);
             }
         }
@@ -52,10 +51,7 @@ public class EnemyCollision {
             }
         }
     }
-    KeyFrame invicibleKeyFrame = new KeyFrame(Duration.seconds(1), event -> {
-        mario.setInvincible(false);
-        invincibleMario.stop();
-    });
+
 
 
     public void isEnemyCollision() {
@@ -70,8 +66,7 @@ public class EnemyCollision {
                         return;
                     }
                     mario.setMarioState(mario.getMarioState() - 1);
-                    mario.setInvincible(true);
-                    invincibleMario.play();
+                    mario.doInvincible();
                     return;
                 }
             }
@@ -97,8 +92,7 @@ public class EnemyCollision {
     }
 
     public boolean enemyDamaged(Enemy enemy) {
-        mario.setInvincible(true);
-        invincibleMario.play();
+        mario.doInvincible();
         if (!enemy.isInvincible()) {
             enemy.setEnemyHp(enemy.getEnemyHp() - 1);
             enemy.setInvincible(true);

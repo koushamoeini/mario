@@ -2,6 +2,7 @@ package com.example.mario.GameHandle;
 
 import com.example.mario.Gun.Gun;
 import com.example.mario.Gun.Shot;
+import com.example.mario.Gun.ShotCollision;
 import com.example.mario.Items.Coin;
 import com.example.mario.Items.Item;
 import com.example.mario.Items.ItemCollision;
@@ -56,6 +57,7 @@ public class MotionHandler {
     private final List<Block> blocks;
     private final List<BackGround> backGrounds;
     private final List<Item> items;
+    private final List<Shot> shots=new ArrayList<>();
     private int section;
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
     private GameData gameData = GameData.getInstance();
@@ -65,6 +67,7 @@ public class MotionHandler {
     private final MarioCollision marioCollision;
     private final MarioAnimation marioAnimation;
     private final EnemyCollision enemyCollision;
+    private ShotCollision shotCollision;
     AnimationTimer timer;
     Timeline andBeginTime = new Timeline();
     private final VoicePlayer andBegin = new VoicePlayer("./src/main/resources/Media/and begin.mp3");
@@ -99,6 +102,7 @@ public class MotionHandler {
         marioCollision = new MarioCollision(mario, this.blocks, new BlockCollision(this.pane, this.items, mario));
         itemCollision = new ItemCollision(mario, items);
         enemyCollision = new EnemyCollision(this.enemies, this.mario);
+        shotCollision=new ShotCollision(this.blocks,this.enemies,this.shots,enemyCollision);
         jsonJob();
         pane.getChildren().add(mario);
         stage.getScene().setOnKeyPressed(event -> {
@@ -128,8 +132,10 @@ public class MotionHandler {
                 }
                 case R -> mario.setDead(true);
                 case D -> {
-                    if (mario.isCanShoot()) {
-                        Shot shot=new Shot(20,10,(int)(mario.getLayoutX()+mario.getFitWidth()),(int)(mario.getLayoutY()+mario.getFitHeight()/2-3),marioAnimation.isMarioMovingLeft());
+                    if (mario.isCanShoot()&&!mario.isShotCoolDown()) {
+                        mario.setIsShotCoolDown(true);
+                        Shot shot=new Shot(10,16,(int)(mario.getLayoutX()+mario.getFitWidth()-10),(int)(mario.getLayoutY()+mario.getFitHeight()/2-8),marioAnimation.isMarioMovingLeft());
+                        shots.add(shot);
                         pane.getChildren().add(shot);
                     }
                 }
@@ -199,6 +205,7 @@ public class MotionHandler {
                     enemyCollision.isEnemyCollision();
                     marioCollision.collision();
                     itemCollision.allCollision();
+                    shotCollision.checkCollision();
                     if (!marioCollision.isRightCollusion() && isRight && mario.getLayoutX() > (float) SuperMario.getWidth() / 2 && !isAllBlockMoveRight()) {
                         mapRightController();
                         isMapMoving = true;

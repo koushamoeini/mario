@@ -135,13 +135,13 @@ public class Level1_1 {
                 pane.getChildren().add(pipe3);
                 blocks.add(pipe3);
             }
-            Brick brick1 = new Brick(30, 30, 180, 370);
+            Brick brick1 = new Brick(30, 30, 180, 420);
             pane.getChildren().add(brick1);
             blocks.add(brick1);
-            CoinBlock coinBrick = new CoinBlock(30, 30, 210, 370);
+            CoinBlock coinBrick = new CoinBlock(30, 30, 210, 420);
             pane.getChildren().add(coinBrick);
             blocks.add(coinBrick);
-            SuperCoinBlock superCoinBrick = new SuperCoinBlock(30, 30, 240, 370);
+            SuperCoinBlock superCoinBrick = new SuperCoinBlock(30, 30, 240, 450);
             pane.getChildren().add(superCoinBrick);
             blocks.add(superCoinBrick);
             for (int i = 310; i < 490; i += 30) {

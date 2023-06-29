@@ -13,7 +13,7 @@ public class MarioStateManger {
         mario.setFitHeight(30);
         mario.setMarioHp(0);
         mario.setCanBreakBlock(false);
-        mario.setJumpVelocity(13);
+        mario.setJumpVelocity(15);
         mario.setCanShoot(false);
         mario.setEffect(new ColorAdjust());
     }
