@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 public class Koopa extends Enemy {
-    private Timeline timeline;
     private Timeline koopaTimeline;
     private Timeline koopaAnimation;
     private Timeline koopaAnimationStopper;
@@ -21,7 +20,7 @@ public class Koopa extends Enemy {
         koopaAnimation.setCycleCount(Animation.INDEFINITE);
         koopaAnimationStopper=new Timeline(keyFrame3);
         koopaAnimationStopper.setCycleCount(Animation.INDEFINITE);
-        timeline = new Timeline(keyFrame0);
+        Timeline timeline = new Timeline(keyFrame0);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
@@ -54,9 +53,7 @@ public class Koopa extends Enemy {
             this.setLayoutY(this.getLayoutY() - this.getFallVelocity());
         }
     }
-    KeyFrame keyFrame0 = new KeyFrame(Duration.millis(20), event -> {
-        movement((int)this.getxVelocity());
-    });
+    KeyFrame keyFrame0 = new KeyFrame(Duration.millis(20), event -> movement((int)this.getxVelocity()));
     public void movement(int xVelocity) {
         if (this.isActive()) xMovement(xVelocity);
         yMovement();

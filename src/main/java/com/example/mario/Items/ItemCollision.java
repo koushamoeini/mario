@@ -13,8 +13,8 @@ import java.util.List;
 
 public class ItemCollision {
     private Mario mario;
-    private List<Item> items;
-    private GameData gameData = GameData.getInstance();
+    private final List<Item> items;
+    private final GameData gameData = GameData.getInstance();
     private Timeline timeline;
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
 
@@ -33,7 +33,6 @@ public class ItemCollision {
     }
     public void coinCollision() {
         ArrayList<Item> removeItem = new ArrayList<>();
-        a:
         for (Item item : items) {
             if (item instanceof Coin) {
                 if (item.getBoundsInParent().intersects(mario.getBoundsInParent())) {

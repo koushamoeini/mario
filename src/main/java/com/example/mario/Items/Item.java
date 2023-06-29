@@ -10,8 +10,6 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Item extends ImageView {

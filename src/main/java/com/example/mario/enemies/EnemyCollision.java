@@ -3,21 +3,15 @@ package com.example.mario.enemies;
 import com.example.mario.Mario.Mario;
 import com.example.mario.controllers.GameLabelController;
 import com.example.mario.user.GameData;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EnemyCollision {
     private final List<Enemy> enemies;
-    private Mario mario;
-
+    private final Mario mario;
     private final GameData gameData = GameData.getInstance();
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
-
     public EnemyCollision(List<Enemy> enemies, Mario mario) {
         this.enemies = enemies;
         this.mario = mario;
@@ -33,7 +27,7 @@ public class EnemyCollision {
             }
              else {
                 if(enemy instanceof Spiny spiny) spiny.setSpinyActive(false);
-                 enemy.setActive(false);
+                enemy.setActive(false);
             }
         }
     }

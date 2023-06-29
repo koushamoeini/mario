@@ -24,7 +24,7 @@ public class SuperMario extends Application {
     private static final int height = 637;
     private static final int stageX = 180;
     private static final int stageY = 0;
-    private UserData userData=UserData.getInstance();
+    private final UserData userData=UserData.getInstance();
     private static final String stageTitle = "super mario";
     private static final Image icon=new Image("Images/backGrounds/icon.png");
     Timeline timerMenu=new Timeline();

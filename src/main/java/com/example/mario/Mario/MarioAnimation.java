@@ -4,14 +4,13 @@ import com.example.mario.SuperMario;
 import javafx.scene.image.Image;
 
 public class MarioAnimation {
-    private Mario mario;
+    private final Mario mario;
     private boolean isMoving = false;
     private boolean isJumping = false;
     private int counter = 0;
     private int dyingCounter = 0;
     private double dyingVelocity = 15;
     private boolean isDyingFinished = false;
-    private double gravity = 0.3;
     private boolean isMarioMovingLeft = false;
 
     public MarioAnimation(Mario mario) {
@@ -67,6 +66,7 @@ public class MarioAnimation {
         if (dyingCounter == 1 && mario.getLayoutY() > SuperMario.getHeight()) {
             mario.setLayoutY(SuperMario.getHeight() - 60);
         }
+        double gravity = 0.3;
         dyingVelocity -= gravity;
         mario.setLayoutY(mario.getLayoutY() - dyingVelocity);
         if (mario.getLayoutY() > SuperMario.getHeight() + 130) {

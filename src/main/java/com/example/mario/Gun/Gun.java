@@ -1,17 +1,14 @@
 package com.example.mario.Gun;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
+
 
 public class Gun extends ImageView {
-    private int range;
-    private int returnRange;
+    private final int range;
+    private final int returnRange;
 
     private int distanceTraveled=1;
-    private boolean isLeft;
+    private final boolean isLeft;
 
     public Gun(int edgeX, int edgeY, int blockX, int blockY,int range,int returnRange,boolean isLeft) {
         setLayoutX(blockX);

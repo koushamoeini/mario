@@ -10,9 +10,9 @@ import javafx.util.Duration;
 
 public class Spiny extends Enemy {
     private boolean isSpinyGoingLeft = false;
-    private Timeline timeline2;
-    private BooleanProperty spinyChangeDirection = new SimpleBooleanProperty(false);
-    private BooleanProperty spinyActive = new SimpleBooleanProperty(false);
+    private final Timeline timeline2;
+    private final BooleanProperty spinyChangeDirection = new SimpleBooleanProperty(false);
+    private final BooleanProperty spinyActive = new SimpleBooleanProperty(false);
 
     public Spiny(int edgeX, int edgeY, int blockX, int blockY) {
         super(edgeX, edgeY, blockX, blockY, false, 1, 3, 3);
@@ -24,9 +24,7 @@ public class Spiny extends Enemy {
         timeline.play();
         timeline2 = new Timeline(keyFrame1);
         timeline2.setCycleCount(Animation.INDEFINITE);
-        spinyChangeDirection.addListener((observable, oldValue, newValue) -> {
-            this.setxVelocity(3);
-        });
+        spinyChangeDirection.addListener((observable, oldValue, newValue) -> this.setxVelocity(3));
         spinyActive.addListener((observable, oldValue, newValue) -> {
             if(newValue) timeline2.play();
             else timeline2.stop();

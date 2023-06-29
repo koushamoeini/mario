@@ -11,7 +11,6 @@ public class MarioStateManger {
     }
     public void backToMiniState(){
         mario.setFitHeight(30);
-        mario.setMarioHp(0);
         mario.setCanBreakBlock(false);
         mario.setJumpVelocity(15);
         mario.setCanShoot(false);
@@ -19,7 +18,6 @@ public class MarioStateManger {
     }
     public void transformToMegaState(){
         mario.setFitHeight(60);
-        mario.setMarioHp(1);
         mario.setCanBreakBlock(true);
         mario.setJumpVelocity(15);
         mario.setCanShoot(false);
@@ -32,7 +30,6 @@ public class MarioStateManger {
         colorAdjust.setSaturation(2);
         colorAdjust.setContrast(1.0);
         mario.setFitHeight(60);
-        mario.setMarioHp(2);
         mario.setCanBreakBlock(true);
         mario.setJumpVelocity(17);
         mario.setCanShoot(true);

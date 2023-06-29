@@ -18,7 +18,6 @@ public class Mario extends ImageView {
     private boolean isInvincible=false;
     private boolean canBreakBlock=false;
     private boolean canShoot=false;
-    private int marioHp=0;
     private boolean isSit=false;
     private String str;
     private final MarioStateManger marioStateManger;
@@ -83,17 +82,11 @@ public class Mario extends ImageView {
     public void setJumpVelocity(int jumpVelocity) {
         this.jumpVelocity = jumpVelocity;
     }
-    public void setMarioHp(int marioHp) {
-        this.marioHp = marioHp;
-    }
     public boolean isCanBreakBlock() {
         return canBreakBlock;
     }
     public void setCanBreakBlock(boolean canBreakBlock) {
         this.canBreakBlock = canBreakBlock;
-    }
-    public int getMarioHp() {
-        return marioHp;
     }
     public void setMarioState(int marioState) {
         this.marioState.set(marioState);
@@ -117,11 +110,6 @@ public class Mario extends ImageView {
     public boolean isInvincible() {
         return isInvincible;
     }
-
-    public void setStr(String str) {
-        this.str = str;
-    }
-
     public void setInvincible(boolean invincible) {
         isInvincible = invincible;
     }

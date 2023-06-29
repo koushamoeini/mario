@@ -1,6 +1,5 @@
 package com.example.mario.GameHandle;
 
-import com.example.mario.Gun.Gun;
 import com.example.mario.Gun.Shot;
 import com.example.mario.Gun.ShotCollision;
 import com.example.mario.Items.Coin;
@@ -67,7 +66,7 @@ public class MotionHandler {
     private final MarioCollision marioCollision;
     private final MarioAnimation marioAnimation;
     private final EnemyCollision enemyCollision;
-    private ShotCollision shotCollision;
+    private final ShotCollision shotCollision;
     AnimationTimer timer;
     Timeline andBeginTime = new Timeline();
     private final VoicePlayer andBegin = new VoicePlayer("./src/main/resources/Media/and begin.mp3");
@@ -296,8 +295,7 @@ public class MotionHandler {
         for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() + mapMoveCounter * 3);
         for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() + mapMoveDownCounter * 4);
         for (BackGround backGround : backGrounds) backGround.setLayoutX(backGround.getLayoutX() + mapMoveCounter * 3);
-        for (BackGround backGround : backGrounds)
-            backGround.setLayoutY(backGround.getLayoutY() + mapMoveDownCounter * 4);
+        for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() + mapMoveDownCounter * 4);
         for (Item item : items) item.setLayoutX(item.getLayoutX() + mapMoveCounter * 3);
         for (Item item : items) item.setLayoutY(item.getLayoutY() + mapMoveDownCounter * 4);
         mapMoveDownCounter = 0;

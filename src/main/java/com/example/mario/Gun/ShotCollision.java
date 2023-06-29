@@ -49,8 +49,7 @@ public class ShotCollision {
                 if (enemy.getBoundsInParent().intersects(shot.getBoundsInParent())) {
                     shot.setVisible(false);
                     removeShot.add(shot);
-                    if(enemyCollision.enemyDamaged(enemy))
-                    deadEnemies.add(enemy);
+                    if(enemyCollision.enemyDamaged(enemy)) deadEnemies.add(enemy);
                 }
             }
         }

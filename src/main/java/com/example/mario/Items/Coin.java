@@ -4,13 +4,11 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class Coin extends Item {
     private final Timeline timeline;
     private int counter=0;
-    private Timeline fallTimeline;
     KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
         counter++;
         setImage(new Image("Images/Items/coin"+(counter%4+1)+".png"));
@@ -20,7 +18,7 @@ public class Coin extends Item {
         timeline=new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        fallTimeline = new Timeline(fallKeyFrame);
+        Timeline fallTimeline = new Timeline(fallKeyFrame);
         fallTimeline.setCycleCount(Animation.INDEFINITE);
         fallTimeline.play();
         Image image=new Image("Images/Items/coin1.png");

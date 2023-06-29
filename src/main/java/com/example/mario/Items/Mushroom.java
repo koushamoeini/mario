@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 public class Mushroom extends Item {
-    private final int xVelocity = 1;
     private Timeline delayTimeLine;
     private Timeline timeline;
 

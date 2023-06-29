@@ -8,7 +8,7 @@ import javafx.util.Duration;
 import java.io.File;
 
 public class VoicePlayer {
-    private MediaPlayer mediaPlayer;
+    private final MediaPlayer mediaPlayer;
     public VoicePlayer(String path){
         Media sound=new Media(new File(path).toURI().toString());
         mediaPlayer =new MediaPlayer(sound);
