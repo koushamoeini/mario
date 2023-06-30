@@ -114,215 +114,215 @@ public class Level1_1 {
         }
         //otherBlock
         {
-//            Stairs stair0 = new Stairs(30, 30, 480, 480);
-//            Stairs stair1 = new Stairs(30, 30, 510, 480);
-//            Stairs stair2 = new Stairs(30, 30, 510, 450);
-//
-//            Pipe pipe1 = new Pipe(90, 150, 690, 360);
-//            Pipe pipe2 = new Pipe(60, 90, 2250, 420);
-//            pane.getChildren().add(stair0);
-//            blocks.add(stair0);
-//            pane.getChildren().add(stair1);
-//            blocks.add(stair1);
-//            pane.getChildren().add(stair2);
-//            blocks.add(stair2);
-//            pane.getChildren().add(pipe1);
-//            blocks.add(pipe1);
-//            pane.getChildren().add(pipe2);
-//            blocks.add(pipe2);
-//            for (int i = 2760; i <= 3030; i += 90) {
-//                Pipe pipe3 = new Pipe(90, 100 + (i - 2760) / 5, i, 450 - (i - 2760) / 3);
-//                pane.getChildren().add(pipe3);
-//                blocks.add(pipe3);
-//            }
-////            Brick brick1 = new Brick(30, 30, 180, 390);
-////            pane.getChildren().add(brick1);
-////            blocks.add(brick1);
-////            CoinBlock coinBrick = new CoinBlock(30, 30, 210, 390);
-////            pane.getChildren().add(coinBrick);
-////            blocks.add(coinBrick);
-////            SuperCoinBlock superCoinBrick = new SuperCoinBlock(30, 30, 240, 390);
-////            pane.getChildren().add(superCoinBrick);
-////            blocks.add(superCoinBrick);
-//            for (int i = 310; i < 490; i += 30) {
-//                if (i == 310 || i == 340) {
-//                    MysteryBlock mysteryBlock = new MysteryBlock(30, 30, i, 220);
-//                    pane.getChildren().add(mysteryBlock);
-//                    blocks.add(mysteryBlock);
-//                } else {
-//                    Brick brick = new Brick(30, 30, i, 220);
-//                    pane.getChildren().add(brick);
-//                    blocks.add(brick);
-//                }
-//            }
-//            for (int i = 1800; i <= 1980; i += 30) {
-//                SuperCoinBlock brick = new SuperCoinBlock(30, 30, i, 390);
-//                pane.getChildren().add(brick);
-//                blocks.add(brick);
-//            }
-//
-//            MysteryBlock mysteryBlock1 = new MysteryBlock(30, 30, 1860, 240);
-//            pane.getChildren().add(mysteryBlock1);
-//            blocks.add(mysteryBlock1);
-//            MysteryBlock mysteryBlock2 = new MysteryBlock(30, 30, 1950, 240);
-//            pane.getChildren().add(mysteryBlock2);
-//            blocks.add(mysteryBlock2);
-//            for (int i = 2550; i < 2700; i += 30) {
-//                SuperCoinBlock brick = new SuperCoinBlock(30, 30, i, 390);
-//                pane.getChildren().add(brick);
-//                blocks.add(brick);
-//            }
-//            for (int i = 2820; i <= 2970; i += 30) {
-//                MysteryBlock mysteryBlock = new MysteryBlock(30, 30, i, 270);
-//                pane.getChildren().add(mysteryBlock);
-//                blocks.add(mysteryBlock);
-//            }
-//        }
-//        //addBlock
-//        {
-//            for (int j = 420; j < 510; j += 30) {
-//                for (int i = 2160; i <= 2220; i += 30) {
-//                    if (i - 2160 + j - 420 >= 60) {
-//                        Stairs stairs = new Stairs(30, 30, i, j);
-//                        pane.getChildren().add(stairs);
-//                        blocks.add(stairs);
-//                    }
-//                }
-//            }
-//            for (int i = 2310; i <= 2370; i += 30) {
-//                for (int j = 420; j < 510; j += 30) {
-//                    if (i - 2310 <= j - 420) {
-//                        Stairs stairs = new Stairs(30, 30, i, j);
-//                        pane.getChildren().add(stairs);
-//                        blocks.add(stairs);
-//                    }
-//                }
-//            }
-//            for (int j = 360; j < 510; j += 30) {
-//                for (int i = 3270; i <= 3420; i += 30) {
-//                    if (i - 3270 + j - 360 >= 120) {
-//                        Stairs stairs = new Stairs(30, 30, i, j);
-//                        pane.getChildren().add(stairs);
-//                        blocks.add(stairs);
-//                    }
-//                }
-//            }
-//            for (int i = 3630; i <= 3720; i += 30) {
-//                for (int j = 420; j < 510; j += 30) {
-//                    if (i - 3630 <= j - 420) {
-//                        Stairs stairs = new Stairs(30, 30, i, j);
-//                        pane.getChildren().add(stairs);
-//                        blocks.add(stairs);
-//                    }
-//                }
-//            }
-//            for (int j = 210; j < 510; j += 30) {
-//                for (int i = 4190; i <= 4490; i += 30) {
-//                    if (i - 4190 + j - 210 >= 270) {
-//                        Stairs stairs = new Stairs(30, 30, i, j);
-//                        pane.getChildren().add(stairs);
-//                        blocks.add(stairs);
-//                    }
-//                }
-//            }
-//            for (int i = 0; i <= 5800; i += 30) {
-//                if ((i >= 540 && i < 630) || (i >= 990 && i < 1110) || (i >= 1170 && i < 1260) || (i >= 1290 && i < 1350) || (i >= 1380 && i < 1440) || (i >= 1740 && i < 2100) || (i >= 3450 && i < 3630)) {
-//                    KillBlock killBlock = new KillBlock(30, 30, i, 600);
-//                    pane.getChildren().add(killBlock);
-//                    blocks.add(killBlock);
-//                }
-//            }
-//            for (int i = 510; i < 600; i += 30) {
-//                for (int j = 0; j <= 5910; j += 30) {
-//                    if (!(j >= 540 && j < 630) && !(j >= 990 && j < 1110) && !(j >= 1170 && j < 1260) && !(j >= 1290 && j < 1350) && !(j >= 1380 && j < 1440) && !(j >= 1740 && j < 2100) && !(j >= 3450 && j < 3630) && !(j > 5370 && j < 5610)) {
-//                        SurfaceBlock surfaceBlock = new SurfaceBlock(30, 30, j, i);
-//                        pane.getChildren().add(surfaceBlock);
-//                        blocks.add(surfaceBlock);
-//                    }
-//                }
-//            }
-//            SurfaceBlock surfaceBlock=new SurfaceBlock(30,30,0,480);
-//            pane.getChildren().add(surfaceBlock);
-//            blocks.add(surfaceBlock);
-//            //////////////////////////////////////////////////////////
-//            for (int i = 600; i < 1300; i += 30) {
-//                Stairs stairs = new Stairs(30, 30, 5370, i);
-//                pane.getChildren().add(stairs);
-//                blocks.add(stairs);
-//            }
-//            for (int i = 600; i < 1320; i += 30) {
-//                Stairs stairs = new Stairs(30, 30, 5610, i);
-//                pane.getChildren().add(stairs);
-//                blocks.add(stairs);
-//            }
-//            for (int i = 900; i < 1320; i += 30) {
-//                Spike spike = new Spike(30, 30, 5400, i, true);
-//                pane.getChildren().add(spike);
-//                enemies.add(spike);
-//            }
-//            for (int i = 900; i < 1320; i += 30) {
-//                Spike spike = new Spike(30, 30, 5580, i, false);
-//                pane.getChildren().add(spike);
-//                enemies.add(spike);
-//            }
-//            //////////////////////////////////////////////////////////
-//            for (int i = 1320; i < 1860; i += 30) {
-//                Stairs stairs = new Stairs(30, 30, 5430, i);
-//                pane.getChildren().add(stairs);
-//                blocks.add(stairs);
-//            }
-//            for (int i = 1320; i < 1860; i += 30) {
-//                Stairs stairs = new Stairs(30, 30, 5670, i);
-//                pane.getChildren().add(stairs);
-//                blocks.add(stairs);
-//            }
-//            for (int i = 1320; i < 1860; i += 30) {
-//                Spike spike = new Spike(30, 30, 5460, i, true);
-//                pane.getChildren().add(spike);
-//                enemies.add(spike);
-//            }
-//            for (int i = 1320; i < 1860; i += 30) {
-//                Spike spike = new Spike(30, 30, 5640, i, false);
-//                pane.getChildren().add(spike);
-//                enemies.add(spike);
-//            }
-//            //////////////////////////////////////////////////////////
-//            for (int i = 1860; i < 2520; i += 30) {
-//                Stairs stairs = new Stairs(30, 30, 5340, i);
-//                pane.getChildren().add(stairs);
-//                blocks.add(stairs);
-//            }
-//            for (int i = 1860; i < 2520; i += 30) {
-//                Stairs stairs = new Stairs(30, 30, 5580, i);
-//                pane.getChildren().add(stairs);
-//                blocks.add(stairs);
-//            }
-//            for (int i = 1860; i < 2520; i += 30) {
-//                Spike spike = new Spike(30, 30, 5370, i, true);
-//                pane.getChildren().add(spike);
-//                enemies.add(spike);
-//            }
-//            for (int i = 1860; i < 2520; i += 30) {
-//                Spike spike = new Spike(30, 30, 5550, i, false);
-//                pane.getChildren().add(spike);
-//                enemies.add(spike);
-//            }
-//            WinBlock win = new WinBlock(120, 60, 5400, 2600);
-//            pane.getChildren().add(win);
-//            blocks.add(win);
-//        }
-//        //addCoins
-//        {
-//            Coin coin = new Coin(30, 30, 460, 190);
-//            pane.getChildren().add(coin);
-//            items.add(coin);
-//            Coin coin1 = new Coin(30, 30, 1950, 150);
-//            pane.getChildren().add(coin1);
-//            items.add(coin1);
-//            Coin coin2 = new Coin(30, 30, 2970, 360);
-//            pane.getChildren().add(coin2);
-//            items.add(coin2);
-//        }
+            Stairs stair0 = new Stairs(30, 30, 480, 480);
+            Stairs stair1 = new Stairs(30, 30, 510, 480);
+            Stairs stair2 = new Stairs(30, 30, 510, 450);
+
+            Pipe pipe1 = new Pipe(90, 150, 690, 360);
+            Pipe pipe2 = new Pipe(60, 90, 2250, 420);
+            pane.getChildren().add(stair0);
+            blocks.add(stair0);
+            pane.getChildren().add(stair1);
+            blocks.add(stair1);
+            pane.getChildren().add(stair2);
+            blocks.add(stair2);
+            pane.getChildren().add(pipe1);
+            blocks.add(pipe1);
+            pane.getChildren().add(pipe2);
+            blocks.add(pipe2);
+            for (int i = 2760; i <= 3030; i += 90) {
+                Pipe pipe3 = new Pipe(90, 100 + (i - 2760) / 5, i, 450 - (i - 2760) / 3);
+                pane.getChildren().add(pipe3);
+                blocks.add(pipe3);
+            }
+//            Brick brick1 = new Brick(30, 30, 180, 390);
+//            pane.getChildren().add(brick1);
+//            blocks.add(brick1);
+//            CoinBlock coinBrick = new CoinBlock(30, 30, 210, 390);
+//            pane.getChildren().add(coinBrick);
+//            blocks.add(coinBrick);
+//            SuperCoinBlock superCoinBrick = new SuperCoinBlock(30, 30, 240, 390);
+//            pane.getChildren().add(superCoinBrick);
+//            blocks.add(superCoinBrick);
+            for (int i = 310; i < 490; i += 30) {
+                if (i == 310 || i == 340) {
+                    MysteryBlock mysteryBlock = new MysteryBlock(30, 30, i, 220);
+                    pane.getChildren().add(mysteryBlock);
+                    blocks.add(mysteryBlock);
+                } else {
+                    Brick brick = new Brick(30, 30, i, 220);
+                    pane.getChildren().add(brick);
+                    blocks.add(brick);
+                }
+            }
+            for (int i = 1800; i <= 1980; i += 30) {
+                SuperCoinBlock brick = new SuperCoinBlock(30, 30, i, 390);
+                pane.getChildren().add(brick);
+                blocks.add(brick);
+            }
+
+            MysteryBlock mysteryBlock1 = new MysteryBlock(30, 30, 1860, 240);
+            pane.getChildren().add(mysteryBlock1);
+            blocks.add(mysteryBlock1);
+            MysteryBlock mysteryBlock2 = new MysteryBlock(30, 30, 1950, 240);
+            pane.getChildren().add(mysteryBlock2);
+            blocks.add(mysteryBlock2);
+            for (int i = 2550; i < 2700; i += 30) {
+                SuperCoinBlock brick = new SuperCoinBlock(30, 30, i, 390);
+                pane.getChildren().add(brick);
+                blocks.add(brick);
+            }
+            for (int i = 2820; i <= 2970; i += 30) {
+                MysteryBlock mysteryBlock = new MysteryBlock(30, 30, i, 270);
+                pane.getChildren().add(mysteryBlock);
+                blocks.add(mysteryBlock);
+            }
+        }
+        //addBlock
+        {
+            for (int j = 420; j < 510; j += 30) {
+                for (int i = 2160; i <= 2220; i += 30) {
+                    if (i - 2160 + j - 420 >= 60) {
+                        Stairs stairs = new Stairs(30, 30, i, j);
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
+                    }
+                }
+            }
+            for (int i = 2310; i <= 2370; i += 30) {
+                for (int j = 420; j < 510; j += 30) {
+                    if (i - 2310 <= j - 420) {
+                        Stairs stairs = new Stairs(30, 30, i, j);
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
+                    }
+                }
+            }
+            for (int j = 360; j < 510; j += 30) {
+                for (int i = 3270; i <= 3420; i += 30) {
+                    if (i - 3270 + j - 360 >= 120) {
+                        Stairs stairs = new Stairs(30, 30, i, j);
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
+                    }
+                }
+            }
+            for (int i = 3630; i <= 3720; i += 30) {
+                for (int j = 420; j < 510; j += 30) {
+                    if (i - 3630 <= j - 420) {
+                        Stairs stairs = new Stairs(30, 30, i, j);
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
+                    }
+                }
+            }
+            for (int j = 210; j < 510; j += 30) {
+                for (int i = 4190; i <= 4490; i += 30) {
+                    if (i - 4190 + j - 210 >= 270) {
+                        Stairs stairs = new Stairs(30, 30, i, j);
+                        pane.getChildren().add(stairs);
+                        blocks.add(stairs);
+                    }
+                }
+            }
+            for (int i = 0; i <= 5800; i += 30) {
+                if ((i >= 540 && i < 630) || (i >= 990 && i < 1110) || (i >= 1170 && i < 1260) || (i >= 1290 && i < 1350) || (i >= 1380 && i < 1440) || (i >= 1740 && i < 2100) || (i >= 3450 && i < 3630)) {
+                    KillBlock killBlock = new KillBlock(30, 30, i, 600);
+                    pane.getChildren().add(killBlock);
+                    blocks.add(killBlock);
+                }
+            }
+            for (int i = 510; i < 600; i += 30) {
+                for (int j = 0; j <= 5910; j += 30) {
+                    if (!(j >= 540 && j < 630) && !(j >= 990 && j < 1110) && !(j >= 1170 && j < 1260) && !(j >= 1290 && j < 1350) && !(j >= 1380 && j < 1440) && !(j >= 1740 && j < 2100) && !(j >= 3450 && j < 3630) && !(j > 5370 && j < 5610)) {
+                        SurfaceBlock surfaceBlock = new SurfaceBlock(30, 30, j, i);
+                        pane.getChildren().add(surfaceBlock);
+                        blocks.add(surfaceBlock);
+                    }
+                }
+            }
+            SurfaceBlock surfaceBlock=new SurfaceBlock(30,30,0,480);
+            pane.getChildren().add(surfaceBlock);
+            blocks.add(surfaceBlock);
+            //////////////////////////////////////////////////////////
+            for (int i = 600; i < 1300; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 5370, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 600; i < 1320; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 5610, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 900; i < 1320; i += 30) {
+                Spike spike = new Spike(30, 30, 5400, i, true);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            for (int i = 900; i < 1320; i += 30) {
+                Spike spike = new Spike(30, 30, 5580, i, false);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            //////////////////////////////////////////////////////////
+            for (int i = 1320; i < 1860; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 5430, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 1320; i < 1860; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 5670, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 1320; i < 1860; i += 30) {
+                Spike spike = new Spike(30, 30, 5460, i, true);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            for (int i = 1320; i < 1860; i += 30) {
+                Spike spike = new Spike(30, 30, 5640, i, false);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            //////////////////////////////////////////////////////////
+            for (int i = 1860; i < 2520; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 5340, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 1860; i < 2520; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 5580, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 1860; i < 2520; i += 30) {
+                Spike spike = new Spike(30, 30, 5370, i, true);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            for (int i = 1860; i < 2520; i += 30) {
+                Spike spike = new Spike(30, 30, 5550, i, false);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            WinBlock win = new WinBlock(120, 60, 5400, 2600);
+            pane.getChildren().add(win);
+            blocks.add(win);
+        }
+        //addCoins
+        {
+            Coin coin = new Coin(30, 30, 460, 190);
+            pane.getChildren().add(coin);
+            items.add(coin);
+            Coin coin1 = new Coin(30, 30, 1950, 150);
+            pane.getChildren().add(coin1);
+            items.add(coin1);
+            Coin coin2 = new Coin(30, 30, 2970, 360);
+            pane.getChildren().add(coin2);
+            items.add(coin2);
+        }
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(new File("./src/main/resources/com/example/mario/GameLabels.fxml").toURI().toURL());
         Parent root = loader.load();

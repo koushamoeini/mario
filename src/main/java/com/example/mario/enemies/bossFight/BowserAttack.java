@@ -94,6 +94,6 @@ public class BowserAttack {
 
     //jumpAttack
     public void jumpAttack() {
-        bowser.setFallVelocity(15);
+        bowser.setFallVelocity(12);
     }
 }

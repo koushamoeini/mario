@@ -12,8 +12,10 @@ public class UsingAttacks {
     private final Mario mario;
     private final Bowser bowser;
     private boolean isGrabCoolDown = false;
+    private boolean isJumpCoolDown = false;
     private boolean isUsingAnotherAttack = false;
     private Timeline grabCoolDownTimer;
+    private Timeline jumpCoolDownTimer;
     private final BowserAttack bowserAttack;
 
     public UsingAttacks(MotionHandler motionHandler) {
@@ -23,6 +25,8 @@ public class UsingAttacks {
         this.bowserAttack = motionHandler.getBowserAttack();
         grabCoolDownTimer = new Timeline(grabCoolDownKeyFrame);
         grabCoolDownTimer.setCycleCount(Animation.INDEFINITE);
+        jumpCoolDownTimer = new Timeline(jumpCoolDownKeyFrame);
+        jumpCoolDownTimer.setCycleCount(Animation.INDEFINITE);
     }
 
     public void useAttack() {
@@ -36,6 +40,10 @@ public class UsingAttacks {
         isGrabCoolDown = false;
         grabCoolDownTimer.stop();
     });
+    KeyFrame jumpCoolDownKeyFrame = new KeyFrame(Duration.seconds(4), event -> {
+        isJumpCoolDown = true;
+        jumpCoolDownTimer.stop();
+    });
 
     public void useGrab() {
         if ((Math.abs(mario.getLayoutX()+mario.getFitWidth()/2 - (bowser.getLayoutX()+bowser.getFitWidth()/2)) < 110 &&mario.getLayoutY()-bowser.getLayoutY() >0
@@ -45,10 +53,9 @@ public class UsingAttacks {
             bowserAttack.grabAttack();
             grabCoolDownTimer.play();
         }
-        if(!isUsingAnotherAttack){
-            isUsingAnotherAttack=true;
+        if(!isUsingAnotherAttack&&!isJumpCoolDown){
             bowserAttack.jumpAttack();
-            isUsingAnotherAttack=false;
+            jumpCoolDownTimer.play();
         }
     }
 
