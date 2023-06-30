@@ -1,7 +1,9 @@
 package com.example.mario.GameHandle;
 
+import com.example.mario.Gun.Gun;
 import com.example.mario.Gun.Shot;
 import com.example.mario.Gun.ShotCollision;
+import com.example.mario.Gun.Sword;
 import com.example.mario.Items.Coin;
 import com.example.mario.Items.Item;
 import com.example.mario.Items.ItemCollision;
@@ -56,7 +58,7 @@ public class MotionHandler {
     private final List<Block> blocks;
     private final List<BackGround> backGrounds;
     private final List<Item> items;
-    private final List<Shot> shots=new ArrayList<>();
+    private final List<Gun> shots=new ArrayList<>();
     private int section;
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
     private GameData gameData = GameData.getInstance();
@@ -136,6 +138,14 @@ public class MotionHandler {
                         Shot shot=new Shot(10,16,(int)(mario.getLayoutX()+mario.getFitWidth()-10),(int)(mario.getLayoutY()+mario.getFitHeight()/2-8),marioAnimation.isMarioMovingLeft());
                         shots.add(shot);
                         pane.getChildren().add(shot);
+                    }
+                }
+                case S -> {
+                    if (!mario.isSwordCoolDown()&&shotCollision.usageCost()) {
+                        mario.setIsSwordCoolDown(true);
+                        Sword sword=new Sword(30,20,(int)(mario.getLayoutX()+mario.getFitWidth()-10),(int)(mario.getLayoutY()+mario.getFitHeight()/2-10),marioAnimation.isMarioMovingLeft());
+                        shots.add(sword);
+                        pane.getChildren().add(sword);
                     }
                 }
             }
@@ -504,4 +514,11 @@ public class MotionHandler {
             mapMoveDownCounter = jsonManager1.readArray(JsonManager.integerReference).get(3);
         }
     }
+    public List<Enemy> getEnemies() {
+        return enemies;
+    }
+    public List<Block> getBlocks() {
+        return blocks;
+    }
+
 }

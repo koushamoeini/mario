@@ -20,7 +20,6 @@ public class Gun extends ImageView {
         this.returnRange=returnRange;
         new ShotMovement(this);
     }
-
     public boolean isLeft() {
         return isLeft;
     }

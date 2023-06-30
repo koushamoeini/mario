@@ -66,7 +66,6 @@ public class EnemyCollision {
             }
         }
     }
-
     public void isUpCollision() {
         ArrayList<Enemy> deadEnemies = new ArrayList<>();
         for (Enemy enemy : enemies) {
@@ -75,7 +74,7 @@ public class EnemyCollision {
                     for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
                         if (j > enemy.getLayoutX() && j < enemy.getLayoutX() + enemy.getFitWidth()) {
                             if (enemy.isJumpDie()) {
-                                if (enemyDamaged(enemy)) deadEnemies.add(enemy);
+                                if (enemyDamaged(enemy,1)) deadEnemies.add(enemy);
                             }
                         }
                     }
@@ -85,16 +84,16 @@ public class EnemyCollision {
         enemies.removeAll(deadEnemies);
     }
 
-    public boolean enemyDamaged(Enemy enemy) {
+    public boolean enemyDamaged(Enemy enemy,int damage) {
         mario.doInvincible();
         if (!enemy.isInvincible()) {
-            enemy.setEnemyHp(enemy.getEnemyHp() - 1);
+            enemy.setEnemyHp(enemy.getEnemyHp() - damage);
             enemy.setInvincible(true);
             if (enemy instanceof Koopa) {
                 ((Koopa) enemy).doAngry();
             }
             enemy.getInvincibleEnemy().play();
-            if (enemy.getEnemyHp() == 0) {
+            if (enemy.getEnemyHp() <= 0) {
                 enemy.setVisible(false);
                 gameData.setCoin(gameData.getCoin() + 3);
                 gameLabelController.setCoinChange(gameData.getCoin());

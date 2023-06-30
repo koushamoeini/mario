@@ -23,7 +23,7 @@ public class ShotMovement {
                 gun.setDistanceTraveled(0);
                 velocity *= -1;
             }
-            if (gun.getDistanceTraveled() == gun.getReturnRange()) {
+            if (gun.getDistanceTraveled() == gun.getReturnRange()*30) {
                 gun.setVisible(false);
                 gun = null;
                 timeline.stop();
