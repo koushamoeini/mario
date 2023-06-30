@@ -46,8 +46,6 @@ public class EnemyCollision {
         }
     }
 
-
-
     public void isEnemyCollision() {
         enemyActivator();
         spinyDirectionFinder();

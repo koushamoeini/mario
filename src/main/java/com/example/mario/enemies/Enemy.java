@@ -68,6 +68,10 @@ public abstract class Enemy extends ImageView {
                             if (j > block.getLayoutX() && j < block.getLayoutX() + block.getFitWidth()) {
                                 this.setLayoutY(block.getLayoutY() - this.getFitHeight());
                                 downCollusion = true;
+                                if(block instanceof KillBlock) {
+                                    enemyHp=0;
+                                    this.setVisible(false);
+                                }
                                 break;
                             }
                         }
@@ -76,6 +80,10 @@ public abstract class Enemy extends ImageView {
                         for (int j = (int) this.getLayoutY(); j <= this.getLayoutY() + this.getFitHeight(); j++) {
                             if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
                                 goingLeft = true;
+                                if(block instanceof KillBlock) {
+                                    enemyHp=0;
+                                    this.setVisible(false);
+                                }
                                 break;
                             }
                         }
@@ -84,6 +92,10 @@ public abstract class Enemy extends ImageView {
                         for (int j = (int) this.getLayoutY(); j <= this.getLayoutY() + this.getFitHeight(); j++) {
                             if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
                                 goingLeft = false;
+                                if(block instanceof KillBlock) {
+                                    enemyHp=0;
+                                    this.setVisible(false);
+                                }
                                 break;
                             }
                         }

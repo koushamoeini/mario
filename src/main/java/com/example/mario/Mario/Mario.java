@@ -19,7 +19,8 @@ public class Mario extends ImageView {
     private boolean canBreakBlock = false;
     private boolean canShoot = false;
     private boolean isSit = false;
-    private boolean isGrabbing = false;
+    private boolean isCanMove=true;
+    private boolean isNausea=false;
     private String str;
     private final MarioStateManger marioStateManger;
     private Timeline invincibleMario;
@@ -163,11 +164,17 @@ public class Mario extends ImageView {
         this.isSwordCoolDown.set(isSwordCoolDown);
     }
 
-    public boolean isGrabbing() {
-        return isGrabbing;
+    public boolean isCanMove() {
+        return isCanMove;
     }
 
-    public void setGrabbing(boolean grabbing) {
-        isGrabbing = grabbing;
+    public void setCanMove(boolean canMove) {
+        isCanMove = canMove;
+    }
+    public boolean isNausea() {
+        return isNausea;
+    }
+    public void setNausea(boolean nausea) {
+        isNausea = nausea;
     }
 }

@@ -48,7 +48,7 @@ public class MotionHandler {
     private ImageView music;
     Stage stage;
     Pane pane;
-    private final double gravity = 0.5;
+    private double gravity = 0.5;
     private double velocity = 0;
     private boolean isLeft = false;
     private boolean isRight = false;
@@ -88,7 +88,9 @@ public class MotionHandler {
     });
     KeyFrame bossMoverKeyFrame = new KeyFrame(Duration.millis(10), event -> {
         try {
-            bowserMovement.bowserAllMove();
+            if(!usingAttacks.isUsingAnotherAttack()) {
+                bowserMovement.bowserAllMove();
+            }
         }catch (Exception ignored){}
     });
     private final String path = "./src/main/resources/GamaData/";
@@ -126,46 +128,54 @@ public class MotionHandler {
         jsonJob();
         pane.getChildren().add(mario);
         stage.getScene().setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case RIGHT -> isRight = true;
-                case LEFT -> isLeft = true;
-                case UP -> {
-                    if (marioCollision.isDownCollusion() && !jumpStop && !mario.isSit()) {
-                        marioAnimation.setJumping(true);
-                        marioAnimation.startMoving();
-                        velocity = mario.getJumpVelocity();
-                        mario.setLayoutY(mario.getLayoutY() - 5);
+            if(mario.isCanMove()) {
+                switch (event.getCode()) {
+                    case RIGHT -> isRight = true;
+                    case LEFT -> isLeft = true;
+                    case UP -> {
+                        if (marioCollision.isDownCollusion() && !jumpStop && !mario.isSit()) {
+                            marioAnimation.setJumping(true);
+                            marioAnimation.startMoving();
+                            velocity = mario.getJumpVelocity();
+                            mario.setLayoutY(mario.getLayoutY() - 5);
+                        }
+                    }
+                    case DOWN -> {
+                        if (mario.getMarioState() != 0) {
+                            mario.setSit(true);
+                            marioAnimation.marioSiting();
+                        }
+                    }
+                    case ESCAPE -> {
+                        try {
+                            gameStop();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    case R -> mario.setDead(true);
+                    case D -> {
+                        if (mario.isCanShoot() && !mario.isShotCoolDown()) {
+                            mario.setIsShotCoolDown(true);
+                            Shot shot = new Shot(10, 16, (int) (mario.getLayoutX() + mario.getFitWidth() - 10), (int) (mario.getLayoutY() + mario.getFitHeight() / 2 - 8), marioAnimation.isMarioMovingLeft());
+                            shots.add(shot);
+                            pane.getChildren().add(shot);
+                        }
+                    }
+                    case S -> {
+                        if (!mario.isSwordCoolDown() && shotCollision.usageCost()) {
+                            mario.setIsSwordCoolDown(true);
+                            Sword sword = new Sword(30, 20, (int) (mario.getLayoutX() + mario.getFitWidth() - 10), (int) (mario.getLayoutY() + mario.getFitHeight() / 2 - 10), marioAnimation.isMarioMovingLeft());
+                            shots.add(sword);
+                            pane.getChildren().add(sword);
+                        }
                     }
                 }
-                case DOWN -> {
-                    if (mario.getMarioState() != 0) {
-                        mario.setSit(true);
-                        marioAnimation.marioSiting();
-                    }
-                }
-                case ESCAPE -> {
-                    try {
-                        gameStop();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                case R -> mario.setDead(true);
-                case D -> {
-                    if (mario.isCanShoot()&&!mario.isShotCoolDown()) {
-                        mario.setIsShotCoolDown(true);
-                        Shot shot=new Shot(10,16,(int)(mario.getLayoutX()+mario.getFitWidth()-10),(int)(mario.getLayoutY()+mario.getFitHeight()/2-8),marioAnimation.isMarioMovingLeft());
-                        shots.add(shot);
-                        pane.getChildren().add(shot);
-                    }
-                }
-                case S -> {
-                    if (!mario.isSwordCoolDown()&&shotCollision.usageCost()) {
-                        mario.setIsSwordCoolDown(true);
-                        Sword sword=new Sword(30,20,(int)(mario.getLayoutX()+mario.getFitWidth()-10),(int)(mario.getLayoutY()+mario.getFitHeight()/2-10),marioAnimation.isMarioMovingLeft());
-                        shots.add(sword);
-                        pane.getChildren().add(sword);
-                    }
+            }
+            else{
+                switch (event.getCode()) {
+                    case RIGHT -> bowserAttack.setGrabRightCounter(bowserAttack.getGrabRightCounter()+1);
+                    case LEFT -> bowserAttack.setGrabLeftCounter(bowserAttack.getGrabLeftCounter()+1);
                 }
             }
         });
@@ -553,5 +563,13 @@ public class MotionHandler {
 
     public BowserAttack getBowserAttack() {
         return bowserAttack;
+    }
+
+    public void setGravity(double gravity) {
+        this.gravity = gravity;
+    }
+
+    public UsingAttacks getUsingAttacks() {
+        return usingAttacks;
     }
 }
