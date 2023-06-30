@@ -17,11 +17,13 @@ import com.example.mario.controllers.GameLabelController;
 import com.example.mario.enemies.Enemy;
 import com.example.mario.enemies.EnemyCollision;
 import com.example.mario.enemies.Flower;
+import com.example.mario.enemies.bossFight.BowerMovement;
 import com.example.mario.levels.Level1_2;
 import com.example.mario.manager.JsonManager;
 import com.example.mario.manager.VoicePlayer;
 import com.example.mario.user.GameData;
 import com.example.mario.user.UserData;
+import com.fasterxml.jackson.databind.util.ISO8601Utils;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -69,13 +71,20 @@ public class MotionHandler {
     private final MarioAnimation marioAnimation;
     private final EnemyCollision enemyCollision;
     private final ShotCollision shotCollision;
+    private BowerMovement bowerMovement;
     AnimationTimer timer;
     Timeline andBeginTime = new Timeline();
+
+    private Timeline bossMover=new Timeline();
     private final VoicePlayer andBegin = new VoicePlayer("./src/main/resources/Media/and begin.mp3");
     private final VoicePlayer beppi = new VoicePlayer("./src/main/resources/Media/beppi.mp3");
     KeyFrame keyFrame = new KeyFrame(Duration.seconds(4), event -> {
         andBegin.stop();
         beppi.play();
+    });
+    KeyFrame bossMoverKeyFrame = new KeyFrame(Duration.millis(10), event -> {
+        System.out.println("vdfi");
+        bowerMovement.horizontalMovement();
     });
     private final String path = "./src/main/resources/GamaData/";
     JsonManager jsonManager = new JsonManager(path + "users.json");
@@ -87,14 +96,6 @@ public class MotionHandler {
                          List<Item> items, Stage stage, Pane pane) throws Exception {
         this.stage = stage;
         this.pane = pane;
-        gameLabelController.setPointChange(gameData.getPoint());
-        gameLabelController.setHpChange(gameData.getHp());
-        gameLabelController.setCoinChange(gameData.getCoin());
-        andBeginTime.getKeyFrames().addAll(keyFrame);
-        andBeginTime.setCycleCount(Animation.INDEFINITE);
-        //andBeginTime.play();
-        //andBegin.play();
-
         this.blocks = blocks;
         this.enemies = enemies;
         this.backGrounds = backGrounds;
@@ -104,6 +105,17 @@ public class MotionHandler {
         itemCollision = new ItemCollision(mario, items);
         enemyCollision = new EnemyCollision(this.enemies, this.mario);
         shotCollision=new ShotCollision(this.blocks,this.enemies,this.shots,enemyCollision);
+        bowerMovement=new BowerMovement(this);
+        gameLabelController.setPointChange(gameData.getPoint());
+        gameLabelController.setHpChange(gameData.getHp());
+        gameLabelController.setCoinChange(gameData.getCoin());
+        andBeginTime.getKeyFrames().addAll(keyFrame);
+        andBeginTime.setCycleCount(Animation.INDEFINITE);
+        //andBeginTime.play();
+        //andBegin.play();
+        bossMover.getKeyFrames().addAll(bossMoverKeyFrame);
+        bossMover.setCycleCount(Animation.INDEFINITE);
+        bossMover.play();
         jsonJob();
         pane.getChildren().add(mario);
         stage.getScene().setOnKeyPressed(event -> {
@@ -521,4 +533,7 @@ public class MotionHandler {
         return blocks;
     }
 
+    public Mario getMario() {
+        return mario;
+    }
 }

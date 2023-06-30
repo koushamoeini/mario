@@ -33,14 +33,14 @@ public class EnemyCollision {
     }
     public void spinyDirectionFinder(){
         for (Enemy enemy : enemies) {
-            if (enemy instanceof Spiny){
+            if (enemy instanceof Spiny spiny){
                 if(mario.getLayoutX()-enemy.getLayoutX()<0) {
-                    if(!((Spiny) enemy).isSpinyGoingLeft())((Spiny) enemy).setSpinyChangeDirection(true);
-                    ((Spiny) enemy).setSpinyGoingLeft(true);
+                    if(!spiny.isSpinyGoingLeft())spiny.setSpinyChangeDirection(true);
+                    spiny.setSpinyGoingLeft(true);
                 }
                 else {
-                    if(((Spiny) enemy).isSpinyGoingLeft())((Spiny) enemy).setSpinyChangeDirection(false);
-                    ((Spiny) enemy).setSpinyGoingLeft(false);
+                    if(spiny.isSpinyGoingLeft())spiny.setSpinyChangeDirection(false);
+                    spiny.setSpinyGoingLeft(false);
                 }
             }
         }

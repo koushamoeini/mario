@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Level1_1 {
     private Stage stage;
@@ -24,7 +25,7 @@ public class Level1_1 {
         Pane pane = new Pane();
         ArrayList<Item> items = new ArrayList<>();
         ArrayList<BackGround> images = new ArrayList<>();
-        ArrayList<Block> blocks = new ArrayList<>();
+        List<Block> blocks = new ArrayList<>();
         ArrayList<Enemy> enemies = new ArrayList<>();
 
         //addBackGround
@@ -104,7 +105,7 @@ public class Level1_1 {
                     enemies.add(enemyPipe3);
                 }
             }
-            Bowser koopa=new Bowser(60,90,420,450,blocks,pane);
+            Bowser koopa=new Bowser(90,150,420,450,blocks,pane);
             pane.getChildren().add(koopa);
             enemies.add(koopa);
             Spiny spiny=new Spiny(30,30,4130,420);
@@ -134,15 +135,15 @@ public class Level1_1 {
                 pane.getChildren().add(pipe3);
                 blocks.add(pipe3);
             }
-            Brick brick1 = new Brick(30, 30, 180, 390);
-            pane.getChildren().add(brick1);
-            blocks.add(brick1);
-            CoinBlock coinBrick = new CoinBlock(30, 30, 210, 390);
-            pane.getChildren().add(coinBrick);
-            blocks.add(coinBrick);
-            SuperCoinBlock superCoinBrick = new SuperCoinBlock(30, 30, 240, 390);
-            pane.getChildren().add(superCoinBrick);
-            blocks.add(superCoinBrick);
+//            Brick brick1 = new Brick(30, 30, 180, 390);
+//            pane.getChildren().add(brick1);
+//            blocks.add(brick1);
+//            CoinBlock coinBrick = new CoinBlock(30, 30, 210, 390);
+//            pane.getChildren().add(coinBrick);
+//            blocks.add(coinBrick);
+//            SuperCoinBlock superCoinBrick = new SuperCoinBlock(30, 30, 240, 390);
+//            pane.getChildren().add(superCoinBrick);
+//            blocks.add(superCoinBrick);
             for (int i = 310; i < 490; i += 30) {
                 if (i == 310 || i == 340) {
                     MysteryBlock mysteryBlock = new MysteryBlock(30, 30, i, 220);

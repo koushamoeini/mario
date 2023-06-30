@@ -46,8 +46,8 @@ public class Spiny extends Enemy {
     }
 
     KeyFrame keyFrame0 = new KeyFrame(Duration.millis(20), event -> movement(this.getxVelocity()));
-    KeyFrame keyFrame1 = new KeyFrame(Duration.seconds(1), event -> {
-        double acceleration = 0.5;
+    KeyFrame keyFrame1 = new KeyFrame(Duration.millis(200), event -> {
+        double acceleration = 1;
         this.setxVelocity(this.getxVelocity() + acceleration);
     });
 
