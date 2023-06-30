@@ -3,6 +3,7 @@ package com.example.mario.enemies;
 import com.example.mario.blocks.Block;
 import com.example.mario.blocks.KillBlock;
 import com.example.mario.blocks.WinBlock;
+import com.example.mario.enemies.bossFight.Bowser;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -62,16 +63,12 @@ public abstract class Enemy extends ImageView {
         if (!(this instanceof Flower)) {
             downCollusion = false;
             for (Block block : blocks) {
-                if (!(block instanceof WinBlock || block instanceof KillBlock)) {
+                if (! (block instanceof WinBlock) ) {
                     if (this.getLayoutY() + this.getFitHeight() >= block.getLayoutY() && this.getLayoutY() + this.getFitHeight() <= block.getLayoutY() + block.getFitHeight()) {
                         for (int j = (int) this.getLayoutX(); j <= this.getLayoutX() + this.getFitWidth(); j++) {
                             if (j > block.getLayoutX() && j < block.getLayoutX() + block.getFitWidth()) {
                                 this.setLayoutY(block.getLayoutY() - this.getFitHeight());
                                 downCollusion = true;
-                                if(block instanceof KillBlock) {
-                                    enemyHp=0;
-                                    this.setVisible(false);
-                                }
                                 break;
                             }
                         }
@@ -80,10 +77,6 @@ public abstract class Enemy extends ImageView {
                         for (int j = (int) this.getLayoutY(); j <= this.getLayoutY() + this.getFitHeight(); j++) {
                             if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
                                 goingLeft = true;
-                                if(block instanceof KillBlock) {
-                                    enemyHp=0;
-                                    this.setVisible(false);
-                                }
                                 break;
                             }
                         }
@@ -92,10 +85,6 @@ public abstract class Enemy extends ImageView {
                         for (int j = (int) this.getLayoutY(); j <= this.getLayoutY() + this.getFitHeight(); j++) {
                             if (j > block.getLayoutY() && j < block.getLayoutY() + block.getFitHeight()) {
                                 goingLeft = false;
-                                if(block instanceof KillBlock) {
-                                    enemyHp=0;
-                                    this.setVisible(false);
-                                }
                                 break;
                             }
                         }
@@ -137,4 +126,8 @@ public abstract class Enemy extends ImageView {
     public double getxVelocity() {
         return xVelocity;
     }
+    public void updateXVelocity(int xVelocity){
+        this.xVelocity=xVelocity;
+    }
+
 }

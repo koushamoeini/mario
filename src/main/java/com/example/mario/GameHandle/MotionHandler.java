@@ -76,6 +76,7 @@ public class MotionHandler {
     private BowserMovement bowserMovement;
     private BowserAttack bowserAttack;
     private UsingAttacks usingAttacks;
+    private Bowser bowser;
     AnimationTimer timer;
     Timeline andBeginTime = new Timeline();
 
@@ -86,9 +87,9 @@ public class MotionHandler {
         andBegin.stop();
         beppi.play();
     });
-    KeyFrame bossMoverKeyFrame = new KeyFrame(Duration.millis(10), event -> {
+    KeyFrame bossMoverKeyFrame = new KeyFrame(Duration.millis(20), event -> {
         try {
-            if(!usingAttacks.isUsingAnotherAttack()) {
+            if(!usingAttacks.isUsingAnotherAttack()||bowser.isJumping()) {
                 bowserMovement.bowserAllMove();
             }
         }catch (Exception ignored){}
@@ -115,6 +116,7 @@ public class MotionHandler {
         bowserMovement=new BowserMovement(this);
         bowserAttack =new BowserAttack(this);
         usingAttacks=new UsingAttacks(this);
+        bowser=bowserFounder();
         gameLabelController.setPointChange(gameData.getPoint());
         gameLabelController.setHpChange(gameData.getHp());
         gameLabelController.setCoinChange(gameData.getCoin());
@@ -571,5 +573,9 @@ public class MotionHandler {
 
     public UsingAttacks getUsingAttacks() {
         return usingAttacks;
+    }
+
+    public BowserMovement getBowserMovement() {
+        return bowserMovement;
     }
 }

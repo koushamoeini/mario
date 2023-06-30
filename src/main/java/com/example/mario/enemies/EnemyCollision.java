@@ -15,8 +15,6 @@ public class EnemyCollision {
     public EnemyCollision(List<Enemy> enemies, Mario mario) {
         this.enemies = enemies;
         this.mario = mario;
-
-
     }
 
     public void enemyActivator() {

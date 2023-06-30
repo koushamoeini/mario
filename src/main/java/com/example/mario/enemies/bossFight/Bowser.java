@@ -15,6 +15,7 @@ public class Bowser extends Enemy {
      private List<Block> blocks;
      private List<Block> bowserBlocks=new ArrayList<>();
      private boolean bowerGoingLeft;
+     private boolean isJumping=false;
     public Bowser(int edgeX, int edgeY, int blockX, int blockY, List<Block> blocks,Pane pane) {
         super(edgeX, edgeY, blockX, blockY, true, 20, 100, 0);
         Image image = new Image("Images/enemies/bowser/bowserLeft.png");
@@ -30,6 +31,7 @@ public class Bowser extends Enemy {
         this.blocks.add(mysteryBlock);
         bowserBlocks.add(mysteryBlock);
         pane.getChildren().add(mysteryBlock);
+        this.updateXVelocity(4);
     }
 
     public boolean isBowerGoingLeft() {
@@ -39,4 +41,13 @@ public class Bowser extends Enemy {
     public void setBowerGoingLeft(boolean bowerGoingLeft) {
         this.bowerGoingLeft = bowerGoingLeft;
     }
+
+    public boolean isJumping() {
+        return isJumping;
+    }
+
+    public void setJumping(boolean jumping) {
+        isJumping = jumping;
+    }
+
 }

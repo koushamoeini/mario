@@ -16,6 +16,7 @@ public class BowserAttack {
     private Bowser bowser;
     private Timeline grabStartTimer;
     private Timeline grabAttackTimer;
+    private Timeline finishJumpFounderTimer;
     private int grabLeftCounter = 0;
     private int grabRightCounter = 0;
 
@@ -94,6 +95,19 @@ public class BowserAttack {
 
     //jumpAttack
     public void jumpAttack() {
-        bowser.setFallVelocity(12);
+        bowser.setFallVelocity(10);
+        bowser.setJumping(true);
+        finishJumpFounderTimer = new Timeline(finishJumpFounderKeyFrame);
+        finishJumpFounderTimer.setCycleCount(Animation.INDEFINITE);
+        finishJumpFounderTimer.play();
     }
+    KeyFrame finishJumpFounderKeyFrame = new KeyFrame(Duration.millis(1), event -> {
+        if(bowser.getFallVelocity()<0&&bowser.isDownCollusion()) {
+            bowser.setFallVelocity(0);
+            bowser.setImage(new Image("Images/enemies/bowser/bowserLeft.png"));
+            bowser.setJumping(false);
+            motionHandler.getUsingAttacks().setUsingAnotherAttack(false);
+            finishJumpFounderTimer.stop();
+        }
+    });
 }
