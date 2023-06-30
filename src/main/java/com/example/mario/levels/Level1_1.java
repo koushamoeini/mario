@@ -105,9 +105,9 @@ public class Level1_1 {
                     enemies.add(enemyPipe3);
                 }
             }
-            Bowser koopa=new Bowser(90,150,420,450,blocks,pane);
-            pane.getChildren().add(koopa);
-            enemies.add(koopa);
+//            Bowser koopa=new Bowser(90,120,420,450,blocks,pane);
+//            pane.getChildren().add(koopa);
+//            enemies.add(koopa);
             Spiny spiny=new Spiny(30,30,4130,420);
             pane.getChildren().add(spiny);
             enemies.add(spiny);

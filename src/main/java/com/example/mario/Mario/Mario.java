@@ -19,6 +19,7 @@ public class Mario extends ImageView {
     private boolean canBreakBlock = false;
     private boolean canShoot = false;
     private boolean isSit = false;
+    private boolean isGrabbing = false;
     private String str;
     private final MarioStateManger marioStateManger;
     private Timeline invincibleMario;
@@ -160,5 +161,13 @@ public class Mario extends ImageView {
 
     public void setIsSwordCoolDown(boolean isSwordCoolDown) {
         this.isSwordCoolDown.set(isSwordCoolDown);
+    }
+
+    public boolean isGrabbing() {
+        return isGrabbing;
+    }
+
+    public void setGrabbing(boolean grabbing) {
+        isGrabbing = grabbing;
     }
 }

@@ -17,13 +17,15 @@ import com.example.mario.controllers.GameLabelController;
 import com.example.mario.enemies.Enemy;
 import com.example.mario.enemies.EnemyCollision;
 import com.example.mario.enemies.Flower;
-import com.example.mario.enemies.bossFight.BowerMovement;
+import com.example.mario.enemies.bossFight.Bowser;
+import com.example.mario.enemies.bossFight.BowserAttack;
+import com.example.mario.enemies.bossFight.BowserMovement;
+import com.example.mario.enemies.bossFight.UsingAttacks;
 import com.example.mario.levels.Level1_2;
 import com.example.mario.manager.JsonManager;
 import com.example.mario.manager.VoicePlayer;
 import com.example.mario.user.GameData;
 import com.example.mario.user.UserData;
-import com.fasterxml.jackson.databind.util.ISO8601Utils;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -71,7 +73,9 @@ public class MotionHandler {
     private final MarioAnimation marioAnimation;
     private final EnemyCollision enemyCollision;
     private final ShotCollision shotCollision;
-    private BowerMovement bowerMovement;
+    private BowserMovement bowserMovement;
+    private BowserAttack bowserAttack;
+    private UsingAttacks usingAttacks;
     AnimationTimer timer;
     Timeline andBeginTime = new Timeline();
 
@@ -83,8 +87,9 @@ public class MotionHandler {
         beppi.play();
     });
     KeyFrame bossMoverKeyFrame = new KeyFrame(Duration.millis(10), event -> {
-        System.out.println("vdfi");
-        bowerMovement.horizontalMovement();
+        try {
+            bowserMovement.bowserAllMove();
+        }catch (Exception ignored){}
     });
     private final String path = "./src/main/resources/GamaData/";
     JsonManager jsonManager = new JsonManager(path + "users.json");
@@ -105,7 +110,9 @@ public class MotionHandler {
         itemCollision = new ItemCollision(mario, items);
         enemyCollision = new EnemyCollision(this.enemies, this.mario);
         shotCollision=new ShotCollision(this.blocks,this.enemies,this.shots,enemyCollision);
-        bowerMovement=new BowerMovement(this);
+        bowserMovement=new BowserMovement(this);
+        bowserAttack =new BowserAttack(this);
+        usingAttacks=new UsingAttacks(this);
         gameLabelController.setPointChange(gameData.getPoint());
         gameLabelController.setHpChange(gameData.getHp());
         gameLabelController.setCoinChange(gameData.getCoin());
@@ -222,6 +229,7 @@ public class MotionHandler {
                             throw new RuntimeException(e);
                         }
                     }
+                    usingAttacks.useAttack();
                     isMapMustMovingDown();
                     enemyCollision.isEnemyCollision();
                     marioCollision.collision();
@@ -535,5 +543,15 @@ public class MotionHandler {
 
     public Mario getMario() {
         return mario;
+    }
+    public Bowser bowserFounder() {
+        for (Enemy enemy : enemies) {
+            if (enemy instanceof Bowser bowser) return bowser;
+        }
+        return null;
+    }
+
+    public BowserAttack getBowserAttack() {
+        return bowserAttack;
     }
 }
