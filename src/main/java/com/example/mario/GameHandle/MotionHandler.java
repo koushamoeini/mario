@@ -62,7 +62,7 @@ public class MotionHandler {
     private final List<Block> blocks;
     private final List<BackGround> backGrounds;
     private final List<Item> items;
-    private final List<Gun> shots=new ArrayList<>();
+    private final List<Gun> shots = new ArrayList<>();
     private int section;
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
     private GameData gameData = GameData.getInstance();
@@ -80,7 +80,7 @@ public class MotionHandler {
     AnimationTimer timer;
     Timeline andBeginTime = new Timeline();
 
-    private Timeline bossMover=new Timeline();
+    private Timeline bossMover = new Timeline();
     private final VoicePlayer andBegin = new VoicePlayer("./src/main/resources/Media/and begin.mp3");
     private final VoicePlayer beppi = new VoicePlayer("./src/main/resources/Media/beppi.mp3");
     KeyFrame keyFrame = new KeyFrame(Duration.seconds(4), event -> {
@@ -89,10 +89,11 @@ public class MotionHandler {
     });
     KeyFrame bossMoverKeyFrame = new KeyFrame(Duration.millis(20), event -> {
         try {
-            if(!usingAttacks.isUsingAnotherAttack()||bowser.isJumping()) {
+            if (!usingAttacks.isUsingAnotherAttack() || bowser.isJumping()) {
                 bowserMovement.bowserAllMove();
             }
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
     });
     private final String path = "./src/main/resources/GamaData/";
     JsonManager jsonManager = new JsonManager(path + "users.json");
@@ -112,11 +113,11 @@ public class MotionHandler {
         marioCollision = new MarioCollision(mario, this.blocks, new BlockCollision(this.pane, this.items, mario));
         itemCollision = new ItemCollision(mario, items);
         enemyCollision = new EnemyCollision(this.enemies, this.mario);
-        shotCollision=new ShotCollision(this.blocks,this.enemies,this.shots,enemyCollision);
-        bowserMovement=new BowserMovement(this);
-        bowserAttack =new BowserAttack(this);
-        usingAttacks=new UsingAttacks(this);
-        bowser=bowserFounder();
+        shotCollision = new ShotCollision(this.blocks, this.enemies, this.shots, enemyCollision);
+        bowserMovement = new BowserMovement(this);
+        bowserAttack = new BowserAttack(this);
+        usingAttacks = new UsingAttacks(this);
+        bowser = bowserFounder();
         gameLabelController.setPointChange(gameData.getPoint());
         gameLabelController.setHpChange(gameData.getHp());
         gameLabelController.setCoinChange(gameData.getCoin());
@@ -130,12 +131,25 @@ public class MotionHandler {
         jsonJob();
         pane.getChildren().add(mario);
         stage.getScene().setOnKeyPressed(event -> {
-            if(mario.isCanMove()) {
+            if (mario.isCanMove()) {
                 switch (event.getCode()) {
-                    case RIGHT -> isRight = true;
-                    case LEFT -> isLeft = true;
+                    case RIGHT -> {
+                        if (mario.isNausea()) {
+                            if (mario.getMarioState() != 0) {
+                                mario.setSit(true);
+                                marioAnimation.marioSiting();
+                            }
+                        } else isRight = true;
+                    }
+                    case LEFT -> {
+                        if (mario.isNausea()) {
+                            isRight = true;
+                        } else isLeft = true;
+                    }
                     case UP -> {
-                        if (marioCollision.isDownCollusion() && !jumpStop && !mario.isSit()) {
+                        if (mario.isNausea()) {
+                            isLeft = true;
+                        } else if (marioCollision.isDownCollusion() && !jumpStop && !mario.isSit()) {
                             marioAnimation.setJumping(true);
                             marioAnimation.startMoving();
                             velocity = mario.getJumpVelocity();
@@ -143,7 +157,12 @@ public class MotionHandler {
                         }
                     }
                     case DOWN -> {
-                        if (mario.getMarioState() != 0) {
+                        if (mario.isNausea()) {
+                            marioAnimation.setJumping(true);
+                            marioAnimation.startMoving();
+                            velocity = mario.getJumpVelocity();
+                            mario.setLayoutY(mario.getLayoutY() - 5);
+                        } else if (mario.getMarioState() != 0) {
                             mario.setSit(true);
                             marioAnimation.marioSiting();
                         }
@@ -173,32 +192,55 @@ public class MotionHandler {
                         }
                     }
                 }
-            }
-            else{
+            } else {
                 switch (event.getCode()) {
-                    case RIGHT -> bowserAttack.setGrabRightCounter(bowserAttack.getGrabRightCounter()+1);
-                    case LEFT -> bowserAttack.setGrabLeftCounter(bowserAttack.getGrabLeftCounter()+1);
+                    case RIGHT -> bowserAttack.setGrabRightCounter(bowserAttack.getGrabRightCounter() + 1);
+                    case LEFT -> bowserAttack.setGrabLeftCounter(bowserAttack.getGrabLeftCounter() + 1);
                 }
             }
         });
         stage.getScene().setOnKeyReleased(event -> {
-            switch (event.getCode()) {
-                case RIGHT -> {
-                    isRight = false;
-                    if (marioCollision.isDownCollusion()) marioAnimation.stopMoving();
-                    marioAnimation.setMoving(false);
-                }
+            if(mario.isNausea()){
+                switch (event.getCode()) {
+                    case LEFT -> {
+                        isRight = false;
+                        if (marioCollision.isDownCollusion()) marioAnimation.stopMoving();
+                        marioAnimation.setMoving(false);
+                    }
 
-                case LEFT -> {
-                    isLeft = false;
-                    if (marioCollision.isDownCollusion()) marioAnimation.stopMoving();
-                    marioAnimation.setMarioMovingLeft(false);
-                    marioAnimation.setMoving(false);
+                    case UP -> {
+                        isLeft = false;
+                        if (marioCollision.isDownCollusion()) marioAnimation.stopMoving();
+                        marioAnimation.setMarioMovingLeft(false);
+                        marioAnimation.setMoving(false);
+                    }
+                    case RIGHT -> {
+                        if (mario.getMarioState() != 0) {
+                            mario.setSit(false);
+                            marioAnimation.marioSiting();
+                        }
+                    }
                 }
-                case DOWN -> {
-                    if (mario.getMarioState() != 0) {
-                        mario.setSit(false);
-                        marioAnimation.marioSiting();
+            }
+            else {
+                switch (event.getCode()) {
+                    case RIGHT -> {
+                        isRight = false;
+                        if (marioCollision.isDownCollusion()) marioAnimation.stopMoving();
+                        marioAnimation.setMoving(false);
+                    }
+
+                    case LEFT -> {
+                        isLeft = false;
+                        if (marioCollision.isDownCollusion()) marioAnimation.stopMoving();
+                        marioAnimation.setMarioMovingLeft(false);
+                        marioAnimation.setMoving(false);
+                    }
+                    case DOWN -> {
+                        if (mario.getMarioState() != 0) {
+                            mario.setSit(false);
+                            marioAnimation.marioSiting();
+                        }
                     }
                 }
             }
@@ -337,7 +379,8 @@ public class MotionHandler {
         for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() + mapMoveCounter * 3);
         for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() + mapMoveDownCounter * 4);
         for (BackGround backGround : backGrounds) backGround.setLayoutX(backGround.getLayoutX() + mapMoveCounter * 3);
-        for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() + mapMoveDownCounter * 4);
+        for (BackGround backGround : backGrounds)
+            backGround.setLayoutY(backGround.getLayoutY() + mapMoveDownCounter * 4);
         for (Item item : items) item.setLayoutX(item.getLayoutX() + mapMoveCounter * 3);
         for (Item item : items) item.setLayoutY(item.getLayoutY() + mapMoveDownCounter * 4);
         mapMoveDownCounter = 0;
@@ -507,7 +550,8 @@ public class MotionHandler {
             music.setImage(new Image("Images/backGrounds/unmute.png"));
         }
     }
-    public void jsonJob() throws Exception{
+
+    public void jsonJob() throws Exception {
         if (ChooseSaveController.isFirstSave()) {
             ChooseSaveController.setFirstSave(false);
             mapMoverRight(jsonManager1.readArray(JsonManager.integerReference).get(0));
@@ -546,9 +590,11 @@ public class MotionHandler {
             mapMoveDownCounter = jsonManager1.readArray(JsonManager.integerReference).get(3);
         }
     }
+
     public List<Enemy> getEnemies() {
         return enemies;
     }
+
     public List<Block> getBlocks() {
         return blocks;
     }
@@ -556,6 +602,7 @@ public class MotionHandler {
     public Mario getMario() {
         return mario;
     }
+
     public Bowser bowserFounder() {
         for (Enemy enemy : enemies) {
             if (enemy instanceof Bowser bowser) return bowser;

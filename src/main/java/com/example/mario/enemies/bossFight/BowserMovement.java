@@ -46,7 +46,7 @@ public class BowserMovement {
         int random = (int) (Math.random() * 4);
         int gravity = 1;
         if (bowser.isDownCollusion()) {
-            if (bowser.getFallVelocity() < 0) bowser.setImage(new Image("Images/enemies/bowser/jumpAttack.png"));
+            if (bowser.getFallVelocity() < 0&&motionHandler.getUsingAttacks().isUsingAnotherAttack()) bowser.setImage(new Image("Images/enemies/bowser/jumpAttack.png"));
             if (random % 4 == 0) bowser.setFallVelocity(bowser.getFallVelocity() - gravity);
         }
         if (isUpCollision()) bowser.setFallVelocity(0);

@@ -17,6 +17,7 @@ public class BowserAttack {
     private Timeline grabStartTimer;
     private Timeline grabAttackTimer;
     private Timeline finishJumpFounderTimer;
+    private Timeline nauseaTimer;
     private int grabLeftCounter = 0;
     private int grabRightCounter = 0;
 
@@ -47,7 +48,9 @@ public class BowserAttack {
             grabAttackTimer.play();
             grabStartTimer.stop();
         }
-        motionHandler.getUsingAttacks().setUsingAnotherAttack(false);
+        else {
+            resetInstance();
+        }
         grabStartTimer.stop();
     });
     KeyFrame grabAttackKeyFrame = new KeyFrame(Duration.seconds(3), event -> {
@@ -101,8 +104,20 @@ public class BowserAttack {
         finishJumpFounderTimer.setCycleCount(Animation.INDEFINITE);
         finishJumpFounderTimer.play();
     }
+    KeyFrame nauseaKeyFrame = new KeyFrame(Duration.seconds(3), event -> {
+        mario.setNausea(false);
+        nauseaTimer.stop();
+    });
     KeyFrame finishJumpFounderKeyFrame = new KeyFrame(Duration.millis(1), event -> {
-        if(bowser.getFallVelocity()<0&&bowser.isDownCollusion()) {
+        if(bowser.getFallVelocity()<0&&!bowser.isDownCollusion()) {
+            System.out.println(mario.getLayoutY()+2*mario.getFitHeight());
+            System.out.println(bowser.getLayoutY()+bowser.getFitHeight());
+            if(mario.getLayoutY()+2*mario.getFitHeight()>bowser.getLayoutY()+bowser.getFitHeight()) {
+                mario.setNausea(true);
+                nauseaTimer = new Timeline(nauseaKeyFrame);
+                nauseaTimer.setCycleCount(Animation.INDEFINITE);
+                nauseaTimer.play();
+            }
             bowser.setFallVelocity(0);
             bowser.setImage(new Image("Images/enemies/bowser/bowserLeft.png"));
             bowser.setJumping(false);
@@ -110,4 +125,5 @@ public class BowserAttack {
             finishJumpFounderTimer.stop();
         }
     });
+    //FireBallAttack
 }
