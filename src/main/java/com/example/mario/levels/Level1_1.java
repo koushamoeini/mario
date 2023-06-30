@@ -6,6 +6,7 @@ import com.example.mario.Items.Coin;
 import com.example.mario.Items.Item;
 import com.example.mario.enemies.*;
 import com.example.mario.blocks.*;
+import com.example.mario.enemies.bossFight.Bowser;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -103,7 +104,7 @@ public class Level1_1 {
                     enemies.add(enemyPipe3);
                 }
             }
-            Koopa koopa=new Koopa(30,30,420,450);
+            Bowser koopa=new Bowser(60,90,420,450,blocks,pane);
             pane.getChildren().add(koopa);
             enemies.add(koopa);
             Spiny spiny=new Spiny(30,30,4130,420);
