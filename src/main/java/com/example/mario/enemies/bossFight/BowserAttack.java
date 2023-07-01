@@ -20,6 +20,7 @@ public class BowserAttack {
     private Timeline nauseaTimer;
     private Timeline fireBallTimer;
     private Timeline fireBallAnimationTimer;
+    private Timeline nukeTimer;
     private int useFireballAnimationCounter=0;
     private int useFireballCounter = 0;
     private int grabLeftCounter = 0;
@@ -165,5 +166,14 @@ public class BowserAttack {
         }
     });
     //nukeAttack
-
+    public void nukeAttack() {
+        nukeTimer = new Timeline(fireBallAnimationKeyFrame);
+        nukeTimer.setCycleCount(Animation.INDEFINITE);
+        if (useFireballCounter % 2 == 1) fireBallTimer.play();
+        NukeShot nukeShot;
+        int rand1 = 30 * (int) (Math.random() * 30);
+        bowser.setImage(new Image("Images/enemies/bowser/nukeAttack.png"));
+        nukeShot = new NukeShot(30, 60, rand1, 0, motionHandler);
+        motionHandler.getPane().getChildren().add(nukeShot);
+    }
 }
