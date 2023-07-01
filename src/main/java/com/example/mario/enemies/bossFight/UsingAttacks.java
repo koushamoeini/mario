@@ -107,7 +107,7 @@ public class UsingAttacks {
     });
 
     public void useNuke() {
-        if(!isNukeCoolDown) {
+        if(!isNukeCoolDown&& !isUsingAnotherAttack) {
             isNukeCoolDown = true;
             bowserAttack.nukeAttack();
             isUsingAnotherAttack = true;

@@ -25,4 +25,12 @@ public class Star extends Item {
         delayTimeline.stop();
     });
     KeyFrame keyFrame = new KeyFrame(Duration.millis(10), event ->movement() );
+
+    public Timeline getDelayTimeline() {
+        return delayTimeline;
+    }
+
+    public Timeline getTimeline() {
+        return timeline;
+    }
 }

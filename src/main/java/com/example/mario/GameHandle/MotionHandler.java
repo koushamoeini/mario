@@ -20,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.*;
 import java.util.*;
 
@@ -33,6 +34,7 @@ public class MotionHandler {
     private boolean isRight = false;
     private boolean jumpStop = false;
     private boolean isMapMoving = false;
+    private boolean isGamePause = false;
     private int mapMoveCounter = 0;
     private int mapMoveDownCounter = 0;
     private boolean isMapMustMovingDown = false;
@@ -110,7 +112,7 @@ public class MotionHandler {
         jsonJob();
         pane.getChildren().add(mario);
         stage.getScene().setOnKeyPressed(event -> {
-            if (mario.isCanMove()) {
+            if (mario.isCanMove()&&!isGamePause) {
                 switch (event.getCode()) {
                     case RIGHT -> {
                         if (mario.isNausea()) {
@@ -179,7 +181,7 @@ public class MotionHandler {
             }
         });
         stage.getScene().setOnKeyReleased(event -> {
-            if(mario.isNausea()){
+            if (mario.isNausea()) {
                 switch (event.getCode()) {
                     case LEFT -> {
                         isRight = false;
@@ -200,8 +202,7 @@ public class MotionHandler {
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 switch (event.getCode()) {
                     case RIGHT -> {
                         isRight = false;
@@ -605,7 +606,19 @@ public class MotionHandler {
         return bowserMovement;
     }
 
+    public AnimationTimer getTimer() {
+        return timer;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
     public Pane getPane() {
         return pane;
+    }
+
+    public void setGamePause(boolean gamePause) {
+        isGamePause = gamePause;
     }
 }

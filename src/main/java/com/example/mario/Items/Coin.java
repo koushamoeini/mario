@@ -8,6 +8,7 @@ import javafx.util.Duration;
 
 public class Coin extends Item {
     private final Timeline timeline;
+    private Timeline fallTimeline;
     private int counter=0;
     KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
         counter++;
@@ -18,7 +19,7 @@ public class Coin extends Item {
         timeline=new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        Timeline fallTimeline = new Timeline(fallKeyFrame);
+        fallTimeline = new Timeline(fallKeyFrame);
         fallTimeline.setCycleCount(Animation.INDEFINITE);
         fallTimeline.play();
         Image image=new Image("Images/Items/coin1.png");
@@ -31,5 +32,9 @@ public class Coin extends Item {
     KeyFrame fallKeyFrame = new KeyFrame(Duration.millis(10), event ->movement() );
     public Timeline getTimeline() {
         return timeline;
+    }
+
+    public Timeline getFallTimeline() {
+        return fallTimeline;
     }
 }

@@ -69,4 +69,8 @@ public class Spiny extends Enemy {
     public boolean isSpinyGoingLeft() {
         return isSpinyGoingLeft;
     }
+
+    public Timeline getTimeline2() {
+        return timeline2;
+    }
 }

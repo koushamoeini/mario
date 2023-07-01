@@ -58,13 +58,6 @@ public class Bowser extends Enemy {
     KeyFrame checkPhaseKeyFrame = new KeyFrame(Duration.millis(1), event -> {
         if(this.getEnemyHp()<11) {
             phase = 2;
-            blocks.removeAll(bowserBlocks);
-            for(Block block:bowserBlocks) block.setVisible(false);
-            ColorAdjust colorAdjust = new ColorAdjust();
-            colorAdjust.setHue(2);
-            colorAdjust.setSaturation(2);
-            colorAdjust.setContrast(1.0);
-            this.setEffect(colorAdjust);
             checkPhase.stop();
         }
     });
@@ -98,5 +91,9 @@ public class Bowser extends Enemy {
 
     public boolean isDead() {
         return isDead;
+    }
+
+    public List<Block> getBowserBlocks() {
+        return bowserBlocks;
     }
 }

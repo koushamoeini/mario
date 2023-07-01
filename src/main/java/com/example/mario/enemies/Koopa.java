@@ -58,4 +58,16 @@ public class Koopa extends Enemy {
         if (this.isActive()) xMovement(xVelocity);
         yMovement();
     }
+
+    public Timeline getKoopaTimeline() {
+        return koopaTimeline;
+    }
+
+    public Timeline getKoopaAnimation() {
+        return koopaAnimation;
+    }
+
+    public Timeline getKoopaAnimationStopper() {
+        return koopaAnimationStopper;
+    }
 }

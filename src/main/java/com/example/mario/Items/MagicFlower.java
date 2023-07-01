@@ -7,14 +7,18 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 public class MagicFlower extends Item {
-
+    private Timeline timeline;
     public MagicFlower(int edgeX, int edgeY, int blockX, int blockY) {
         super(edgeX, edgeY, blockX, blockY,0,0);
         Image image = new Image("Images/Items/magicFlower.png");
         this.setImage(image);
-        Timeline timeline = new Timeline(keyFrame);
+        timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
     KeyFrame keyFrame = new KeyFrame(Duration.millis(10), event -> movement());
+
+    public Timeline getTimeline() {
+        return timeline;
+    }
 }

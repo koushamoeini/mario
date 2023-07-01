@@ -25,4 +25,12 @@ public class Mushroom extends Item {
         delayTimeLine.stop();
     });
     KeyFrame keyFrame = new KeyFrame(Duration.millis(10), event ->movement() );
+
+    public Timeline getDelayTimeLine() {
+        return delayTimeLine;
+    }
+
+    public Timeline getTimeline() {
+        return timeline;
+    }
 }
