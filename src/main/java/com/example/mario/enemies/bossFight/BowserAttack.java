@@ -116,8 +116,6 @@ public class BowserAttack {
     });
     KeyFrame finishJumpFounderKeyFrame = new KeyFrame(Duration.millis(1), event -> {
         if (bowser.getFallVelocity() < 0 && !bowser.isDownCollusion()) {
-            System.out.println(mario.getLayoutY() + 2 * mario.getFitHeight());
-            System.out.println(bowser.getLayoutY() + bowser.getFitHeight());
             if (mario.getLayoutY() + 2 * mario.getFitHeight() > bowser.getLayoutY() + bowser.getFitHeight()) {
                 mario.setNausea(true);
                 nauseaTimer = new Timeline(nauseaKeyFrame);

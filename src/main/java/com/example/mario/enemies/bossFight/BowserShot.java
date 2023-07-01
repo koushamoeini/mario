@@ -55,22 +55,13 @@ public class BowserShot extends ImageView {
         if (this.isVisible()) {
             try {
                 blockCollision();
-                enemyCollision();
+                marioCollision();
             } catch (Exception ignored) {
             }
         }
         else checkCollision.stop();
     });
     //collisions:
-    public void checkCollision() {
-        if (this.isVisible()) {
-            try {
-                blockCollision();
-                enemyCollision();
-            } catch (Exception ignored) {
-            }
-        }
-    }
 
     public void blockCollision() {
         for (Block block : blocks) {
@@ -80,10 +71,15 @@ public class BowserShot extends ImageView {
         }
     }
 
-    public void enemyCollision() throws IOException {
+    public void marioCollision() {
         if (this.getBoundsInParent().intersects(mario.getBoundsInParent())) {
             this.setVisible(false);
-            motionHandler.doDead();
+            mario.doInvincible();
+            if (mario.getMarioState() == 0) {
+                mario.setDead(true);
+                return;
+            }
+            mario.setMarioState(mario.getMarioState() - 1);
         }
     }
 }

@@ -24,7 +24,7 @@ public class BowserMovement {
     }
 
     public void bowserAllMove() {
-        if (!bowser.isJumping()) {
+        if (!bowser.isJumping()&&bowser.isBowserActive()) {
             horizontalMovement();
         }
         verticalMovement();

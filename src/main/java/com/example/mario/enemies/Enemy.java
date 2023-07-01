@@ -9,6 +9,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+
 import java.util.List;
 
 public abstract class Enemy extends ImageView {
@@ -40,6 +41,7 @@ public abstract class Enemy extends ImageView {
         isInvincible = false;
         invincibleEnemy.stop();
     });
+
     public int getEnemyHp() {
         return enemyHp;
     }
@@ -55,15 +57,16 @@ public abstract class Enemy extends ImageView {
     public int getEnemyScore() {
         return enemyScore;
     }
+
     public void setActive(boolean active) {
         isActive = active;
     }
 
     public void enemyCollision(List<Block> blocks) {
-            if (!(this instanceof Flower)) {
-                downCollusion = false;
-                for (Block block : blocks) {
-                    if (!(block instanceof WinBlock&& block instanceof KillBlock) ) {
+        if (!(this instanceof Flower)) {
+            downCollusion = false;
+            for (Block block : blocks) {
+                if (!(block instanceof WinBlock || block instanceof KillBlock)) {
                     if (this.getLayoutY() + this.getFitHeight() >= block.getLayoutY() && this.getLayoutY() + this.getFitHeight() <= block.getLayoutY() + block.getFitHeight()) {
                         for (int j = (int) this.getLayoutX(); j <= this.getLayoutX() + this.getFitWidth(); j++) {
                             if (j > block.getLayoutX() && j < block.getLayoutX() + block.getFitWidth()) {
@@ -105,29 +108,37 @@ public abstract class Enemy extends ImageView {
     public Timeline getInvincibleEnemy() {
         return invincibleEnemy;
     }
+
     public void setxVelocity(double xVelocity) {
         this.xVelocity = xVelocity;
     }
+
     public boolean isDownCollusion() {
         return !downCollusion;
     }
+
     public boolean isGoingLeft() {
         return goingLeft;
     }
+
     public int getFallVelocity() {
         return fallVelocity;
     }
+
     public void setFallVelocity(int fallVelocity) {
         this.fallVelocity = fallVelocity;
     }
+
     public boolean isActive() {
         return isActive;
     }
+
     public double getxVelocity() {
         return xVelocity;
     }
-    public void updateXVelocity(int xVelocity){
-        this.xVelocity=xVelocity;
+
+    public void updateXVelocity(int xVelocity) {
+        this.xVelocity = xVelocity;
     }
 
 }
