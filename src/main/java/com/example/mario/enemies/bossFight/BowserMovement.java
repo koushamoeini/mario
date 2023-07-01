@@ -28,15 +28,20 @@ public class BowserMovement {
             horizontalMovement();
         }
         verticalMovement();
+        bowserDirection();
+    }
+
+    public void bowserDirection() {
+        if (mario.getLayoutX() - bowser.getLayoutX() < 0)
+            bowser.setBowerGoingLeft(true);
+        else bowser.setBowerGoingLeft(false);
     }
 
     public void horizontalMovement() {
         if (mario.getLayoutX() + mario.getFitHeight() - bowser.getLayoutX() < 0 && Math.abs(mario.getLayoutX() - bowser.getLayoutX()) > 90) {
-            bowser.setBowerGoingLeft(true);
             bowser.setImage(new Image("Images/enemies/bowser/bowserLeft.png"));
             bowser.setLayoutX(bowser.getLayoutX() - 2);
         } else if (mario.getLayoutX() - bowser.getLayoutX() > 0 && Math.abs(mario.getLayoutX() - (bowser.getLayoutX() + bowser.getFitWidth())) > 90) {
-            bowser.setBowerGoingLeft(false);
             bowser.setImage(new Image("Images/enemies/bowser/bowser.png"));
             bowser.setLayoutX(bowser.getLayoutX() + 2);
         }
@@ -46,7 +51,8 @@ public class BowserMovement {
         int random = (int) (Math.random() * 4);
         int gravity = 1;
         if (bowser.isDownCollusion()) {
-            if (bowser.getFallVelocity() < 0&&motionHandler.getUsingAttacks().isUsingAnotherAttack()) bowser.setImage(new Image("Images/enemies/bowser/jumpAttack.png"));
+            if (bowser.getFallVelocity() < 0 && motionHandler.getUsingAttacks().isUsingAnotherAttack())
+                bowser.setImage(new Image("Images/enemies/bowser/jumpAttack.png"));
             if (random % 4 == 0) bowser.setFallVelocity(bowser.getFallVelocity() - gravity);
         }
         if (isUpCollision()) bowser.setFallVelocity(0);

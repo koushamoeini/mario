@@ -14,7 +14,7 @@ import java.util.List;
 public class Bowser extends Enemy {
      private List<Block> blocks;
      private List<Block> bowserBlocks=new ArrayList<>();
-     private boolean bowerGoingLeft;
+     private boolean bowerGoingLeft=true;
      private boolean isJumping=false;
     public Bowser(int edgeX, int edgeY, int blockX, int blockY, List<Block> blocks,Pane pane) {
         super(edgeX, edgeY, blockX, blockY, true, 20, 100, 0);

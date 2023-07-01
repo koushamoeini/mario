@@ -18,6 +18,10 @@ public class BowserAttack {
     private Timeline grabAttackTimer;
     private Timeline finishJumpFounderTimer;
     private Timeline nauseaTimer;
+    private Timeline fireBallTimer;
+    private Timeline fireBallAnimationTimer;
+    private int useFireballAnimationCounter=0;
+    private int useFireballCounter = 0;
     private int grabLeftCounter = 0;
     private int grabRightCounter = 0;
 
@@ -25,6 +29,8 @@ public class BowserAttack {
         this.motionHandler = motionHandler;
         this.mario = motionHandler.getMario();
         this.bowser = motionHandler.bowserFounder();
+        fireBallTimer = new Timeline(fireBallAttackKeyFrame);
+        fireBallTimer.setCycleCount(Animation.INDEFINITE);
     }
 
     public void resetInstance() {
@@ -47,8 +53,7 @@ public class BowserAttack {
             grabLeftCounter = 0;
             grabAttackTimer.play();
             grabStartTimer.stop();
-        }
-        else {
+        } else {
             resetInstance();
         }
         grabStartTimer.stop();
@@ -104,15 +109,16 @@ public class BowserAttack {
         finishJumpFounderTimer.setCycleCount(Animation.INDEFINITE);
         finishJumpFounderTimer.play();
     }
+
     KeyFrame nauseaKeyFrame = new KeyFrame(Duration.seconds(3), event -> {
         mario.setNausea(false);
         nauseaTimer.stop();
     });
     KeyFrame finishJumpFounderKeyFrame = new KeyFrame(Duration.millis(1), event -> {
-        if(bowser.getFallVelocity()<0&&!bowser.isDownCollusion()) {
-            System.out.println(mario.getLayoutY()+2*mario.getFitHeight());
-            System.out.println(bowser.getLayoutY()+bowser.getFitHeight());
-            if(mario.getLayoutY()+2*mario.getFitHeight()>bowser.getLayoutY()+bowser.getFitHeight()) {
+        if (bowser.getFallVelocity() < 0 && !bowser.isDownCollusion()) {
+            System.out.println(mario.getLayoutY() + 2 * mario.getFitHeight());
+            System.out.println(bowser.getLayoutY() + bowser.getFitHeight());
+            if (mario.getLayoutY() + 2 * mario.getFitHeight() > bowser.getLayoutY() + bowser.getFitHeight()) {
                 mario.setNausea(true);
                 nauseaTimer = new Timeline(nauseaKeyFrame);
                 nauseaTimer.setCycleCount(Animation.INDEFINITE);
@@ -125,14 +131,39 @@ public class BowserAttack {
             finishJumpFounderTimer.stop();
         }
     });
+
     //FireBallAttack
     public void fireBallAttack() {
-        if (bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/fireballAttackLeft.png"));
-        else bowser.setImage(new Image("Images/enemies/bowser/fireballAttack.png"));
-        int rand1= (int) Math.random()*4;
-        int rand2= (int) Math.random()*4;
-        BowserShot bowserShot1=new BowserShot(motionHandler);
-        BowserShot bowserShot=new BowserShot();
-        motionHandler.getPane().getChildren().add()
+        fireBallAnimationTimer = new Timeline(fireBallAnimationKeyFrame);
+        fireBallAnimationTimer.setCycleCount(Animation.INDEFINITE);
+        useFireballCounter++;
+        if (useFireballCounter % 2 == 1) fireBallTimer.play();
+        BowserShot bowserShot;
+        int rand1 = 30 * (int) (Math.random() * 3);
+        if (bowser.isBowerGoingLeft()) {
+            bowser.setImage(new Image("Images/enemies/bowser/fireballAttackLeft.png"));
+            bowserShot = new BowserShot(60, 60, (int) (bowser.getLayoutX() - 60), (int) (bowser.getLayoutY() + rand1), motionHandler,true);
+        } else {
+            bowser.setImage(new Image("Images/enemies/bowser/fireballAttack.png"));
+            bowserShot = new BowserShot(60, 60, (int) (bowser.getLayoutX() + bowser.getFitWidth()), (int) (bowser.getLayoutY() + rand1), motionHandler,false);
+        }
+        motionHandler.getPane().getChildren().add(bowserShot);
     }
+
+    KeyFrame fireBallAttackKeyFrame = new KeyFrame(Duration.millis(500), event -> {
+        fireBallAttack();
+        motionHandler.getUsingAttacks().setUsingAnotherAttack(false);
+        if (bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/bowserLeft.png"));
+        else bowser.setImage(new Image("Images/enemies/bowser/bowser.png"));
+        fireBallTimer.stop();
+    });
+    KeyFrame fireBallAnimationKeyFrame = new KeyFrame(Duration.millis(1), event -> {
+        useFireballAnimationCounter++;
+        if(bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/fireballAttackLeft.png"));
+        if(!bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/fireballAttack.png"));
+        if(useFireballCounter>=300) {
+            useFireballAnimationCounter=0;
+            fireBallAnimationTimer.stop();
+        }
+    });
 }
