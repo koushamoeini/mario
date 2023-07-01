@@ -126,4 +126,13 @@ public class BowserAttack {
         }
     });
     //FireBallAttack
+    public void fireBallAttack() {
+        if (bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/fireballAttackLeft.png"));
+        else bowser.setImage(new Image("Images/enemies/bowser/fireballAttack.png"));
+        int rand1= (int) Math.random()*4;
+        int rand2= (int) Math.random()*4;
+        BowserShot bowserShot1=new BowserShot(motionHandler);
+        BowserShot bowserShot=new BowserShot();
+        motionHandler.getPane().getChildren().add()
+    }
 }

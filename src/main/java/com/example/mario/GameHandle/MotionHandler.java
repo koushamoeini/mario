@@ -1,48 +1,27 @@
 package com.example.mario.GameHandle;
 
-import com.example.mario.Gun.Gun;
-import com.example.mario.Gun.Shot;
-import com.example.mario.Gun.ShotCollision;
-import com.example.mario.Gun.Sword;
-import com.example.mario.Items.Coin;
-import com.example.mario.Items.Item;
-import com.example.mario.Items.ItemCollision;
-import com.example.mario.Mario.Mario;
-import com.example.mario.Mario.MarioAnimation;
-import com.example.mario.Mario.MarioCollision;
+import com.example.mario.Gun.*;
+import com.example.mario.Items.*;
+import com.example.mario.Mario.*;
 import com.example.mario.SuperMario;
 import com.example.mario.blocks.*;
-import com.example.mario.controllers.ChooseSaveController;
-import com.example.mario.controllers.GameLabelController;
-import com.example.mario.enemies.Enemy;
-import com.example.mario.enemies.EnemyCollision;
-import com.example.mario.enemies.Flower;
-import com.example.mario.enemies.bossFight.Bowser;
-import com.example.mario.enemies.bossFight.BowserAttack;
-import com.example.mario.enemies.bossFight.BowserMovement;
-import com.example.mario.enemies.bossFight.UsingAttacks;
-import com.example.mario.levels.Level1_2;
-import com.example.mario.manager.JsonManager;
-import com.example.mario.manager.VoicePlayer;
-import com.example.mario.user.GameData;
-import com.example.mario.user.UserData;
-import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import com.example.mario.controllers.*;
+import com.example.mario.enemies.*;
+import com.example.mario.enemies.bossFight.*;
+import com.example.mario.levels.*;
+import com.example.mario.manager.*;
+import com.example.mario.user.*;
+import javafx.animation.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class MotionHandler {
     private ImageView music;
@@ -74,13 +53,12 @@ public class MotionHandler {
     private final EnemyCollision enemyCollision;
     private final ShotCollision shotCollision;
     private BowserMovement bowserMovement;
-    private BowserAttack bowserAttack;
+    private final BowserAttack bowserAttack;
     private UsingAttacks usingAttacks;
     private Bowser bowser;
     AnimationTimer timer;
     Timeline andBeginTime = new Timeline();
 
-    private Timeline bossMover = new Timeline();
     private final VoicePlayer andBegin = new VoicePlayer("./src/main/resources/Media/and begin.mp3");
     private final VoicePlayer beppi = new VoicePlayer("./src/main/resources/Media/beppi.mp3");
     KeyFrame keyFrame = new KeyFrame(Duration.seconds(4), event -> {
@@ -125,6 +103,7 @@ public class MotionHandler {
         andBeginTime.setCycleCount(Animation.INDEFINITE);
         //andBeginTime.play();
         //andBegin.play();
+        Timeline bossMover = new Timeline();
         bossMover.getKeyFrames().addAll(bossMoverKeyFrame);
         bossMover.setCycleCount(Animation.INDEFINITE);
         bossMover.play();
@@ -624,5 +603,9 @@ public class MotionHandler {
 
     public BowserMovement getBowserMovement() {
         return bowserMovement;
+    }
+
+    public Pane getPane() {
+        return pane;
     }
 }
