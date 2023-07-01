@@ -15,14 +15,17 @@ public class UsingAttacks {
     private boolean isGrabCoolDown = false;
     private boolean isJumpCoolDown = false;
     private boolean isFireBallCoolDown = false;
+    private boolean isNukeCoolDown = false;
     private boolean isUsingAnotherAttack = false;
     private Timeline grabCoolDownTimer;
     private Timeline jumpCoolDownTimer;
     private Timeline fireBallCoolDown;
+    private Timeline nukeCoolDown;
     private Timeline activateBoss;
     private final BowserAttack bowserAttack;
 
     public UsingAttacks(MotionHandler motionHandler) {
+        new BossFightCutScene(motionHandler);
         this.motionHandler = motionHandler;
         this.mario = motionHandler.getMario();
         this.bowser = motionHandler.bowserFounder();
@@ -33,6 +36,8 @@ public class UsingAttacks {
         fireBallCoolDown.setCycleCount(Animation.INDEFINITE);
         jumpCoolDownTimer = new Timeline(jumpCoolDownKeyFrame);
         jumpCoolDownTimer.setCycleCount(Animation.INDEFINITE);
+        nukeCoolDown = new Timeline(nukeCoolDownKeyFrame);
+        nukeCoolDown.setCycleCount(Animation.INDEFINITE);
         activateBoss = new Timeline(activeBossKeyFrame);
         activateBoss.setCycleCount(Animation.INDEFINITE);
         activateBoss.play();
@@ -42,8 +47,8 @@ public class UsingAttacks {
         try {
             if (Math.abs(mario.getLayoutX() - bowser.getLayoutX()) < 16 * 30) bowser.setBowserActive(true);
             else bowser.setBowserActive(false);
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored){}
     });
 
     public void useAttack() {
@@ -52,6 +57,7 @@ public class UsingAttacks {
                 useGrab();
                 useFireBall();
                 useJump();
+                if (bowser.getPhase() == 2) useNuke();
             }
         } catch (Exception ignored) {
         }
@@ -98,6 +104,20 @@ public class UsingAttacks {
     KeyFrame fireBallCoolDownKeyFrame = new KeyFrame(Duration.seconds(7), event -> {
         isFireBallCoolDown = false;
         fireBallCoolDown.stop();
+    });
+
+    public void useNuke() {
+        if(!isNukeCoolDown) {
+            isNukeCoolDown = true;
+            bowserAttack.nukeAttack();
+            isUsingAnotherAttack = true;
+            nukeCoolDown.play();
+        }
+    }
+
+    KeyFrame nukeCoolDownKeyFrame = new KeyFrame(Duration.seconds(5), event -> {
+        isNukeCoolDown = false;
+        nukeCoolDown.stop();
     });
 
     public boolean isUsingAnotherAttack() {

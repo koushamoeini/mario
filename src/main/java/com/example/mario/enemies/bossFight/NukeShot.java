@@ -1,11 +1,8 @@
 package com.example.mario.enemies.bossFight;
 
 import com.example.mario.GameHandle.MotionHandler;
-import com.example.mario.Gun.Gun;
-import com.example.mario.Gun.Sword;
 import com.example.mario.Mario.Mario;
 import com.example.mario.blocks.Block;
-import com.example.mario.enemies.Enemy;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,11 +11,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.PropertyResourceBundle;
 
 public class NukeShot extends ImageView {
     private final List<Block> blocks;
@@ -47,20 +40,20 @@ public class NukeShot extends ImageView {
         checkCollision.setCycleCount(Animation.INDEFINITE);
         checkCollision.play();
         isVisible.addListener((observable, oldValue, newValue) -> {
-            if ((Math.pow(Math.pow(mario.getLayoutY()+mario.getFitHeight()/2 - this.getLayoutY()+this.getFitHeight()/2, 2) + Math.pow(mario.getLayoutX()+mario.getFitWidth()/2 - this.getLayoutX()+this.getFitWidth()/2, 2), 0.5) < 90)){
-                mario.doInvincible();
+            if ((Math.pow(Math.pow(mario.getLayoutY()+mario.getFitHeight()/2 - (this.getLayoutY()+this.getFitHeight()/2), 2) + Math.pow(mario.getLayoutX()+mario.getFitWidth()/2 - (this.getLayoutX()+this.getFitWidth()/2), 2), 0.5) < 90)){
+
                 if (mario.getMarioState() == 0) mario.setDead(true);
                 else mario.setMarioState(mario.getMarioState() - 1);
             }
-            if ((Math.pow(Math.pow(bowser.getLayoutY()+bowser.getFitHeight()/2 - this.getLayoutY()+this.getFitHeight()/2, 2) + Math.pow(bowser.getLayoutX()+bowser.getFitWidth()/2 - this.getLayoutX()+this.getFitWidth()/2, 2), 0.5) < 90)){
+            if ((Math.pow(Math.pow(bowser.getLayoutY()+bowser.getFitHeight()/2 - (this.getLayoutY()+this.getFitHeight()/2), 2) + Math.pow(bowser.getLayoutX()+bowser.getFitWidth()/2 - (this.getLayoutX()+this.getFitWidth()/2), 2), 0.5) < 90)){
                 bowser.setEnemyHp(bowser.getEnemyHp()-1);
             }
         });
     }
 
-    KeyFrame keyFrame = new KeyFrame(Duration.millis(5), event -> {
+    KeyFrame keyFrame = new KeyFrame(Duration.millis(3), event -> {
         try {
-            this.setLayoutY(this.getLayoutY() + 2);
+            this.setLayoutY(this.getLayoutY() + 3);
         } catch (Exception ignored) {
         }
     });

@@ -167,13 +167,19 @@ public class BowserAttack {
     });
     //nukeAttack
     public void nukeAttack() {
-        nukeTimer = new Timeline(fireBallAnimationKeyFrame);
+        nukeTimer = new Timeline(nukeAnimationKeyFrame);
         nukeTimer.setCycleCount(Animation.INDEFINITE);
-        if (useFireballCounter % 2 == 1) fireBallTimer.play();
         NukeShot nukeShot;
         int rand1 = 30 * (int) (Math.random() * 30);
         bowser.setImage(new Image("Images/enemies/bowser/nukeAttack.png"));
         nukeShot = new NukeShot(30, 60, rand1, 0, motionHandler);
         motionHandler.getPane().getChildren().add(nukeShot);
+        nukeTimer.play();
     }
+    KeyFrame nukeAnimationKeyFrame = new KeyFrame(Duration.millis(500), event -> {
+        if (bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/bowserLeft.png"));
+        else bowser.setImage(new Image("Images/enemies/bowser/bowser.png"));
+        motionHandler.getUsingAttacks().setUsingAnotherAttack(false);
+        nukeTimer.stop();
+    });
 }
