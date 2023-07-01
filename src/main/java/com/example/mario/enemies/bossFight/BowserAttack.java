@@ -142,10 +142,10 @@ public class BowserAttack {
         int rand1 = 30 * (int) (Math.random() * 3);
         if (bowser.isBowerGoingLeft()) {
             bowser.setImage(new Image("Images/enemies/bowser/fireballAttackLeft.png"));
-            bowserShot = new BowserShot(60, 60, (int) (bowser.getLayoutX() - 60), (int) (bowser.getLayoutY() + rand1), motionHandler,true);
+            bowserShot = new BowserShot(60, 58, (int) (bowser.getLayoutX() - 60), (int) (bowser.getLayoutY() + rand1+1), motionHandler,true);
         } else {
             bowser.setImage(new Image("Images/enemies/bowser/fireballAttack.png"));
-            bowserShot = new BowserShot(60, 60, (int) (bowser.getLayoutX() + bowser.getFitWidth()), (int) (bowser.getLayoutY() + rand1), motionHandler,false);
+            bowserShot = new BowserShot(60, 58, (int) (bowser.getLayoutX() + bowser.getFitWidth()), (int) (bowser.getLayoutY() + rand1+1), motionHandler,false);
         }
         motionHandler.getPane().getChildren().add(bowserShot);
     }

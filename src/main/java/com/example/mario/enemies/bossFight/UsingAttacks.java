@@ -73,7 +73,7 @@ public class UsingAttacks {
     });
 
     public void useFireBall() {
-        if (Math.abs(mario.getLayoutX() - bowser.getLayoutX()) < 60 * 30 && !isFireBallCoolDown&&!isUsingAnotherAttack) {
+        if (Math.abs(mario.getLayoutX() - bowser.getLayoutX()) >= 6 * 30 && !isFireBallCoolDown&&!isUsingAnotherAttack) {
             isFireBallCoolDown = true;
             bowserAttack.fireBallAttack();
             isUsingAnotherAttack = true;
@@ -81,7 +81,7 @@ public class UsingAttacks {
         }
     }
 
-    KeyFrame fireBallCoolDownKeyFrame = new KeyFrame(Duration.seconds(5), event -> {
+    KeyFrame fireBallCoolDownKeyFrame = new KeyFrame(Duration.seconds(7), event -> {
         isFireBallCoolDown = false;
         jumpCoolDownTimer.stop();
     });

@@ -60,10 +60,10 @@ public abstract class Enemy extends ImageView {
     }
 
     public void enemyCollision(List<Block> blocks) {
-        if (!(this instanceof Flower)) {
-            downCollusion = false;
-            for (Block block : blocks) {
-                if (! (block instanceof WinBlock&&block instanceof KillBlock) ) {
+            if (!(this instanceof Flower)) {
+                downCollusion = false;
+                for (Block block : blocks) {
+                    if (!(block instanceof WinBlock&& block instanceof KillBlock) ) {
                     if (this.getLayoutY() + this.getFitHeight() >= block.getLayoutY() && this.getLayoutY() + this.getFitHeight() <= block.getLayoutY() + block.getFitHeight()) {
                         for (int j = (int) this.getLayoutX(); j <= this.getLayoutX() + this.getFitWidth(); j++) {
                             if (j > block.getLayoutX() && j < block.getLayoutX() + block.getFitWidth()) {
