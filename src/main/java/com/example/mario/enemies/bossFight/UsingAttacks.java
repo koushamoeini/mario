@@ -45,7 +45,7 @@ public class UsingAttacks {
 
     public void useAttack() {
         try {
-            if (bowser.isBowserActive()) {
+            if (!bowser.isDead() && bowser.isBowserActive()) {
                 useGrab();
                 useFireBall();
                 useJump();

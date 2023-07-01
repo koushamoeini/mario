@@ -159,9 +159,11 @@ public class BowserAttack {
         useFireballAnimationCounter++;
         if(bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/fireballAttackLeft.png"));
         if(!bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/fireballAttack.png"));
-        if(useFireballCounter>=300) {
+        if(useFireballAnimationCounter>=300) {
             useFireballAnimationCounter=0;
             fireBallAnimationTimer.stop();
         }
     });
+    //nukeAttack
+
 }

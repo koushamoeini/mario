@@ -24,11 +24,13 @@ public class BowserMovement {
     }
 
     public void bowserAllMove() {
-        if (!bowser.isJumping()&&bowser.isBowserActive()) {
-            horizontalMovement();
+        if(!bowser.isDead()) {
+            if (!bowser.isJumping() && bowser.isBowserActive()) {
+                horizontalMovement();
+            }
+            verticalMovement();
+            bowserDirection();
         }
-        verticalMovement();
-        bowserDirection();
     }
 
     public void bowserDirection() {
