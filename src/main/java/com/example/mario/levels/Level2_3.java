@@ -226,7 +226,7 @@ public class Level2_3 {
                     blocks.add(killBlock);
                 }
             }
-            for (int i = 510; i < 600; i += 30)  {
+            for (int i = 510; i < 600; i += 30)   {
                 for (int j = 0; j <= 4200; j += 30) {
                     if ( !(j >= 340 && j < 630) && !(j >= 990 && j < 1110) && !(j >= 1170 && j < 1260) && !(j >= 1290 && j < 1350) && !(j >= 1380 && j < 1440) && !(j >= 1740 && j < 2100) && !(j >= 3450 && j < 3690)) {
                         SurfaceBlock surfaceBlock = new SurfaceBlock(30, 30, j, i);
