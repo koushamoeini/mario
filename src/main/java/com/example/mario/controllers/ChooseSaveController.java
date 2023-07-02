@@ -1,5 +1,6 @@
 package com.example.mario.controllers;
 
+import com.example.mario.levels.SetLevel;
 import com.example.mario.manager.JsonManager;
 import com.example.mario.SuperMario;
 import com.example.mario.user.UserData;
@@ -23,22 +24,22 @@ public class ChooseSaveController {
         JsonManager jsonManager=new JsonManager("./src/main/resources/GamaData/"+userData.getCurrentUser().getUserName()+"/game1.json");
         section=jsonManager.readArray(JsonManager.integerReference).get(8);
         firstSave=true;
-        if(section==2)new Level1_2();
-        else new Level1_1();
+        SetLevel setLevel=new SetLevel(section);
+        setLevel.jsonLevelSet();
     }
     public void secondSave() throws Exception {
         JsonManager jsonManager=new JsonManager("./src/main/resources/GamaData/"+userData.getCurrentUser().getUserName()+"/game2.json");
         section=jsonManager.readArray(JsonManager.integerReference).get(8);
         secondSave=true;
-        if(section==2)new Level1_2();
-        else new Level1_1();
+        SetLevel setLevel=new SetLevel(section);
+        setLevel.jsonLevelSet();
     }
     public void thirdSave() throws Exception {
         JsonManager jsonManager=new JsonManager("./src/main/resources/GamaData/"+userData.getCurrentUser().getUserName()+"/game3.json");
         section=jsonManager.readArray(JsonManager.integerReference).get(8);
         thirdSave=true;
-        if(section==2)new Level1_2();
-        else new Level1_1();
+        SetLevel setLevel=new SetLevel(section);
+        setLevel.jsonLevelSet();
     }
     public void back() throws IOException {
         Stage stage= SuperMario.getLevelStage();

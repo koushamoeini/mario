@@ -45,7 +45,7 @@ public class UsingAttacks {
 
     KeyFrame activeBossKeyFrame = new KeyFrame(Duration.millis(1), event -> {
         try {
-            if (Math.abs(mario.getLayoutX() - bowser.getLayoutX()) < 16 * 30) bowser.setBowserActive(true);
+            if (Math.abs(mario.getLayoutX() - bowser.getLayoutX()) < 30 * 30) bowser.setBowserActive(true);
             else bowser.setBowserActive(false);
         } catch (Exception ignored) {
         }

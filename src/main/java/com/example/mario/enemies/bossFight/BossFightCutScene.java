@@ -37,14 +37,15 @@ public class BossFightCutScene {
     }
 
     KeyFrame startCutSceneKeyFrame = new KeyFrame(Duration.millis(1), event -> {
-        if (bowser.getPhase() == 2) {
-            motionHandler.setGamePause(true);
-            gamePause();
-            setXTimer.play();
-            startCutscene.stop();
-        }
+        try {
+            if (bowser.getPhase() == 2 && !motionHandler.getUsingAttacks().isUsingAnotherAttack()) {
+                gamePause();
+                setXTimer.play();
+                startCutscene.stop();
+            }
+        }catch (Exception ignored){}
     });
-    KeyFrame setXKeyFrame = new KeyFrame(Duration.millis(1), event -> {
+    KeyFrame setXKeyFrame = new KeyFrame(Duration.millis(3), event -> {
         if (bowser.getLayoutX() < 720) bowser.setLayoutX(bowser.getLayoutX() + 1);
         else if (bowser.getLayoutX() > 720) bowser.setLayoutX(bowser.getLayoutX() - 1);
         else {
@@ -73,6 +74,8 @@ public class BossFightCutScene {
     });
 
     public void gamePause() {
+        motionHandler.setGamePause(true);
+        motionHandler.getBossMover().stop();
         GameLabelController.timeline.stop();
         motionHandler.getTimer().stop();
         //enemy stop:
@@ -110,6 +113,8 @@ public class BossFightCutScene {
     }
 
     public void gameStart() {
+        motionHandler.setGamePause(false);
+        motionHandler.getBossMover().play();
         GameLabelController.timeline.play();
         motionHandler.getTimer().start();
         //enemy stop:

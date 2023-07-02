@@ -8,6 +8,7 @@ import com.example.mario.enemies.Enemy;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bowser extends Enemy {
+    private ProgressBar progressBar;
     private List<Block> blocks;
     private List<Block> bowserBlocks = new ArrayList<>();
     private boolean bowerGoingLeft = true;
@@ -28,6 +30,8 @@ public class Bowser extends Enemy {
     private Timeline checkPhase;
     public Bowser(int edgeX, int edgeY, int blockX, int blockY, List<Block> blocks, Pane pane) {
         super(edgeX, edgeY, blockX, blockY, true, 20, 100, 0);
+        setProgressBar();
+        pane.getChildren().add(progressBar);
         Image image = new Image("Images/enemies/bowser/bowserLeft.png");
         this.setImage(image);
         this.blocks = blocks;
@@ -50,6 +54,7 @@ public class Bowser extends Enemy {
         checkDead.play();
     }
     KeyFrame checkDeadKeyFrame = new KeyFrame(Duration.millis(1), event -> {
+        progressBar.setProgress((double) this.getEnemyHp()/20);
         if(this.getEnemyHp()<1) {
             this.isDead=true;
             checkDead.stop();
@@ -61,6 +66,12 @@ public class Bowser extends Enemy {
             checkPhase.stop();
         }
     });
+    public void setProgressBar(){
+        progressBar=new ProgressBar((double) this.getEnemyHp()/20);
+        progressBar.setPrefSize(600,30);
+        progressBar.setLayoutX(200);
+        progressBar.setLayoutY(80);
+    }
     public boolean isBowerGoingLeft() {
         return bowerGoingLeft;
     }

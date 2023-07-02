@@ -17,6 +17,7 @@ import javafx.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -44,7 +45,7 @@ public class MotionHandler {
     private final List<BackGround> backGrounds;
     private final List<Item> items;
     private final List<Gun> shots = new ArrayList<>();
-    private int section;
+    private int level;
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
     private GameData gameData = GameData.getInstance();
     private final UserData userData = UserData.getInstance();
@@ -57,8 +58,10 @@ public class MotionHandler {
     private BowserMovement bowserMovement;
     private final BowserAttack bowserAttack;
     private UsingAttacks usingAttacks;
+    private SetLevel setLevel;
     private Bowser bowser;
     AnimationTimer timer;
+    Timeline bossMover;
     Timeline andBeginTime = new Timeline();
 
     private final VoicePlayer andBegin = new VoicePlayer("./src/main/resources/Media/and begin.mp3");
@@ -82,13 +85,14 @@ public class MotionHandler {
     JsonManager jsonManager3 = new JsonManager(path + userData.getCurrentUser().getUserName() + "/game3.json");
 
     public MotionHandler(List<Block> blocks, List<Enemy> enemies, List<BackGround> backGrounds,
-                         List<Item> items, Stage stage, Pane pane) throws Exception {
+                         List<Item> items, Stage stage, Pane pane,int level) throws Exception {
         this.stage = stage;
         this.pane = pane;
         this.blocks = blocks;
         this.enemies = enemies;
         this.backGrounds = backGrounds;
         this.items = items;
+        this.level=level;
         marioAnimation = new MarioAnimation(mario);
         marioCollision = new MarioCollision(mario, this.blocks, new BlockCollision(this.pane, this.items, mario));
         itemCollision = new ItemCollision(mario, items);
@@ -97,6 +101,7 @@ public class MotionHandler {
         bowserMovement = new BowserMovement(this);
         bowserAttack = new BowserAttack(this);
         usingAttacks = new UsingAttacks(this);
+        setLevel=new SetLevel(level);
         bowser = bowserFounder();
         gameLabelController.setPointChange(gameData.getPoint());
         gameLabelController.setHpChange(gameData.getHp());
@@ -105,7 +110,7 @@ public class MotionHandler {
         andBeginTime.setCycleCount(Animation.INDEFINITE);
         //andBeginTime.play();
         //andBegin.play();
-        Timeline bossMover = new Timeline();
+        bossMover = new Timeline();
         bossMover.getKeyFrames().addAll(bossMoverKeyFrame);
         bossMover.setCycleCount(Animation.INDEFINITE);
         bossMover.play();
@@ -177,6 +182,13 @@ public class MotionHandler {
                 switch (event.getCode()) {
                     case RIGHT -> bowserAttack.setGrabRightCounter(bowserAttack.getGrabRightCounter() + 1);
                     case LEFT -> bowserAttack.setGrabLeftCounter(bowserAttack.getGrabLeftCounter() + 1);
+                }
+            }
+            if(event.getCode().equals(KeyCode.A)) {
+                try {
+                    saveGame();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
             }
         });
@@ -252,11 +264,11 @@ public class MotionHandler {
                         GameLabelController.timeline.stop();
                         gameLabelController.setPointChange(gameData.getPoint());
                         try {
-                            if (section == 1) new Level1_2();
-                            else {
+                            if(!setLevel.levelSet()){
                                 gameData.setPoint(gameData.getPoint() + gameData.getHp() * 20);
                                 userData.getCurrentUser().checkPoint(gameData.getPoint());
                                 userData.getCurrentUser().setCoins(userData.getCurrentUser().getCoins() + gameData.getCoin());
+                                jsonManager.writeArray(userData.getUsers());
                                 loadMainMenu();
                             }
                         } catch (Exception e) {
@@ -413,10 +425,6 @@ public class MotionHandler {
             mario.setDead(true);
     }
 
-    public void setSection(int section) {
-        this.section = section;
-    }
-
     public void mapMoverRight(int num) {
         for (Block block : blocks) block.setLayoutX(block.getLayoutX() - num * 3);
         for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() - num * 3);
@@ -509,7 +517,7 @@ public class MotionHandler {
         saveData.add(gameData.getHp());
         saveData.add((int) mario.getLayoutX());
         saveData.add((int) mario.getLayoutY());
-        saveData.add(section);
+        saveData.add(level);
         GameLabelController.timeline.stop();
         andBegin.stop();
         andBeginTime.stop();
@@ -602,10 +610,6 @@ public class MotionHandler {
         return usingAttacks;
     }
 
-    public BowserMovement getBowserMovement() {
-        return bowserMovement;
-    }
-
     public AnimationTimer getTimer() {
         return timer;
     }
@@ -620,5 +624,9 @@ public class MotionHandler {
 
     public void setGamePause(boolean gamePause) {
         isGamePause = gamePause;
+    }
+
+    public Timeline getBossMover() {
+        return bossMover;
     }
 }
