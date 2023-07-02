@@ -11,7 +11,7 @@ public class SetLevel {
         try {
             if (level == 1) new Level1_2();
             if (level == 2)new Level1_3();
-                if (level == 3)
+                if (level == 3) new Level1_4();
                     if (level == 4)
                         if (level == 5)
                             if (level == 6) ;
@@ -26,7 +26,7 @@ public class SetLevel {
             if (level == 1) new Level1_1();
             if (level == 2) new Level1_2();
             if (level == 3) new Level1_3();
-            if (level == 4)
+            if (level == 4) new Level1_4()
                 if (level == 5)
                     if (level == 6) ;
         } catch (Exception ignored) {

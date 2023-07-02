@@ -30,7 +30,7 @@ public class Level1_3 {
         ArrayList<Enemy> enemies = new ArrayList<>();
         //addBackGround
         {
-            BackGround backGround = new BackGround(1020, 600, 0, 0, new Image("Images/backGrounds/back.jpg"));
+            BackGround backGround = new BackGround(1020, 600, 0, 0, new Image("Images/backGrounds/mahan2.png"));
             pane.getChildren().add(backGround);
             BackGround cloud = new BackGround(170, 80, 200, 40, new Image("Images/backGrounds/cloud2.png"));
             pane.getChildren().add(cloud);
@@ -104,11 +104,15 @@ public class Level1_3 {
             Spiny spiny = new Spiny(60, 60, 1520, 330);
             enemies.add(spiny);
             pane.getChildren().add(spiny);
-            for (int i = 2760; i <= 3030; i += 90) {
-                Spiny spiny1 = new Spiny(30, 30, i, 330);
-                enemies.add(spiny1);
-                pane.getChildren().add(spiny1);
-            }
+            Spiny spiny1 = new Spiny(30, 30, 2760, 330);
+            enemies.add(spiny1);
+            pane.getChildren().add(spiny1);
+            Goompa goompa1 = new Goompa(30, 30, 2850, 330);
+            enemies.add(goompa1);
+            pane.getChildren().add(goompa1);
+            Koopa koopa = new Koopa(30, 30, 2940, 330);
+            enemies.add(koopa);
+            pane.getChildren().add(koopa);
             MysteryBlock mystery = new MysteryBlock(30, 30, 540, 360);
             pane.getChildren().add(mystery);
             blocks.add(mystery);
@@ -178,11 +182,14 @@ public class Level1_3 {
                 blocks.add(brick);
             }
             /////////////////////////////////////////
-            for (int i = 240; i <= 450; i += 30) {
+            for (int i = 240; i <= 480; i += 30) {
                 Stairs stairs = new Stairs(30, 30, 2430, i);
                 pane.getChildren().add(stairs);
                 blocks.add(stairs);
             }
+            Stairs stairs = new Stairs(30, 30, 3030+13*30, 480);
+            pane.getChildren().add(stairs);
+            blocks.add(stairs);
             for (int i = 2550; i < 2700; i += 30) {
                 Brick brick = new Brick(30, 30, i, 390);
                 pane.getChildren().add(brick);
