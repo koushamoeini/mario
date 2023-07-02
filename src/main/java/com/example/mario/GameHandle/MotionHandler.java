@@ -327,15 +327,7 @@ public class MotionHandler {
 
     public boolean isWin() {
         for (Block win : blocks) {
-            for (int i = (int) mario.getLayoutY(); i <= mario.getLayoutY() + mario.getFitHeight(); i++) {
-                if (i >= win.getLayoutY() && i <= win.getLayoutY() + win.getFitHeight()) {
-                    for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
-                        if (j >= win.getLayoutX() && j <= win.getLayoutX() + win.getFitWidth() && win instanceof WinBlock) {
-                            return true;
-                        }
-                    }
-                }
-            }
+            if(win instanceof WinBlock &&mario.getBoundsInParent().intersects(win.getBoundsInParent()))return true;
         }
         return false;
     }
@@ -563,7 +555,7 @@ public class MotionHandler {
             mario.setLayoutX(jsonManager2.readArray(JsonManager.integerReference).get(6));
             mario.setLayoutY(jsonManager2.readArray(JsonManager.integerReference).get(7));
             mapMoveCounter = jsonManager2.readArray(JsonManager.integerReference).get(0);
-            mapMoveDownCounter = jsonManager1.readArray(JsonManager.integerReference).get(2);
+            mapMoveDownCounter = jsonManager2.readArray(JsonManager.integerReference).get(1);
         } else if (ChooseSaveController.isThirdSave()) {
             ChooseSaveController.setThirdSave(false);
             mapMoverRight(jsonManager3.readArray(JsonManager.integerReference).get(0));
@@ -575,7 +567,7 @@ public class MotionHandler {
             mario.setLayoutX(jsonManager3.readArray(JsonManager.integerReference).get(6));
             mario.setLayoutY(jsonManager3.readArray(JsonManager.integerReference).get(7));
             mapMoveCounter = jsonManager3.readArray(JsonManager.integerReference).get(0);
-            mapMoveDownCounter = jsonManager1.readArray(JsonManager.integerReference).get(3);
+            mapMoveDownCounter = jsonManager3.readArray(JsonManager.integerReference).get(1);
         }
     }
 

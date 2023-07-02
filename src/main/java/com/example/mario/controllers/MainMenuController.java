@@ -4,7 +4,7 @@ package com.example.mario.controllers;
 import com.example.mario.user.GameData;
 import com.example.mario.SuperMario;
 import com.example.mario.manager.VoicePlayer;
-import com.example.mario.levels.Level1_1;
+import com.example.mario.levels.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;

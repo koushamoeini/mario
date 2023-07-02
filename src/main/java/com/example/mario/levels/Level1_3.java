@@ -2,11 +2,9 @@ package com.example.mario.levels;
 
 import com.example.mario.*;
 import com.example.mario.GameHandle.MotionHandler;
-import com.example.mario.Items.Coin;
 import com.example.mario.Items.Item;
-import com.example.mario.enemies.*;
 import com.example.mario.blocks.*;
-import com.example.mario.enemies.bossFight.Bowser;
+import com.example.mario.enemies.Enemy;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Level1_3 {
     private Stage stage;
@@ -30,7 +28,7 @@ public class Level1_3 {
         ArrayList<Enemy> enemies = new ArrayList<>();
         //addBackGround
         {
-            BackGround backGround = new BackGround(1020, 600, 0, 0, new Image("Images/backGrounds/mahan2.png"));
+            BackGround backGround = new BackGround(1020, 600, 0, 0, new Image("Images/backGrounds/back.jpg"));
             pane.getChildren().add(backGround);
             BackGround cloud = new BackGround(170, 80, 200, 40, new Image("Images/backGrounds/cloud2.png"));
             pane.getChildren().add(cloud);
@@ -53,181 +51,91 @@ public class Level1_3 {
             BackGround cloud7 = new BackGround(150, 70, 2200, 150, new Image("Images/backGrounds/cloud2.png"));
             pane.getChildren().add(cloud7);
             images.add(cloud7);
-            BackGround cloud8 = new BackGround(170, 80, 2530, 40, new Image("Images/backGrounds/cloud2.png"));
-            pane.getChildren().add(cloud8);
-            images.add(cloud8);
-            BackGround cloud9 = new BackGround(160, 70, 2950, -30, new Image("Images/backGrounds/cloud1.png"));
-            pane.getChildren().add(cloud9);
-            images.add(cloud9);
-            BackGround cloud10 = new BackGround(160, 80, 3320, 120, new Image("Images/backGrounds/cloud3.png"));
-            pane.getChildren().add(cloud10);
-            images.add(cloud10);
-            BackGround cloud11 = new BackGround(170, 80, 3690, 90, new Image("Images/backGrounds/cloud1.png"));
-            pane.getChildren().add(cloud11);
-            images.add(cloud11);
-            BackGround cloud12 = new BackGround(160, 70, 3940, -40, new Image("Images/backGrounds/cloud2.png"));
-            pane.getChildren().add(cloud12);
-            images.add(cloud12);
-            BackGround cloud13 = new BackGround(160, 70, 4040, 140, new Image("Images/backGrounds/cloud3.png"));
-            pane.getChildren().add(cloud13);
-            images.add(cloud13);
-            BackGround cloud14 = new BackGround(150, 70, 4530, 80, new Image("Images/backGrounds/cloud2.png"));
-            pane.getChildren().add(cloud14);
-            images.add(cloud14);
             BackGround hill1 = new BackGround(400, 200, 100, 410, new Image("Images/backGrounds/hill1.png"));
             pane.getChildren().add(hill1);
             images.add(hill1);
-            BackGround bush1 = new BackGround(130, 60, 1490, 470, new Image("Images/backGrounds/bush1.png"));
-            pane.getChildren().add(bush1);
-            images.add(bush1);
-            BackGround bush2 = new BackGround(130, 60, 750, 470, new Image("Images/backGrounds/bush1.png"));
-            pane.getChildren().add(bush2);
-            images.add(bush2);
-            BackGround hill2 = new BackGround(400, 200, 3060, 410, new Image("Images/backGrounds/hill1.png"));
-            pane.getChildren().add(hill2);
-            images.add(hill2);
-            BackGround eye1 = new BackGround(60, 60, 4210, 310, new Image("Images/backGrounds/white.png"));
+            BackGround eye1 = new BackGround(60, 60, 2700, 310, new Image("Images/backGrounds/white.png"));
             pane.getChildren().add(eye1);
             images.add(eye1);
-            BackGround eye2 = new BackGround(100, 100, 3970, 320, new Image("Images/backGrounds/white.png"));
+            BackGround eye2 = new BackGround(100, 100, 2460, 320, new Image("Images/backGrounds/white.png"));
             pane.getChildren().add(eye2);
             images.add(eye2);
-            BackGround castle = new BackGround(400, 400, 3900, 200, new Image("Images/backGrounds/castle.png"));
+            BackGround castle = new BackGround(400, 400, 2390, 200, new Image("Images/backGrounds/castle.png"));
             pane.getChildren().add(castle);
             images.add(castle);
         }
-        //otherBlock
+        //surface 3900
         {
-            Goompa goompa = new Goompa(30, 30, 520, 330);
-            enemies.add(goompa);
-            pane.getChildren().add(goompa);
-            Spiny spiny = new Spiny(60, 60, 1520, 330);
-            enemies.add(spiny);
-            pane.getChildren().add(spiny);
-            Spiny spiny1 = new Spiny(30, 30, 2760, 330);
-            enemies.add(spiny1);
-            pane.getChildren().add(spiny1);
-            Goompa goompa1 = new Goompa(30, 30, 2850, 330);
-            enemies.add(goompa1);
-            pane.getChildren().add(goompa1);
-            Koopa koopa = new Koopa(30, 30, 2940, 330);
-            enemies.add(koopa);
-            pane.getChildren().add(koopa);
-            MysteryBlock mystery = new MysteryBlock(30, 30, 540, 360);
-            pane.getChildren().add(mystery);
-            blocks.add(mystery);
-            Stairs stairs1 = new Stairs(30, 30, 480, 420);
-            pane.getChildren().add(stairs1);
-            blocks.add(stairs1);
-            /////////////////////////////////////////////////
-            for (int i = 1800; i <= 1980; i += 30) {
-                Block brick = new Brick(30, 30, i, 360);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            for (int i = 1890; i <= 1980; i += 30) {
-                Block brick = new Brick(30, 30, i, 270);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            for (int i = 270; i <= 360; i += 30) {
-                Block brick = new Brick(30, 30, 1800, i);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            for (int i = 360; i <= 450; i += 30) {
-                Block brick = new Brick(30, 30, 1980, i);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            for (int i = 1770; i <= 1890; i += 30) {
-                Brick brick = new Brick(30, 30, i, 450);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            for (int i = 300; i <= 450; i += 30) {
-                Brick brick = new Brick(30, 30, 1890, i);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            /////////////////////////////////////////
-            for (int i = 2160; i <= 2340; i += 30) {
-                Brick brick = new Brick(30, 30, i, 300);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            for (int i = 2250; i <= 2340; i += 30) {
-                Brick brick = new Brick(30, 30, i, 210);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            for (int i = 210; i <= 300; i += 30) {
-                Brick brick = new Brick(30, 30, 2160, i);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            for (int i = 300; i <= 390; i += 30) {
-                Brick brick = new Brick(30, 30, 2340, i);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            for (int i = 2160; i <= 2250; i += 30) {
-                Brick brick = new Brick(30, 30, i, 390);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            for (int i = 240; i <= 390; i += 30) {
-                Brick brick = new Brick(30, 30, 2250, i);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            /////////////////////////////////////////
-            for (int i = 240; i <= 480; i += 30) {
-                Stairs stairs = new Stairs(30, 30, 2430, i);
-                pane.getChildren().add(stairs);
-                blocks.add(stairs);
-            }
-            Stairs stairs = new Stairs(30, 30, 3030+13*30, 480);
-            pane.getChildren().add(stairs);
-            blocks.add(stairs);
-            for (int i = 2550; i < 2700; i += 30) {
-                Brick brick = new Brick(30, 30, i, 390);
-                pane.getChildren().add(brick);
-                blocks.add(brick);
-            }
-            for (int i = 2820; i <= 2970; i += 30) {
-                MysteryBlock mysteryBlock = new MysteryBlock(30, 30, i, 270);
-                pane.getChildren().add(mysteryBlock);
-                blocks.add(mysteryBlock);
-            }
-        }
-        //addBlock
-        {
-            for (int i = 0; i <= 5800; i += 30) {
-                if ((i >= 340 && i < 630) || (i >= 1380 && i < 1440) || (i >= 1740 && i < 2100) || (i >= 3450 && i < 3690)) {
+            for (int i = 0; i <= 2760; i += 30) {
+                if ((i >= 990 && i < 2040)) {
                     KillBlock killBlock = new KillBlock(30, 30, i, 600);
                     pane.getChildren().add(killBlock);
                     blocks.add(killBlock);
                 }
             }
             for (int i = 510; i < 600; i += 30) {
-                for (int j = 0; j <= 4200; j += 30) {
-                    if (!(j >= 340 && j < 630) && !(j >= 1380 && j < 1440) && !(j >= 1740 && j < 2100) && !(j >= 3450 && j < 3600)) {
+                for (int j = 0; j <= 2760; j += 30) {
+                    if (!(j >= 990 && j < 2040)) {
                         SurfaceBlock surfaceBlock = new SurfaceBlock(30, 30, j, i);
                         pane.getChildren().add(surfaceBlock);
                         blocks.add(surfaceBlock);
                     }
                 }
             }
-            for (int i = 660; i <= 3690; i += 30) {
-                SurfaceBlock surfaceBlock = new SurfaceBlock(30, 30, i, -100);
-                pane.getChildren().add(surfaceBlock);
-                blocks.add(surfaceBlock);
-            }
-            WinBlock win = new WinBlock(60, 150, 4020, 330);
-            pane.getChildren().add(win);
-            blocks.add(win);
         }
+        //brick&&mysteryBlocks
+        {
+            for (int i = 300; i < 450; i += 30) {
+                if (i == 330 || i == 420) {
+                    CoinBlock coinBlock = new CoinBlock(30, 30, i, 390);
+                    pane.getChildren().add(coinBlock);
+                    blocks.add(coinBlock);
+                }
+                else if (i == 390||i==300) {
+                    MysteryBlock mysteryBlock = new MysteryBlock(30, 30, i, 390);
+                    pane.getChildren().add(mysteryBlock);
+                    blocks.add(mysteryBlock);
+                }
+                else {
+                    Brick block = new Brick(30, 30, i, 390);
+                    pane.getChildren().add(block);
+                    blocks.add(block);
+                }
+            }
+            for (int i = 450; i < 570; i += 30) {
+                if (i == 450 || i == 510) {
+                    SuperCoinBlock superCoinBlock = new SuperCoinBlock(30, 30, i, 240);
+                    pane.getChildren().add(superCoinBlock);
+                    blocks.add(superCoinBlock);
+                }
+                else{
+                    MysteryBlock mysteryBlock = new MysteryBlock(30, 30, i, 240);
+                    pane.getChildren().add(mysteryBlock);
+                    blocks.add(mysteryBlock);
+                }
+            }
+            Brick brick = new Brick(30, 30,1170 , 450);
+            pane.getChildren().add(brick);
+            blocks.add(brick);
+            Brick brick2 = new Brick(30, 30,1380 , 390);
+            pane.getChildren().add(brick2);
+            blocks.add(brick2);
+            Brick brick3 = new Brick(30, 30,1170 , 330);
+            pane.getChildren().add(brick3);
+            blocks.add(brick3);
+            Brick brick4 = new Brick(30, 30,1380 , 270);
+            pane.getChildren().add(brick4);
+            blocks.add(brick4);
+            Brick brick5 = new Brick(30, 30,1590 , 210);
+            pane.getChildren().add(brick5);
+            blocks.add(brick5);
+            Brick brick6 = new Brick(30, 30,1830 , 210);
+            pane.getChildren().add(brick6);
+            blocks.add(brick6);
+        }
+        WinBlock win = new WinBlock(60, 150, 2510, 330);
+        pane.getChildren().add(win);
+        blocks.add(win);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(new File("./src/main/resources/com/example/mario/GameLabels.fxml").toURI().toURL());
         Parent root = loader.load();

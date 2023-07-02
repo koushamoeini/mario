@@ -4,8 +4,6 @@ import com.example.mario.levels.SetLevel;
 import com.example.mario.manager.JsonManager;
 import com.example.mario.SuperMario;
 import com.example.mario.user.UserData;
-import com.example.mario.levels.Level1_1;
-import com.example.mario.levels.Level1_2;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
