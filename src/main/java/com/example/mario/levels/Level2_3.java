@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Level2_3 {
     private Stage stage;
 
-    public Level2_3() throws Exception {
+    public Level2_3(int state) throws Exception {
         setStage(SuperMario.getLevelStage());
         Pane pane = new Pane();
         ArrayList<Item> items = new ArrayList<>();
@@ -220,7 +220,7 @@ public class Level2_3 {
                 }
             }
             for (int i = 0; i <= 5800; i += 30) {
-                if ((i >= 340 && i < 630) || (i >= 990 && i < 1110) || (i >= 1170 && i < 1260) || (i >= 1290 && i < 1350) || (i >= 1380 && i < 1440) || (i >= 1740 && i < 2100) || (i >= 3450 && i < 3690)) {
+                if ((i >= 340 && i < 630) || (i >= 990 && i < 1110) || (i >= 1170 && i < 1260) || (i >= 1290 && i < 1350) || (i >= 1380 && i < 1440) || (i >= 1740 && i < 2100) || (i >= 3450 && i < 3630)) {
                     KillBlock killBlock = new KillBlock(30, 30, i, 600);
                     pane.getChildren().add(killBlock);
                     blocks.add(killBlock);
@@ -228,7 +228,7 @@ public class Level2_3 {
             }
             for (int i = 510; i < 600; i += 30) {
                 for (int j = 0; j <= 4200; j += 30) {
-                    if ( !(j >= 340 && j < 630) && !(j >= 990 && j < 1110) && !(j >= 1170 && j < 1260) && !(j >= 1290 && j < 1350) && !(j >= 1380 && j < 1440) && !(j >= 1740 && j < 2100) && !(j >= 3450 && j < 3690)) {
+                    if ( !(j >= 340 && j < 630) && !(j >= 990 && j < 1110) && !(j >= 1170 && j < 1260) && !(j >= 1290 && j < 1350) && !(j >= 1380 && j < 1440) && !(j >= 1740 && j < 2100) && !(j >= 3450 && j < 3630)) {
                         SurfaceBlock surfaceBlock = new SurfaceBlock(30, 30, j, i);
                         pane.getChildren().add(surfaceBlock);
                         blocks.add(surfaceBlock);
@@ -267,7 +267,7 @@ public class Level2_3 {
         Scene scene1 = new Scene(pane);
         stage.setScene(scene1);
         stage.show();
-        MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, items, stage, pane,6);
+        MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, items, stage, pane,6,state);
     }
 
     public void setStage(Stage stage) {

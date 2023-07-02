@@ -10,8 +10,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class accountController {
-
-
     public void login() throws IOException {
         Stage stage= SuperMario.getLevelStage();
         FXMLLoader loader = new FXMLLoader();

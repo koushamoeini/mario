@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Level1_3 {
     private Stage stage;
 
-    public Level1_3() throws Exception {
+    public Level1_3(int state) throws Exception {
         setStage(SuperMario.getLevelStage());
         Pane pane = new Pane();
         ArrayList<Item> items = new ArrayList<>();
@@ -145,7 +145,7 @@ public class Level1_3 {
         Scene scene1 = new Scene(pane);
         stage.setScene(scene1);
         stage.show();
-        MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, items, stage, pane, 3);
+        MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, items, stage, pane, 3,state);
     }
 
     public void setStage(Stage stage) {

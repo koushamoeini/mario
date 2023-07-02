@@ -20,7 +20,7 @@ import java.util.List;
 public class Level1_2 {
     private Stage stage;
 
-    public Level1_2() throws Exception {
+    public Level1_2(int state) throws Exception {
         setStage(SuperMario.getLevelStage());
         Pane pane = new Pane();
         ArrayList<Item> items = new ArrayList<>();
@@ -113,7 +113,7 @@ public class Level1_2 {
             Scene scene1 = new Scene(pane);
             stage.setScene(scene1);
             stage.show();
-            MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, items, stage, pane, 2);
+            MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, items, stage, pane, 2,state);
         }
     }
 

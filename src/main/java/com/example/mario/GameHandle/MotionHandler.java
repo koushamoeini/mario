@@ -85,7 +85,7 @@ public class MotionHandler {
     JsonManager jsonManager3 = new JsonManager(path + userData.getCurrentUser().getUserName() + "/game3.json");
 
     public MotionHandler(List<Block> blocks, List<Enemy> enemies, List<BackGround> backGrounds,
-                         List<Item> items, Stage stage, Pane pane,int level) throws Exception {
+                         List<Item> items, Stage stage, Pane pane,int level,int marioState) throws Exception {
         this.stage = stage;
         this.pane = pane;
         this.blocks = blocks;
@@ -93,6 +93,7 @@ public class MotionHandler {
         this.backGrounds = backGrounds;
         this.items = items;
         this.level=level;
+        mario.setMarioState(marioState);
         marioAnimation = new MarioAnimation(mario);
         marioCollision = new MarioCollision(mario, this.blocks, new BlockCollision(this.pane, this.items, mario));
         itemCollision = new ItemCollision(mario, items);
@@ -156,6 +157,7 @@ public class MotionHandler {
                     case ESCAPE -> {
                         try {
                             gameStop();
+                            stopFxml();
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
@@ -264,7 +266,7 @@ public class MotionHandler {
                         GameLabelController.timeline.stop();
                         gameLabelController.setPointChange(gameData.getPoint());
                         try {
-                            if(!setLevel.levelSet()){
+                            if(!setLevel.levelSet(mario.getMarioState())){
                                 gameData.setPoint(gameData.getPoint() + gameData.getHp() * 20);
                                 userData.getCurrentUser().checkPoint(gameData.getPoint());
                                 userData.getCurrentUser().setCoins(userData.getCurrentUser().getCoins() + gameData.getCoin());
@@ -433,9 +435,49 @@ public class MotionHandler {
         for (Item item : items) item.setLayoutX(item.getLayoutX() - num * 5);
     }
 
-    public void gameStop() throws Exception {
+    public void gameStop() {
+        setGamePause(true);
+        getBossMover().stop();
+        GameLabelController.timeline.stop();
+        getTimer().stop();
+        //enemy stop:
+        for (Enemy enemy : getEnemies()) {
+            if (enemy instanceof Flower flower) flower.getTimeline().stop();
+            if (enemy instanceof Koopa koopa) {
+                koopa.getKoopaTimeline().stop();
+                koopa.getKoopaAnimation().stop();
+                koopa.getKoopaAnimationStopper().stop();
+            }
+            if (enemy instanceof Goompa goompa) goompa.getTimeline().stop();
+            if (enemy instanceof Spiny spiny) spiny.getTimeline2().stop();
+        }
+        //block stop:
+        for (Block block : getBlocks()) {
+            if (block instanceof MysteryBlock mysteryBlock) mysteryBlock.getTimeline().stop();
+        }
+        //item stop:
+        for (Item item : getItems()) {
+            if (item instanceof Coin coin) {
+                coin.getTimeline().stop();
+                coin.getFallTimeline().stop();
+            }
+            if (item instanceof Mushroom mushroom) {
+                mushroom.getTimeline().stop();
+                mushroom.getDelayTimeLine().stop();
+            }
+            if (item instanceof Star star) {
+                star.getDelayTimeline().stop();
+                star.getTimeline().stop();
+            }
+            if (item instanceof MagicFlower magicFlower) magicFlower.getTimeline().stop();
+
+        }
+    }
+    public void stopFxml() throws Exception{
+        PauseHandle pauseHandle=new PauseHandle(this);
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new File("./src/main/resources/com/example/mario/pauseGame.fxml").toURI().toURL());
+        loader.setLocation(new File("./src/main/resources/com/example/mario/PauseGame.fxml").toURI().toURL());
+        loader.setController(pauseHandle);
         Parent content = loader.load();
         Scene scene = new Scene(content);
         stage.setScene(scene);
@@ -447,33 +489,7 @@ public class MotionHandler {
         stage.setX(SuperMario.getStageX());
         stage.setY(SuperMario.getStageY());
         stage.show();
-        GameLabelController.timeline.stop();
-        timer.stop();
-        jumpStop = true;
-        for (Enemy enemy : enemies) {
-            if (enemy instanceof Flower flower) flower.getTimeline().stop();
-        }
-        for (Block block : blocks) {
-            if (block instanceof MysteryBlock mysteryBlock) mysteryBlock.getTimeline().stop();
-        }
-        for (Item item : items) {
-            if (item instanceof Coin coin) coin.getTimeline().stop();
-        }
-    }
 
-    public void gameStart() {
-        GameLabelController.timeline.play();
-        timer.start();
-        jumpStop = true;
-        for (Enemy enemy : enemies) {
-            if (enemy instanceof Flower flower) flower.getTimeline().play();
-        }
-        for (Block block : blocks) {
-            if (block instanceof MysteryBlock mysteryBlock) mysteryBlock.getTimeline().play();
-        }
-        for (Item item : items) {
-            if (item instanceof Coin coin) coin.getTimeline().play();
-        }
     }
 
     public void loadMainMenu() throws IOException {
@@ -510,6 +526,7 @@ public class MotionHandler {
         saveData.add((int) mario.getLayoutX());
         saveData.add((int) mario.getLayoutY());
         saveData.add(level);
+        saveData.add(mario.getMarioState());
         GameLabelController.timeline.stop();
         andBegin.stop();
         andBeginTime.stop();
@@ -522,14 +539,7 @@ public class MotionHandler {
         jsonManager1.writeArray(saveData);
     }
 
-    public void muteMusic() {
-        if (music.getImage().getUrl().equals("Images/backGrounds/unmute.png")) {
-            music.setImage(new Image("Images/backGrounds/mute.png"));
 
-        } else {
-            music.setImage(new Image("Images/backGrounds/unmute.png"));
-        }
-    }
 
     public void jsonJob() throws Exception {
         if (ChooseSaveController.isFirstSave()) {
@@ -544,6 +554,7 @@ public class MotionHandler {
             mario.setLayoutY(jsonManager1.readArray(JsonManager.integerReference).get(7));
             mapMoveCounter = jsonManager1.readArray(JsonManager.integerReference).get(0);
             mapMoveDownCounter = jsonManager1.readArray(JsonManager.integerReference).get(1);
+            mario.setMarioState(jsonManager1.readArray(JsonManager.integerReference).get(9));
         } else if (ChooseSaveController.isSecondSave()) {
             ChooseSaveController.setSecondSave(false);
             mapMoverRight(jsonManager2.readArray(JsonManager.integerReference).get(0));
@@ -556,6 +567,7 @@ public class MotionHandler {
             mario.setLayoutY(jsonManager2.readArray(JsonManager.integerReference).get(7));
             mapMoveCounter = jsonManager2.readArray(JsonManager.integerReference).get(0);
             mapMoveDownCounter = jsonManager2.readArray(JsonManager.integerReference).get(1);
+            mario.setMarioState(jsonManager2.readArray(JsonManager.integerReference).get(9));
         } else if (ChooseSaveController.isThirdSave()) {
             ChooseSaveController.setThirdSave(false);
             mapMoverRight(jsonManager3.readArray(JsonManager.integerReference).get(0));
@@ -568,6 +580,7 @@ public class MotionHandler {
             mario.setLayoutY(jsonManager3.readArray(JsonManager.integerReference).get(7));
             mapMoveCounter = jsonManager3.readArray(JsonManager.integerReference).get(0);
             mapMoveDownCounter = jsonManager3.readArray(JsonManager.integerReference).get(1);
+            mario.setMarioState(jsonManager3.readArray(JsonManager.integerReference).get(9));
         }
     }
 
@@ -620,5 +633,9 @@ public class MotionHandler {
 
     public Timeline getBossMover() {
         return bossMover;
+    }
+
+    public void setJumpStop(boolean jumpStop) {
+        this.jumpStop = jumpStop;
     }
 }

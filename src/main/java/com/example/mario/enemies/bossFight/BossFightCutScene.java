@@ -73,43 +73,8 @@ public class BossFightCutScene {
 
     });
 
-    public void gamePause() {
-        motionHandler.setGamePause(true);
-        motionHandler.getBossMover().stop();
-        GameLabelController.timeline.stop();
-        motionHandler.getTimer().stop();
-        //enemy stop:
-        for (Enemy enemy : motionHandler.getEnemies()) {
-            if (enemy instanceof Flower flower) flower.getTimeline().stop();
-            if (enemy instanceof Koopa koopa) {
-                koopa.getKoopaTimeline().stop();
-                koopa.getKoopaAnimation().stop();
-                koopa.getKoopaAnimationStopper().stop();
-            }
-            if (enemy instanceof Goompa goompa) goompa.getTimeline().stop();
-            if (enemy instanceof Spiny spiny) spiny.getTimeline2().stop();
-        }
-        //block stop:
-        for (Block block : motionHandler.getBlocks()) {
-            if (block instanceof MysteryBlock mysteryBlock) mysteryBlock.getTimeline().stop();
-        }
-        //item stop:
-        for (Item item : motionHandler.getItems()) {
-            if (item instanceof Coin coin) {
-                coin.getTimeline().stop();
-                coin.getFallTimeline().stop();
-            }
-            if (item instanceof Mushroom mushroom) {
-                mushroom.getTimeline().stop();
-                mushroom.getDelayTimeLine().stop();
-            }
-            if (item instanceof Star star) {
-                star.getDelayTimeline().stop();
-                star.getTimeline().stop();
-            }
-            if (item instanceof MagicFlower magicFlower) magicFlower.getTimeline().stop();
-
-        }
+    public void gamePause() throws Exception {
+       motionHandler.gameStop();
     }
 
     public void gameStart() {
