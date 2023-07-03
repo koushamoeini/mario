@@ -15,8 +15,6 @@ import javafx.animation.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -26,7 +24,6 @@ import java.io.*;
 import java.util.*;
 
 public class MotionHandler {
-    private ImageView music;
     Stage stage;
     Pane pane;
     private double gravity = 0.5;
@@ -47,6 +44,7 @@ public class MotionHandler {
     private final List<Gun> shots = new ArrayList<>();
     private int level;
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
+    PauseHandle pauseHandle=PauseHandle.getInstance(this);
     private GameData gameData = GameData.getInstance();
     private final UserData userData = UserData.getInstance();
     private final List<Integer> saveData = new ArrayList<>();
@@ -58,18 +56,12 @@ public class MotionHandler {
     private BowserMovement bowserMovement;
     private final BowserAttack bowserAttack;
     private UsingAttacks usingAttacks;
+    private GameSound gameSound;
     private SetLevel setLevel;
     private Bowser bowser;
     AnimationTimer timer;
     Timeline bossMover;
-    Timeline andBeginTime = new Timeline();
 
-    private final VoicePlayer andBegin = new VoicePlayer("./src/main/resources/Media/and begin.mp3");
-    private final VoicePlayer beppi = new VoicePlayer("./src/main/resources/Media/beppi.mp3");
-    KeyFrame keyFrame = new KeyFrame(Duration.seconds(4), event -> {
-        andBegin.stop();
-        beppi.play();
-    });
     KeyFrame bossMoverKeyFrame = new KeyFrame(Duration.millis(20), event -> {
         try {
             if (!usingAttacks.isUsingAnotherAttack() || bowser.isJumping()) {
@@ -102,15 +94,13 @@ public class MotionHandler {
         bowserMovement = new BowserMovement(this);
         bowserAttack = new BowserAttack(this);
         usingAttacks = new UsingAttacks(this);
+        gameSound=new GameSound(this,pauseHandle.isMute());
         setLevel=new SetLevel(level);
         bowser = bowserFounder();
         gameLabelController.setPointChange(gameData.getPoint());
         gameLabelController.setHpChange(gameData.getHp());
         gameLabelController.setCoinChange(gameData.getCoin());
-        andBeginTime.getKeyFrames().addAll(keyFrame);
-        andBeginTime.setCycleCount(Animation.INDEFINITE);
-        //andBeginTime.play();
-        //andBegin.play();
+
         bossMover = new Timeline();
         bossMover.getKeyFrames().addAll(bossMoverKeyFrame);
         bossMover.setCycleCount(Animation.INDEFINITE);
@@ -258,8 +248,7 @@ public class MotionHandler {
                 }
                 if (!mario.isDead()) {
                     if (isWin()) {
-                        andBeginTime.stop();
-                        beppi.stop();
+
                         timer.stop();
                         gameData.setPoint(gameData.getPoint() + gameData.getTime());
                         gameData.setTime(100);
@@ -349,9 +338,7 @@ public class MotionHandler {
         gameData.setHp(gameData.getHp() - 1);
         if (gameData.getHp() < 1) {
             GameLabelController.timeline.stop();
-            andBeginTime.stop();
-            andBegin.stop();
-            beppi.stop();
+
             timer.stop();
             GameLabelController.timeline.stop();
             userData.getCurrentUser().checkPoint(gameData.getPoint());
@@ -474,7 +461,6 @@ public class MotionHandler {
         }
     }
     public void stopFxml() throws Exception{
-        PauseHandle pauseHandle=new PauseHandle(this);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(new File("./src/main/resources/com/example/mario/PauseGame.fxml").toURI().toURL());
         loader.setController(pauseHandle);
@@ -528,9 +514,7 @@ public class MotionHandler {
         saveData.add(level);
         saveData.add(mario.getMarioState());
         GameLabelController.timeline.stop();
-        andBegin.stop();
-        andBeginTime.stop();
-        beppi.stop();
+
         timer.stop();
         gameData = GameData.resetInstance();
         loadMainMenu();
@@ -634,8 +618,7 @@ public class MotionHandler {
     public Timeline getBossMover() {
         return bossMover;
     }
-
-    public void setJumpStop(boolean jumpStop) {
-        this.jumpStop = jumpStop;
+    public GameSound getGameSound() {
+        return gameSound;
     }
 }

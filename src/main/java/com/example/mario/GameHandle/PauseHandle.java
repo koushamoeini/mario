@@ -23,11 +23,18 @@ public class PauseHandle implements Initializable {
     @FXML
     public Button exit;
     private MotionHandler motionHandler;
-
+    private static PauseHandle instance;
+    public PauseHandle(){
+        instance=this;
+    }
+    public static PauseHandle getInstance(MotionHandler motionHandler){
+        if (instance==null)
+            instance = new PauseHandle(motionHandler);
+        return instance;
+    }
     public PauseHandle(MotionHandler motionHandler) {
         this.motionHandler = motionHandler;
     }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -83,16 +90,28 @@ public class PauseHandle implements Initializable {
     }
 
     public void muteMusic() {
-        if (music.getImage().getUrl().equals("Images/backGrounds/unmute.png")) {
+        if (urlEditor(music.getImage().getUrl()).equals("Images/backGrounds/unmute.png")) {
             music.setImage(new Image("Images/backGrounds/mute.png"));
-
         } else {
             music.setImage(new Image("Images/backGrounds/unmute.png"));
+            //TODO
         }
     }
-
+    public boolean isMute(){
+        if (urlEditor(music.getImage().getUrl()).equals("Images/backGrounds/unmute.png")) return true;
+        return false;
+    }
     public void exitGame() throws Exception {
         motionHandler.saveGame();
         motionHandler.loadMainMenu();
+    }
+    public String urlEditor(String str){
+        for(int i=0;i<str.length();i++){
+            if(str.charAt(i)=='I'&&str.charAt(i+1)=='m'){
+                str=str.substring(i);
+                return str;
+            }
+        }
+        return "" ;
     }
 }
