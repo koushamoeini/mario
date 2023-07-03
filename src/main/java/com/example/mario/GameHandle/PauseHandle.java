@@ -23,20 +23,14 @@ public class PauseHandle implements Initializable {
     @FXML
     public Button exit;
     private MotionHandler motionHandler;
-    private static PauseHandle instance;
-    public PauseHandle(){
-        instance=this;
-    }
-    public static PauseHandle getInstance(MotionHandler motionHandler){
-        if (instance==null)
-            instance = new PauseHandle(motionHandler);
-        return instance;
-    }
     public PauseHandle(MotionHandler motionHandler) {
         this.motionHandler = motionHandler;
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if(!motionHandler.getGameSound().isMuteListener()){
+            music.setImage(new Image("Images/backGrounds/mute.png"));
+        }
         try {
             exit.setOnAction(e -> {
                 try {
@@ -95,13 +89,14 @@ public class PauseHandle implements Initializable {
             motionHandler.getGameSound().setMuteListener(false);
         } else {
             music.setImage(new Image("Images/backGrounds/unmute.png"));
-            motionHandler.getGameSound().setMuteListener(false);
-            //TODO
+            motionHandler.getGameSound().setMuteListener(true);
         }
     }
     public void exitGame() throws Exception {
         motionHandler.saveGame();
         motionHandler.loadMainMenu();
+        motionHandler.getGameSound().setMuteListener(false);
+        GameSound.setInstance(null);
     }
     public String urlEditor(String str){
         for(int i=0;i<str.length();i++){

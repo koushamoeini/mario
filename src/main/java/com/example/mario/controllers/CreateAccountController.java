@@ -5,16 +5,12 @@ import com.example.mario.SuperMario;
 import com.example.mario.user.User;
 import com.example.mario.user.UserData;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.File;
-import java.io.IOException;
+
 
 public class CreateAccountController {
     private final UserData userData=UserData.getInstance();
@@ -24,7 +20,8 @@ public class CreateAccountController {
     private TextField createUser;
     @FXML
     private PasswordField createPass;
-    public void CheckUserPass() throws IOException {
+    private final FxmlLoader fxmlLoader=new FxmlLoader();
+    public void CheckUserPass() throws Exception {
         JsonManager jsonManager=new JsonManager("./src/main/resources/GamaData/users.json");
         Stage stage= SuperMario.getLevelStage();
         for(User user :userData.getUsers()){
@@ -50,34 +47,10 @@ public class CreateAccountController {
         jsonManager3.nothing();
         jsonManager2.nothing();
         jsonManager1.nothing();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new File("./src/main/resources/com/example/mario/account.fxml").toURI().toURL());
-        Parent content = loader.load();
-        Scene scene = new Scene(content);
-        stage.setScene(scene);
-        stage.setHeight(SuperMario.getHeight());
-        stage.setWidth(SuperMario.getWidth());
-        stage.getIcons().add(SuperMario.getIcon());
-        stage.setResizable(false);
-        stage.setTitle(SuperMario.getStageTitle());
-        stage.setX(SuperMario.getStageX());
-        stage.setY(SuperMario.getStageY());
-        stage.show();
+        stage.setScene(fxmlLoader.loadFxml("account"));
     }
-    public void back () throws IOException {
+    public void back () throws Exception {
         Stage stage=SuperMario.getLevelStage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new File("./src/main/resources/com/example/mario/account.fxml").toURI().toURL());
-        Parent content = loader.load();
-        Scene scene = new Scene(content);
-        stage.setScene(scene);
-        stage.setHeight(SuperMario.getHeight());
-        stage.setWidth(SuperMario.getWidth());
-        stage.getIcons().add(SuperMario.getIcon());
-        stage.setResizable(false);
-        stage.setTitle(SuperMario.getStageTitle());
-        stage.setX(SuperMario.getStageX());
-        stage.setY(SuperMario.getStageY());
-        stage.show();
+        stage.setScene(fxmlLoader.loadFxml("account"));
     }
 }

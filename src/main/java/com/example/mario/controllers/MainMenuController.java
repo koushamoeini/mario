@@ -19,44 +19,21 @@ import java.io.IOException;
 
 public class MainMenuController {
     private final VoicePlayer shopVoice=new VoicePlayer("./src/main/resources/Media/shopWelcome.wav");
+    private FxmlLoader fxmlLoader=new FxmlLoader();
     public void level1_1() throws Exception {
         GameData.resetInstance();
         new Level1_1();
     }
-    public void Shop() throws IOException {
+    public void Shop() throws Exception {
         shopVoice.play();
         Stage stage= SuperMario.getLevelStage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new File("./src/main/resources/com/example/mario/Shop.fxml").toURI().toURL());
-        Parent content = loader.load();
-        Scene scene = new Scene(content);
-        stage.setScene(scene);
-        stage.setHeight(SuperMario.getHeight());
-        stage.setWidth(SuperMario.getWidth());
-        stage.getIcons().add(SuperMario.getIcon());
-        stage.setResizable(false);
-        stage.setTitle(SuperMario.getStageTitle());
-        stage.setX(SuperMario.getStageX());
-        stage.setY(SuperMario.getStageY());
-        stage.show();
+        stage.setScene(fxmlLoader.loadFxml("Shop"));
     }
-    public void back() throws IOException {
+    public void back() throws Exception {
         Stage stage=SuperMario.getLevelStage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new File("./src/main/resources/com/example/mario/account.fxml").toURI().toURL());
-        Parent content = loader.load();
-        Scene scene = new Scene(content);
-        stage.setScene(scene);
-        stage.setHeight(SuperMario.getHeight());
-        stage.setWidth(SuperMario.getWidth());
-        stage.getIcons().add(SuperMario.getIcon());
-        stage.setResizable(false);
-        stage.setTitle(SuperMario.getStageTitle());
-        stage.setX(SuperMario.getStageX());
-        stage.setY(SuperMario.getStageY());
-        stage.show();
+        stage.setScene(fxmlLoader.loadFxml("account"));
     }
-    public void profile() throws IOException {
+    public void profile() throws Exception {
         Stage stage=SuperMario.getLevelStage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(new File("./src/main/resources/com/example/mario/Profile.fxml").toURI().toURL());
@@ -65,27 +42,11 @@ public class MainMenuController {
         stage.setScene(scene);
         stage.setHeight(447);
         stage.setWidth(621);
-        stage.getIcons().add(SuperMario.getIcon());
         stage.setResizable(false);
-        stage.setTitle(SuperMario.getStageTitle());
-        stage.setX(SuperMario.getStageX());
-        stage.setY(SuperMario.getStageY());
         stage.show();
     }
-    public void continueGame() throws IOException {
+    public void continueGame() throws Exception {
         Stage stage=SuperMario.getLevelStage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new File("./src/main/resources/com/example/mario/chooseSave.fxml").toURI().toURL());
-        Parent content = loader.load();
-        Scene scene = new Scene(content);
-        stage.setScene(scene);
-        stage.setHeight(SuperMario.getHeight());
-        stage.setWidth(SuperMario.getWidth());
-        stage.getIcons().add(SuperMario.getIcon());
-        stage.setResizable(false);
-        stage.setTitle(SuperMario.getStageTitle());
-        stage.setX(SuperMario.getStageX());
-        stage.setY(SuperMario.getStageY());
-        stage.show();
+        stage.setScene(fxmlLoader.loadFxml("chooseSave"));
     }
 }

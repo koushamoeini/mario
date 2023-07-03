@@ -11,9 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -29,7 +27,6 @@ public class ProfileController implements Initializable {
     private Label point1;
     @FXML
     private Label username;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         username.setText(userData.getCurrentUser().getUserName());
@@ -43,7 +40,7 @@ public class ProfileController implements Initializable {
         else if (userData.getCurrentUser().isCurrentSkin4()) str="/plane";
         chosenCharacter.setImage(new Image("Images"+str+"/runner.png"));
     }
-    public void back() throws IOException {
+    public void back() throws Exception {
         Stage stage= SuperMario.getLevelStage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(new File("./src/main/resources/com/example/mario/MainMenu.fxml").toURI().toURL());
@@ -52,11 +49,6 @@ public class ProfileController implements Initializable {
         stage.setScene(scene);
         stage.setHeight(SuperMario.getHeight());
         stage.setWidth(1020);
-        stage.getIcons().add(SuperMario.getIcon());
-        stage.setResizable(false);
-        stage.setTitle(SuperMario.getStageTitle());
-        stage.setX(SuperMario.getStageX());
-        stage.setY(SuperMario.getStageY());
         stage.show();
     }
 }

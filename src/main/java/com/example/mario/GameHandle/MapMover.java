@@ -19,6 +19,8 @@ public class MapMover {
     private MotionHandler motionHandler;
     private int mapMoveCounter = 0;
     private int mapMoveDownCounter = 0;
+    private boolean isMapMustMovingDown = false;
+    private boolean isMapMoving = false;
     public MapMover(MotionHandler motionHandler) {
         this.blocks=motionHandler.getBlocks();
         this.enemies=motionHandler.getEnemies();
@@ -76,5 +78,41 @@ public class MapMover {
         for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() - num * 5);
         for (Item item : items) item.setLayoutX(item.getLayoutX() - num * 5);
     }
+    public void isMapMustMovingDownCheck() {
+        if (mario.getLayoutY() > SuperMario.getHeight() + 30) {
+            isMapMustMovingDown = true;
+        }
+    }
 
+    public boolean isMapMustMovingDown() {
+        return isMapMustMovingDown;
+    }
+
+    public int getMapMoveCounter() {
+        return mapMoveCounter;
+    }
+
+    public int getMapMoveDownCounter() {
+        return mapMoveDownCounter;
+    }
+
+    public boolean isMapMoving() {
+        return isMapMoving;
+    }
+
+    public void setMapMoveCounter(int mapMoveCounter) {
+        this.mapMoveCounter = mapMoveCounter;
+    }
+
+    public void setMapMoveDownCounter(int mapMoveDownCounter) {
+        this.mapMoveDownCounter = mapMoveDownCounter;
+    }
+
+    public void setMapMustMovingDown(boolean mapMustMovingDown) {
+        isMapMustMovingDown = mapMustMovingDown;
+    }
+
+    public void setMapMoving(boolean mapMoving) {
+        isMapMoving = mapMoving;
+    }
 }

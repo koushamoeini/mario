@@ -26,25 +26,22 @@ import java.util.*;
 public class MotionHandler {
     Stage stage;
     Pane pane;
+    private Scene stopScene;
     private double gravity = 0.5;
     private double velocity = 0;
     private boolean isLeft = false;
     private boolean isRight = false;
-    private boolean jumpStop = false;
-    private boolean isMapMoving = false;
+    private final boolean jumpStop = false;
     private boolean isGamePause = false;
-    private int mapMoveCounter = 0;
-    private int mapMoveDownCounter = 0;
-    private boolean isMapMustMovingDown = false;
     private final Mario mario = new Mario(30, 30, 30, -60);
     private final List<Enemy> enemies;
     private final List<Block> blocks;
     private final List<BackGround> backGrounds;
     private final List<Item> items;
     private final List<Gun> shots = new ArrayList<>();
-    private int level;
+    private final int level;
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
-    PauseHandle pauseHandle=PauseHandle.getInstance(this);
+    private PauseHandle pauseHandle =new PauseHandle(this);
     private GameData gameData = GameData.getInstance();
     private final UserData userData = UserData.getInstance();
     private final List<Integer> saveData = new ArrayList<>();
@@ -56,10 +53,11 @@ public class MotionHandler {
     private BowserMovement bowserMovement;
     private final BowserAttack bowserAttack;
     private UsingAttacks usingAttacks;
-    private MapMover mapMover;
-    private GameSound gameSound=GameSound.getInstance(this);
-    private SetLevel setLevel;
+    private final MapMover mapMover;
+    private  GameSound gameSound = GameSound.getInstance(this);
+    private final SetLevel setLevel;
     private Bowser bowser;
+    private final FxmlLoader fxmlLoader=new FxmlLoader();
     AnimationTimer timer;
     Timeline bossMover;
 
@@ -78,16 +76,16 @@ public class MotionHandler {
     JsonManager jsonManager3 = new JsonManager(path + userData.getCurrentUser().getUserName() + "/game3.json");
 
     public MotionHandler(List<Block> blocks, List<Enemy> enemies, List<BackGround> backGrounds,
-                         List<Item> items, Stage stage, Pane pane,int level,int marioState) throws Exception {
+                         List<Item> items, Stage stage, Pane pane, int level, int marioState) throws Exception {
         this.stage = stage;
         this.pane = pane;
         this.blocks = blocks;
         this.enemies = enemies;
         this.backGrounds = backGrounds;
         this.items = items;
-        this.level=level;
+        this.level = level;
         mario.setMarioState(marioState);
-        marioAnimation = new MarioAnimation(mario);
+        marioAnimation = new MarioAnimation(this);
         marioCollision = new MarioCollision(mario, this.blocks, new BlockCollision(this.pane, this.items, mario));
         itemCollision = new ItemCollision(this);
         enemyCollision = new EnemyCollision(this);
@@ -95,19 +93,20 @@ public class MotionHandler {
         bowserMovement = new BowserMovement(this);
         bowserAttack = new BowserAttack(this);
         usingAttacks = new UsingAttacks(this);
-        setLevel=new SetLevel(level);
-        mapMover=new MapMover(this);
+        setLevel = new SetLevel(level);
+        mapMover = new MapMover(this);
         bowser = bowserFounder();
         gameLabelController.setPointChange(gameData.getPoint());
         gameLabelController.setHpChange(gameData.getHp());
         gameLabelController.setCoinChange(gameData.getCoin());
-        bossMover=new Timeline(bossMoverKeyFrame);
+        bossMover = new Timeline(bossMoverKeyFrame);
         bossMover.setCycleCount(Animation.INDEFINITE);
         bossMover.play();
+        stopScene=loadStopFxml();
         jsonJob();
         pane.getChildren().add(mario);
         stage.getScene().setOnKeyPressed(event -> {
-            if (mario.isCanMove()&&!isGamePause) {
+            if (mario.isCanMove() && !isGamePause) {
                 switch (event.getCode()) {
                     case RIGHT -> {
                         if (mario.isNausea()) {
@@ -175,7 +174,7 @@ public class MotionHandler {
                     case LEFT -> bowserAttack.setGrabLeftCounter(bowserAttack.getGrabLeftCounter() + 1);
                 }
             }
-            if(event.getCode().equals(KeyCode.A)) {
+            if (event.getCode().equals(KeyCode.A)) {
                 try {
                     saveGame();
                 } catch (Exception e) {
@@ -233,7 +232,7 @@ public class MotionHandler {
             public void handle(long l) {
                 itemMovement();
                 enemyMovement();
-                isMapMoving = false;
+                mapMover.setMapMoving(false);
                 checkTime();
                 if (mario.isDead()) {
                     marioAnimation.startMoving();
@@ -254,7 +253,7 @@ public class MotionHandler {
                         GameLabelController.timeline.stop();
                         gameLabelController.setPointChange(gameData.getPoint());
                         try {
-                            if(!setLevel.levelSet(mario.getMarioState())){
+                            if (!setLevel.levelSet(mario.getMarioState())) {
                                 gameData.setPoint(gameData.getPoint() + gameData.getHp() * 20);
                                 userData.getCurrentUser().checkPoint(gameData.getPoint());
                                 userData.getCurrentUser().setCoins(userData.getCurrentUser().getCoins() + gameData.getCoin());
@@ -266,14 +265,14 @@ public class MotionHandler {
                         }
                     }
                     usingAttacks.useAttack();
-                    isMapMustMovingDown();
+                    mapMover.isMapMustMovingDownCheck();
                     enemyCollision.isEnemyCollision();
                     marioCollision.collision();
                     itemCollision.allCollision();
                     shotCollision.checkCollision();
-                    if (!marioCollision.isRightCollusion() && isRight && mario.getLayoutX() > (float) SuperMario.getWidth() / 2 && !isAllBlockMoveRight()) {
-                        mapRightController();
-                        isMapMoving = true;
+                    if (!marioCollision.isRightCollusion() && isRight && mario.getLayoutX() > (float) SuperMario.getWidth() / 2 && !mapMover.isAllBlockMoveRight()) {
+                        mapMover.mapRightController();
+                        mapMover.setMapMoving(true);
                     }
                     a:
                     if (isRight && !marioCollision.isRightCollusion()) {
@@ -281,7 +280,7 @@ public class MotionHandler {
                         marioAnimation.startMoving();
                         if (mario.getLayoutX() + mario.getFitWidth() > SuperMario.getWidth() - 20)
                             break a;
-                        if (!isMapMoving)
+                        if (!mapMover.isMapMoving())
                             mario.setLayoutX(mario.getLayoutX() + mario.getxVelocity());
                     }
                     b:
@@ -294,15 +293,15 @@ public class MotionHandler {
                         mario.setLayoutX(mario.getLayoutX() - mario.getxVelocity());
                     }
                     if (!marioCollision.isDownCollusion()) {
-                        if (isMapMustMovingDown && !isAllBlockMoveDown()) {
-                            mapDownController();
+                        if (mapMover.isMapMustMovingDown() && !mapMover.isAllBlockMoveDown()) {
+                            mapMover.mapDownController();
                         } else {
                             if (marioCollision.isUpCollusion()) velocity = 0;
                             velocity -= gravity;
                             mario.setLayoutY(mario.getLayoutY() - velocity);
                         }
                     } else {
-                        isMapMustMovingDown = false;
+                        mapMover.setMapMustMovingDown(false);
                         velocity = 0;
                         if (marioAnimation.isJumping()) {
                             marioAnimation.setJumping(false);
@@ -317,19 +316,19 @@ public class MotionHandler {
 
     public boolean isWin() {
         for (Block win : blocks) {
-            if(win instanceof WinBlock &&mario.getBoundsInParent().intersects(win.getBoundsInParent()))return true;
+            if (win instanceof WinBlock && mario.getBoundsInParent().intersects(win.getBoundsInParent())) return true;
         }
         return false;
     }
 
-    public void doDead() throws IOException {
+    public void doDead() throws Exception {
         mario.setDead(false);
         mario.setMarioState(0);
         if (gameData.getPoint() >= 20) {
             gameData.setPoint(gameData.getPoint() - 20);
             gameLabelController.setPointChange(gameData.getPoint());
         }
-        isMapMustMovingDown = false;
+        mapMover.setMapMustMovingDown(false);
         marioAnimation.setDyingFinished(false);
         mario.setLayoutX(30);
         mario.setLayoutY(-60);
@@ -346,79 +345,23 @@ public class MotionHandler {
             loadMainMenu();
             SuperMario.menuSong.stop();
         }
-        for (Block block : blocks) block.setLayoutX(block.getLayoutX() + mapMoveCounter * 3);
-        for (Block block : blocks) block.setLayoutY(block.getLayoutY() + mapMoveDownCounter * 4);
-        for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() + mapMoveCounter * 3);
-        for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() + mapMoveDownCounter * 4);
-        for (BackGround backGround : backGrounds) backGround.setLayoutX(backGround.getLayoutX() + mapMoveCounter * 3);
+        for (Block block : blocks) block.setLayoutX(block.getLayoutX() + mapMover.getMapMoveCounter() * 3);
+        for (Block block : blocks) block.setLayoutY(block.getLayoutY() + mapMover.getMapMoveDownCounter() * 4);
+        for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() + mapMover.getMapMoveCounter() * 3);
+        for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() + mapMover.getMapMoveDownCounter() * 4);
         for (BackGround backGround : backGrounds)
-            backGround.setLayoutY(backGround.getLayoutY() + mapMoveDownCounter * 4);
-        for (Item item : items) item.setLayoutX(item.getLayoutX() + mapMoveCounter * 3);
-        for (Item item : items) item.setLayoutY(item.getLayoutY() + mapMoveDownCounter * 4);
-        mapMoveDownCounter = 0;
-        mapMoveCounter = 0;
-    }
-
-    public boolean isAllBlockMoveRight() {
-        for (Block block : blocks) {
-            if (block.getLayoutX() > SuperMario.getWidth())
-                return false;
-        }
-        return true;
-    }
-
-    public boolean isAllBlockMoveDown() {
-        for (Block block : blocks) {
-            if (block.getLayoutY() > SuperMario.getHeight() && !(block instanceof WinBlock))
-                return false;
-        }
-        return true;
-    }
-
-    public void mapRightController() {
-        mapMoveCounter++;
-        for (Block block : blocks) block.setLayoutX(block.getLayoutX() - 3);
-        for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() - 3);
-        for (BackGround backGround : backGrounds) backGround.setLayoutX(backGround.getLayoutX() - 3);
-        for (Item item : items) item.setLayoutX(item.getLayoutX() - 3);
-    }
-
-    public void mapDownController() {
-        mapMoveDownCounter++;
-        marioAnimation.falling();
-        if (mario.getLayoutY() >= 210) mario.setLayoutY(mario.getLayoutY() - 10);
-        for (Block block : blocks) block.setLayoutY(block.getLayoutY() - 4);
-        for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() - 4);
-        for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() - 4);
-        for (Item item : items) item.setLayoutX(item.getLayoutX() - 4);
-
-    }
-
-    public void isMapMustMovingDown() {
-        if (mario.getLayoutY() > SuperMario.getHeight() + 30) {
-            isMapMustMovingDown = true;
-        }
+            backGround.setLayoutX(backGround.getLayoutX() + mapMover.getMapMoveCounter() * 3);
+        for (BackGround backGround : backGrounds)
+            backGround.setLayoutY(backGround.getLayoutY() + mapMover.getMapMoveDownCounter() * 4);
+        for (Item item : items) item.setLayoutX(item.getLayoutX() + mapMover.getMapMoveCounter() * 3);
+        for (Item item : items) item.setLayoutY(item.getLayoutY() + mapMover.getMapMoveDownCounter() * 4);
+        mapMover.setMapMoveDownCounter(0);
+        mapMover.setMapMoveCounter(0);
     }
 
     public void checkTime() {
         if (gameLabelController.getTime().getText().equals("0"))
             mario.setDead(true);
-    }
-
-    public void mapMoverRight(int num) {
-        for (Block block : blocks) block.setLayoutX(block.getLayoutX() - num * 3);
-        for (Enemy enemy : enemies) enemy.setLayoutX(enemy.getLayoutX() - num * 3);
-        for (BackGround backGround : backGrounds) backGround.setLayoutX(backGround.getLayoutX() - num * 3);
-        for (Item item : items) {
-            item.setLayoutX(item.getLayoutX() - num * 3);
-        }
-    }
-
-    public void mapMoverDown(int num) {
-        for (Block block : blocks) block.setLayoutY(block.getLayoutY() - num * 5);
-        for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() - num * 5);
-        for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() - num * 5);
-        for (Item item : items) item.setLayoutX(item.getLayoutX() - num * 5);
     }
 
     public void gameStop() {
@@ -459,49 +402,34 @@ public class MotionHandler {
 
         }
     }
-    public void stopFxml() throws Exception{
+
+    public void stopFxml() {
+        stage.setScene(stopScene);
+    }
+    public Scene loadStopFxml() throws Exception {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(new File("./src/main/resources/com/example/mario/PauseGame.fxml").toURI().toURL());
         loader.setController(pauseHandle);
         Parent content = loader.load();
         Scene scene = new Scene(content);
-        stage.setScene(scene);
-        stage.setHeight(SuperMario.getHeight());
-        stage.setWidth(SuperMario.getWidth());
-        stage.getIcons().add(SuperMario.getIcon());
-        stage.setResizable(false);
-        stage.setTitle(SuperMario.getStageTitle());
-        stage.setX(SuperMario.getStageX());
-        stage.setY(SuperMario.getStageY());
-        stage.show();
-
+        return scene;
     }
-
-    public void loadMainMenu() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new File("./src/main/resources/com/example/mario/MainMenu.fxml").toURI().toURL());
-        Parent content = loader.load();
-        Scene scene = new Scene(content);
-        stage.setScene(scene);
-        stage.setHeight(SuperMario.getHeight());
-        stage.setWidth(SuperMario.getWidth());
-        stage.getIcons().add(SuperMario.getIcon());
-        stage.setResizable(false);
-        stage.setTitle(SuperMario.getStageTitle());
-        stage.setX(SuperMario.getStageX());
-        stage.setY(SuperMario.getStageY());
+    public void loadMainMenu() throws Exception {
+        stage.setScene(fxmlLoader.loadFxml("mainMenu"));
         stage.show();
     }
 
     public void itemMovement() {
         for (Item item : items) item.itemCollision(blocks);
     }
+
     public void enemyMovement() {
         for (Enemy enemy : enemies) enemy.enemyCollision(blocks);
     }
+
     public void saveGame() throws Exception {
-        saveData.add(mapMoveCounter);
-        saveData.add(mapMoveDownCounter);
+        saveData.add(mapMover.getMapMoveCounter());
+        saveData.add(mapMover.getMapMoveDownCounter());
         saveData.add(gameData.getPoint());
         saveData.add(gameData.getCoin());
         saveData.add(gameData.getTime());
@@ -518,49 +446,32 @@ public class MotionHandler {
         jsonManager2.writeArray(jsonManager1.readArray(JsonManager.integerReference));
         jsonManager1.writeArray(saveData);
     }
+
     public void jsonJob() throws Exception {
         if (ChooseSaveController.isFirstSave()) {
             ChooseSaveController.setFirstSave(false);
-            mapMover.mapMoverRight(jsonManager1.readArray(JsonManager.integerReference).get(0));
-            mapMover.mapMoverDown(jsonManager1.readArray(JsonManager.integerReference).get(1));
-            gameData.setPoint(jsonManager1.readArray(JsonManager.integerReference).get(2));
-            gameData.setCoin(jsonManager1.readArray(JsonManager.integerReference).get(3));
-            gameData.setTime(jsonManager1.readArray(JsonManager.integerReference).get(4));
-            gameData.setHp(jsonManager1.readArray(JsonManager.integerReference).get(5));
-            mario.setLayoutX(jsonManager1.readArray(JsonManager.integerReference).get(6));
-            mario.setLayoutY(jsonManager1.readArray(JsonManager.integerReference).get(7));
-            mapMoveCounter = jsonManager1.readArray(JsonManager.integerReference).get(0);
-            mapMoveDownCounter = jsonManager1.readArray(JsonManager.integerReference).get(1);
-            mario.setMarioState(jsonManager1.readArray(JsonManager.integerReference).get(9));
+            jsonHelper(jsonManager1);
         } else if (ChooseSaveController.isSecondSave()) {
             ChooseSaveController.setSecondSave(false);
-            mapMover.mapMoverRight(jsonManager2.readArray(JsonManager.integerReference).get(0));
-            mapMover.mapMoverDown(jsonManager2.readArray(JsonManager.integerReference).get(1));
-            gameData.setPoint(jsonManager2.readArray(JsonManager.integerReference).get(2));
-            gameData.setCoin(jsonManager2.readArray(JsonManager.integerReference).get(3));
-            gameData.setTime(jsonManager2.readArray(JsonManager.integerReference).get(4));
-            gameData.setHp(jsonManager2.readArray(JsonManager.integerReference).get(5));
-            mario.setLayoutX(jsonManager2.readArray(JsonManager.integerReference).get(6));
-            mario.setLayoutY(jsonManager2.readArray(JsonManager.integerReference).get(7));
-            mapMoveCounter = jsonManager2.readArray(JsonManager.integerReference).get(0);
-            mapMoveDownCounter = jsonManager2.readArray(JsonManager.integerReference).get(1);
-            mario.setMarioState(jsonManager2.readArray(JsonManager.integerReference).get(9));
+            jsonHelper(jsonManager2);
         } else if (ChooseSaveController.isThirdSave()) {
             ChooseSaveController.setThirdSave(false);
-            mapMover.mapMoverRight(jsonManager3.readArray(JsonManager.integerReference).get(0));
-            mapMover.mapMoverDown(jsonManager3.readArray(JsonManager.integerReference).get(1));
-            gameData.setPoint(jsonManager3.readArray(JsonManager.integerReference).get(2));
-            gameData.setCoin(jsonManager3.readArray(JsonManager.integerReference).get(3));
-            gameData.setTime(jsonManager3.readArray(JsonManager.integerReference).get(4));
-            gameData.setHp(jsonManager3.readArray(JsonManager.integerReference).get(5));
-            mario.setLayoutX(jsonManager3.readArray(JsonManager.integerReference).get(6));
-            mario.setLayoutY(jsonManager3.readArray(JsonManager.integerReference).get(7));
-            mapMoveCounter = jsonManager3.readArray(JsonManager.integerReference).get(0);
-            mapMoveDownCounter = jsonManager3.readArray(JsonManager.integerReference).get(1);
-            mario.setMarioState(jsonManager3.readArray(JsonManager.integerReference).get(9));
+            jsonHelper(jsonManager3);
         }
     }
-
+    public void jsonHelper(JsonManager jsonManager)throws Exception{
+        mapMover.mapMoverRight(jsonManager.readArray(JsonManager.integerReference).get(0));
+        mapMover.mapMoverDown(jsonManager.readArray(JsonManager.integerReference).get(1));
+        gameData.setPoint(jsonManager.readArray(JsonManager.integerReference).get(2));
+        gameData.setCoin(jsonManager.readArray(JsonManager.integerReference).get(3));
+        gameData.setTime(jsonManager.readArray(JsonManager.integerReference).get(4));
+        gameData.setHp(jsonManager.readArray(JsonManager.integerReference).get(5));
+        mario.setLayoutX(jsonManager.readArray(JsonManager.integerReference).get(6));
+        mario.setLayoutY(jsonManager.readArray(JsonManager.integerReference).get(7));
+        mapMover.setMapMoveCounter(jsonManager.readArray(JsonManager.integerReference).get(0));
+        mapMover.setMapMoveDownCounter(jsonManager.readArray(JsonManager.integerReference).get(1));
+        mario.setMarioState(jsonManager.readArray(JsonManager.integerReference).get(9));
+    }
     public List<Enemy> getEnemies() {
         return enemies;
     }
@@ -611,13 +522,17 @@ public class MotionHandler {
     public Timeline getBossMover() {
         return bossMover;
     }
+
     public GameSound getGameSound() {
         return gameSound;
     }
+
     public List<BackGround> getBackGrounds() {
         return backGrounds;
     }
+
     public MarioAnimation getMarioAnimation() {
         return marioAnimation;
     }
+
 }

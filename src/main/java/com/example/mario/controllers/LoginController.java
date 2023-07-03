@@ -23,44 +23,21 @@ public class LoginController {
     private TextField logUser;
     @FXML
     private PasswordField passUser;
+    private FxmlLoader fxmlLoader=new FxmlLoader();
 
-    public void isValidUserPass() throws IOException {
+    public void isValidUserPass() throws Exception {
         Stage stage= SuperMario.getLevelStage();
         for(User user :userData.getUsers()) {
             if(user.getUserName().equals(logUser.getText())&&user.getPassword().equals(passUser.getText())){
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(new File("./src/main/resources/com/example/mario/MainMenu.fxml").toURI().toURL());
-                Parent content = loader.load();
-                Scene scene = new Scene(content);
-                stage.setScene(scene);
-                stage.setHeight(SuperMario.getHeight());
-                stage.setWidth(SuperMario.getWidth());
-                stage.getIcons().add(SuperMario.getIcon());
-                stage.setResizable(false);
-                stage.setTitle(SuperMario.getStageTitle());
-                stage.setX(SuperMario.getStageX());
-                stage.setY(SuperMario.getStageY());
-                stage.show();
+                stage.setScene(fxmlLoader.loadFxml("MainMenu"));
                 userData.setCurrentUser(user);
                 SuperMario.menuSong.stop();
             }
         }
         loginError.setText("username or password is incorrect");
     }
-    public void back () throws IOException {
+    public void back () throws Exception {
         Stage stage=SuperMario.getLevelStage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new File("./src/main/resources/com/example/mario/account.fxml").toURI().toURL());
-        Parent content = loader.load();
-        Scene scene = new Scene(content);
-        stage.setScene(scene);
-        stage.setHeight(SuperMario.getHeight());
-        stage.setWidth(1020);
-        stage.getIcons().add(SuperMario.getIcon());
-        stage.setResizable(false);
-        stage.setTitle(SuperMario.getStageTitle());
-        stage.setX(SuperMario.getStageX());
-        stage.setY(SuperMario.getStageY());
-        stage.show();
+        stage.setScene(fxmlLoader.loadFxml("account"));
     }
 }

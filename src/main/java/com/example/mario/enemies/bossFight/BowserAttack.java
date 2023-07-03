@@ -63,7 +63,7 @@ public class BowserAttack {
         if (!(grabLeftCounter > 9 && grabRightCounter > 9)) {
             try {
                 motionHandler.doDead();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {

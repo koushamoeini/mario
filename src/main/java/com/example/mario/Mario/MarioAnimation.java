@@ -1,5 +1,6 @@
 package com.example.mario.Mario;
 
+import com.example.mario.GameHandle.MotionHandler;
 import com.example.mario.SuperMario;
 import javafx.scene.image.Image;
 
@@ -13,8 +14,8 @@ public class MarioAnimation {
     private boolean isDyingFinished = false;
     private boolean isMarioMovingLeft = false;
 
-    public MarioAnimation(Mario mario) {
-        this.mario = mario;
+    public MarioAnimation(MotionHandler motionHandler) {
+        this.mario = motionHandler.getMario();
     }
 
     public void falling() {

@@ -28,13 +28,17 @@ public class GameSound {
         return instance;
     }
 
+    public static void setInstance(GameSound instance) {
+        GameSound.instance = instance;
+    }
+
     private final BooleanProperty muteListener = new SimpleBooleanProperty(true);
 
     public GameSound(MotionHandler motionHandler) {
         this.motionHandler = motionHandler;
-
         muteListener.addListener((observable, oldValue, newValue) -> {
-
+            if(newValue) beppi.play();
+            else beppi.pause();
         });
         if (muteListener.getValue()) {
             andBegin.play();
@@ -46,18 +50,28 @@ public class GameSound {
         this.muteListener.set(muteListener);
     }
 
+    public boolean isMuteListener() {
+        return muteListener.get();
+    }
+
     public void marioDamageSound() {
-        marioDamage.play();
-        marioDamage.setEndOfMediaAndPause(marioDamage);
+        if(this.muteListener.getValue()) {
+            marioDamage.play();
+            marioDamage.setEndOfMediaAndPause(marioDamage);
+        }
     }
 
     public void marioGetItemSound() {
-        getItem.play();
-        getItem.setEndOfMediaAndPause(getItem);
+        if(this.muteListener.getValue()) {
+            getItem.play();
+            getItem.setEndOfMediaAndPause(getItem);
+        }
     }
 
     public void enemyDamageSound() {
-        enemyDamage.play();
-        enemyDamage.setEndOfMediaAndPause(enemyDamage);
+        if(this.muteListener.getValue()) {
+            enemyDamage.play();
+            enemyDamage.setEndOfMediaAndPause(enemyDamage);
+        }
     }
 }
