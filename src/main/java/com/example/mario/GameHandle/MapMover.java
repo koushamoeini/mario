@@ -73,10 +73,10 @@ public class MapMover {
     }
 
     public void mapMoverDown(int num) {
-        for (Block block : blocks) block.setLayoutY(block.getLayoutY() - num * 5);
-        for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() - num * 5);
-        for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() - num * 5);
-        for (Item item : items) item.setLayoutX(item.getLayoutX() - num * 5);
+        for (Block block : blocks) block.setLayoutY(block.getLayoutY() - num * 4);
+        for (Enemy enemy : enemies) enemy.setLayoutY(enemy.getLayoutY() - num * 4);
+        for (BackGround backGround : backGrounds) backGround.setLayoutY(backGround.getLayoutY() - num * 4);
+        for (Item item : items) item.setLayoutX(item.getLayoutX() - num * 4);
     }
     public void isMapMustMovingDownCheck() {
         if (mario.getLayoutY() > SuperMario.getHeight() + 30) {

@@ -38,7 +38,10 @@ public class GameSound {
         this.motionHandler = motionHandler;
         muteListener.addListener((observable, oldValue, newValue) -> {
             if(newValue) beppi.play();
-            else beppi.pause();
+            else {
+                andBegin.stop();
+                beppi.pause();
+            }
         });
         if (muteListener.getValue()) {
             andBegin.play();

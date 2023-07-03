@@ -19,8 +19,10 @@ public class Mario extends ImageView {
     private boolean canBreakBlock = false;
     private boolean canShoot = false;
     private boolean isSit = false;
-    private boolean isCanMove=true;
-    private boolean isNausea=false;
+    private boolean isCanMove = true;
+    private boolean isNausea = false;
+    private boolean isOnSecretPipe = false;
+    private boolean isOnSecretPipeBack = false;
     private String str;
     private final MarioStateManger marioStateManger;
     private Timeline invincibleMario;
@@ -171,10 +173,28 @@ public class Mario extends ImageView {
     public void setCanMove(boolean canMove) {
         isCanMove = canMove;
     }
+
     public boolean isNausea() {
         return isNausea;
     }
+
     public void setNausea(boolean nausea) {
         isNausea = nausea;
+    }
+
+    public boolean isOnSecretPipe() {
+        return isOnSecretPipe;
+    }
+
+    public void setOnSecretPipe(boolean onSecretPipe) {
+        isOnSecretPipe = onSecretPipe;
+    }
+
+    public boolean isOnSecretPipeBack() {
+        return isOnSecretPipeBack;
+    }
+
+    public void setOnSecretPipeBack(boolean onSecretPipeBack) {
+        isOnSecretPipeBack = onSecretPipeBack;
     }
 }

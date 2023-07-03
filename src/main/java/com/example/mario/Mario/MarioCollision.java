@@ -1,9 +1,6 @@
 package com.example.mario.Mario;
 
-import com.example.mario.blocks.Block;
-import com.example.mario.blocks.BlockCollision;
-import com.example.mario.blocks.KillBlock;
-import com.example.mario.blocks.WinBlock;
+import com.example.mario.blocks.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +23,14 @@ public class MarioCollision {
         leftCollusion = false;
         upCollusion = false;
         downCollusion = false;
+        mario.setOnSecretPipe(false);
         List<Block> removeBlocks = new ArrayList<>();
         for (Block block : blocks) {
             if (!(block instanceof WinBlock)) {
                 if (mario.getLayoutY() + mario.getFitHeight() >= block.getLayoutY() && mario.getLayoutY() + mario.getFitHeight() <= block.getLayoutY() + block.getFitHeight()) {
                     for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
                         if (j > block.getLayoutX() && j < block.getLayoutX() + block.getFitWidth()) {
+                            if(block instanceof SecretPipe) mario.setOnSecretPipe(true);
                             if (block instanceof KillBlock) {
                                 mario.setDead(true);
                             } else {

@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,9 +95,9 @@ public class Level1_5 {
         }
         //addEnemies
         {
-            Flower enemyPipe = new Flower(50, 100, 710, 300);
-            pane.getChildren().add(enemyPipe);
-            enemies.add(enemyPipe);
+//            //Flower enemyPipe = new Flower(50, 100, 710, 300);
+//            pane.getChildren().add(enemyPipe);
+//            enemies.add(enemyPipe);
             for (int i = 2760; i <= 3030; i += 90) {
                 if (i != 2940) {
                     Flower enemyPipe3 = new Flower(50, 100, i + 20, 390 - (i - 2760) / 3);
@@ -104,10 +105,10 @@ public class Level1_5 {
                     enemies.add(enemyPipe3);
                 }
             }
-            Koopa koopa=new Koopa(30,30,420,450);
+            Koopa koopa = new Koopa(30, 30, 420, 450);
             pane.getChildren().add(koopa);
             enemies.add(koopa);
-            Spiny spiny=new Spiny(30,30,4130,420);
+            Spiny spiny = new Spiny(30, 30, 4130, 420);
             pane.getChildren().add(spiny);
             enemies.add(spiny);
         }
@@ -117,7 +118,7 @@ public class Level1_5 {
             Stairs stair1 = new Stairs(30, 30, 510, 480);
             Stairs stair2 = new Stairs(30, 30, 510, 450);
 
-            Pipe pipe1 = new Pipe(90, 150, 690, 360);
+            SecretPipe pipe1 = new SecretPipe(90, 150, 690, 360);
             Pipe pipe2 = new Pipe(60, 90, 2250, 420);
             pane.getChildren().add(stair0);
             blocks.add(stair0);
@@ -240,7 +241,7 @@ public class Level1_5 {
                     }
                 }
             }
-            SurfaceBlock surfaceBlock=new SurfaceBlock(30,30,0,480);
+            SurfaceBlock surfaceBlock = new SurfaceBlock(30, 30, 0, 480);
             pane.getChildren().add(surfaceBlock);
             blocks.add(surfaceBlock);
             //////////////////////////////////////////////////////////
@@ -310,8 +311,105 @@ public class Level1_5 {
             pane.getChildren().add(win);
             blocks.add(win);
         }
+        //secret
+        {
+            for (int i = 600; i < 1300; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 600, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 600; i < 1320; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 810, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 900; i < 1320; i += 30) {
+                Spike spike = new Spike(30, 30, 630, i, true);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            for (int i = 900; i < 1320; i += 30) {
+                Spike spike = new Spike(30, 30, 780, i, false);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            //////////////////////////////////////////////////////////
+            for (int i = 1320; i < 1860; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 660, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 1320; i < 1860; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 900, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 1320; i < 1860; i += 30) {
+                Spike spike = new Spike(30, 30, 690, i, true);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            for (int i = 1320; i < 1860; i += 30) {
+                Spike spike = new Spike(30, 30, 870, i, false);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            //////////////////////////////////////////////////////////
+            for (int i = 1860; i < 2100; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 570, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 1860; i < 2100; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 810, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 1860; i < 2100; i += 30) {
+                Spike spike = new Spike(30, 30, 600, i, true);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            for (int i = 1860; i < 2100; i += 30) {
+                Spike spike = new Spike(30, 30, 780, i, false);
+                pane.getChildren().add(spike);
+                enemies.add(spike);
+            }
+            ////////////////////////////////////////////////////////////
+            for (int i = 1920; i < 2430; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 300, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 1920; i < 2430; i += 30) {
+                Stairs stairs = new Stairs(30, 30, 1170, i);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 300; i < 1200; i += 30) {
+                Stairs stairs = new Stairs(30, 30, i, 2430);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 300; i < 1200; i += 30) {
+                Stairs stairs = new Stairs(30, 30, i, 2460);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 300; i < 1200; i += 30) {
+                Stairs stairs = new Stairs(30, 30, i, 2490);
+                pane.getChildren().add(stairs);
+                blocks.add(stairs);
+            }
+            for (int i = 390; i < 900; i += 30) {
+                MysteryBlock mysteryBlock = new MysteryBlock(30, 30, i, 2280);
+                pane.getChildren().add(mysteryBlock);
+                blocks.add(mysteryBlock);
+            }
+        }
         //addCoins
         {
+
             Coin coin = new Coin(30, 30, 460, 190);
             pane.getChildren().add(coin);
             items.add(coin);
@@ -331,7 +429,7 @@ public class Level1_5 {
         Scene scene1 = new Scene(pane);
         stage.setScene(scene1);
         stage.show();
-        MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, items, stage, pane,5,state);
+        MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, items, stage, pane, 5, state);
     }
 
     public void setStage(Stage stage) {

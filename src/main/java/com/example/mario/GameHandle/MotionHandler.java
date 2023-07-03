@@ -174,13 +174,6 @@ public class MotionHandler {
                     case LEFT -> bowserAttack.setGrabLeftCounter(bowserAttack.getGrabLeftCounter() + 1);
                 }
             }
-            if (event.getCode().equals(KeyCode.A)) {
-                try {
-                    saveGame();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
         });
         stage.getScene().setOnKeyReleased(event -> {
             if (mario.isNausea()) {
@@ -230,6 +223,7 @@ public class MotionHandler {
         timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                checkSecretPipe();
                 itemMovement();
                 enemyMovement();
                 mapMover.setMapMoving(false);
@@ -415,6 +409,8 @@ public class MotionHandler {
         return scene;
     }
     public void loadMainMenu() throws Exception {
+        gameSound.setMuteListener(false);
+        GameSound.setInstance(null);
         stage.setScene(fxmlLoader.loadFxml("mainMenu"));
         stage.show();
     }
@@ -534,5 +530,10 @@ public class MotionHandler {
     public MarioAnimation getMarioAnimation() {
         return marioAnimation;
     }
-
+    public void checkSecretPipe(){
+        if(mario.isSit()&&mario.isOnSecretPipe()){
+            mapMover.mapMoverDown(100);
+            mapMover.setMapMoveDownCounter(100);
+        }
+    }
 }
