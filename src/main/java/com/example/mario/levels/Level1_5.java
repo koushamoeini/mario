@@ -406,6 +406,9 @@ public class Level1_5 {
                 pane.getChildren().add(mysteryBlock);
                 blocks.add(mysteryBlock);
             }
+            SecretPipeBack pipe = new SecretPipeBack(90, 60, 1020, 2370);
+            pane.getChildren().add(pipe);
+            blocks.add(pipe);
         }
         //addCoins
         {

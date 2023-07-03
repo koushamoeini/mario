@@ -11,6 +11,7 @@ import com.example.mario.enemies.bossFight.*;
 import com.example.mario.levels.*;
 import com.example.mario.manager.*;
 import com.example.mario.user.*;
+import com.fasterxml.jackson.databind.util.ISO8601Utils;
 import javafx.animation.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -224,6 +225,7 @@ public class MotionHandler {
             @Override
             public void handle(long l) {
                 checkSecretPipe();
+                checkSecretPipeBack();
                 itemMovement();
                 enemyMovement();
                 mapMover.setMapMoving(false);
@@ -534,6 +536,15 @@ public class MotionHandler {
         if(mario.isSit()&&mario.isOnSecretPipe()){
             mapMover.mapMoverDown(100);
             mapMover.setMapMoveDownCounter(100);
+        }
+    }
+    public void checkSecretPipeBack(){
+        if(mario.isSit()&&mario.isOnSecretPipeBack()){
+            mario.setLayoutY(60);
+            mario.setLayoutX(90);
+            mapMover.mapMoverDown(-(281+mapMover.getMapMoveCounter()));
+            mapMover.setMapMoveDownCounter(0);
+            System.out.println(blocks.get(0).getLayoutY());
         }
     }
 }

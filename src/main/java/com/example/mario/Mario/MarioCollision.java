@@ -24,6 +24,7 @@ public class MarioCollision {
         upCollusion = false;
         downCollusion = false;
         mario.setOnSecretPipe(false);
+        mario.setOnSecretPipeBack(false);
         List<Block> removeBlocks = new ArrayList<>();
         for (Block block : blocks) {
             if (!(block instanceof WinBlock)) {
@@ -31,6 +32,7 @@ public class MarioCollision {
                     for (int j = (int) mario.getLayoutX(); j <= mario.getLayoutX() + mario.getFitWidth(); j++) {
                         if (j > block.getLayoutX() && j < block.getLayoutX() + block.getFitWidth()) {
                             if(block instanceof SecretPipe) mario.setOnSecretPipe(true);
+                            if(block instanceof SecretPipeBack) mario.setOnSecretPipeBack(true);
                             if (block instanceof KillBlock) {
                                 mario.setDead(true);
                             } else {
