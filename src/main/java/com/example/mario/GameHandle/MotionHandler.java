@@ -56,6 +56,7 @@ public class MotionHandler {
     private BowserMovement bowserMovement;
     private final BowserAttack bowserAttack;
     private UsingAttacks usingAttacks;
+    private MapMover mapMover;
     private GameSound gameSound=GameSound.getInstance(this);
     private SetLevel setLevel;
     private Bowser bowser;
@@ -88,13 +89,14 @@ public class MotionHandler {
         mario.setMarioState(marioState);
         marioAnimation = new MarioAnimation(mario);
         marioCollision = new MarioCollision(mario, this.blocks, new BlockCollision(this.pane, this.items, mario));
-        itemCollision = new ItemCollision(mario, items);
+        itemCollision = new ItemCollision(this);
         enemyCollision = new EnemyCollision(this);
         shotCollision = new ShotCollision(this.blocks, this.enemies, this.shots, enemyCollision);
         bowserMovement = new BowserMovement(this);
         bowserAttack = new BowserAttack(this);
         usingAttacks = new UsingAttacks(this);
         setLevel=new SetLevel(level);
+        mapMover=new MapMover(this);
         bowser = bowserFounder();
         gameLabelController.setPointChange(gameData.getPoint());
         gameLabelController.setHpChange(gameData.getHp());
@@ -494,11 +496,9 @@ public class MotionHandler {
     public void itemMovement() {
         for (Item item : items) item.itemCollision(blocks);
     }
-
     public void enemyMovement() {
         for (Enemy enemy : enemies) enemy.enemyCollision(blocks);
     }
-
     public void saveGame() throws Exception {
         saveData.add(mapMoveCounter);
         saveData.add(mapMoveDownCounter);
@@ -511,7 +511,6 @@ public class MotionHandler {
         saveData.add(level);
         saveData.add(mario.getMarioState());
         GameLabelController.timeline.stop();
-
         timer.stop();
         gameData = GameData.resetInstance();
         loadMainMenu();
@@ -519,14 +518,11 @@ public class MotionHandler {
         jsonManager2.writeArray(jsonManager1.readArray(JsonManager.integerReference));
         jsonManager1.writeArray(saveData);
     }
-
-
-
     public void jsonJob() throws Exception {
         if (ChooseSaveController.isFirstSave()) {
             ChooseSaveController.setFirstSave(false);
-            mapMoverRight(jsonManager1.readArray(JsonManager.integerReference).get(0));
-            mapMoverDown(jsonManager1.readArray(JsonManager.integerReference).get(1));
+            mapMover.mapMoverRight(jsonManager1.readArray(JsonManager.integerReference).get(0));
+            mapMover.mapMoverDown(jsonManager1.readArray(JsonManager.integerReference).get(1));
             gameData.setPoint(jsonManager1.readArray(JsonManager.integerReference).get(2));
             gameData.setCoin(jsonManager1.readArray(JsonManager.integerReference).get(3));
             gameData.setTime(jsonManager1.readArray(JsonManager.integerReference).get(4));
@@ -538,8 +534,8 @@ public class MotionHandler {
             mario.setMarioState(jsonManager1.readArray(JsonManager.integerReference).get(9));
         } else if (ChooseSaveController.isSecondSave()) {
             ChooseSaveController.setSecondSave(false);
-            mapMoverRight(jsonManager2.readArray(JsonManager.integerReference).get(0));
-            mapMoverDown(jsonManager2.readArray(JsonManager.integerReference).get(1));
+            mapMover.mapMoverRight(jsonManager2.readArray(JsonManager.integerReference).get(0));
+            mapMover.mapMoverDown(jsonManager2.readArray(JsonManager.integerReference).get(1));
             gameData.setPoint(jsonManager2.readArray(JsonManager.integerReference).get(2));
             gameData.setCoin(jsonManager2.readArray(JsonManager.integerReference).get(3));
             gameData.setTime(jsonManager2.readArray(JsonManager.integerReference).get(4));
@@ -551,8 +547,8 @@ public class MotionHandler {
             mario.setMarioState(jsonManager2.readArray(JsonManager.integerReference).get(9));
         } else if (ChooseSaveController.isThirdSave()) {
             ChooseSaveController.setThirdSave(false);
-            mapMoverRight(jsonManager3.readArray(JsonManager.integerReference).get(0));
-            mapMoverDown(jsonManager3.readArray(JsonManager.integerReference).get(1));
+            mapMover.mapMoverRight(jsonManager3.readArray(JsonManager.integerReference).get(0));
+            mapMover.mapMoverDown(jsonManager3.readArray(JsonManager.integerReference).get(1));
             gameData.setPoint(jsonManager3.readArray(JsonManager.integerReference).get(2));
             gameData.setCoin(jsonManager3.readArray(JsonManager.integerReference).get(3));
             gameData.setTime(jsonManager3.readArray(JsonManager.integerReference).get(4));
@@ -617,5 +613,11 @@ public class MotionHandler {
     }
     public GameSound getGameSound() {
         return gameSound;
+    }
+    public List<BackGround> getBackGrounds() {
+        return backGrounds;
+    }
+    public MarioAnimation getMarioAnimation() {
+        return marioAnimation;
     }
 }

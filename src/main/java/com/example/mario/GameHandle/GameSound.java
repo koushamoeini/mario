@@ -11,10 +11,10 @@ import javafx.util.Duration;
 
 public class GameSound {
     private MotionHandler motionHandler;
-    Timeline andBeginTime;
     private final VoicePlayer andBegin = new VoicePlayer("./src/main/resources/Media/and begin.mp3");
     private final VoicePlayer beppi = new VoicePlayer("./src/main/resources/Media/beppi.mp3");
     private final VoicePlayer marioDamage = new VoicePlayer("./src/main/resources/Media/takingDamage.mp3");
+    private final VoicePlayer enemyDamage = new VoicePlayer("./src/main/resources/Media/enemyDamage.mp3");
     private final VoicePlayer getItem = new VoicePlayer("./src/main/resources/Media/getItem.wav");
     private static GameSound instance;
 
@@ -48,13 +48,16 @@ public class GameSound {
 
     public void marioDamageSound() {
         marioDamage.play();
+        marioDamage.setEndOfMediaAndPause(marioDamage);
     }
 
     public void marioGetItemSound() {
         getItem.play();
+        getItem.setEndOfMediaAndPause(getItem);
     }
 
     public void enemyDamageSound() {
-
+        enemyDamage.play();
+        enemyDamage.setEndOfMediaAndPause(enemyDamage);
     }
 }

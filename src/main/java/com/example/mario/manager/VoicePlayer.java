@@ -16,6 +16,7 @@ public class VoicePlayer {
         Media sound=new Media(new File(path).toURI().toString());
         mediaPlayer =new MediaPlayer(sound);
         new MediaView();
+        mediaPlayer.seek(Duration.ZERO);
     }
     public void play(){
         mediaPlayer.play();
@@ -29,5 +30,11 @@ public class VoicePlayer {
     public void setEndOfMedia(VoicePlayer voicePlayer){
         mediaPlayer.setOnEndOfMedia(() -> voicePlayer.play());
     }
+    public void setEndOfMediaAndPause(VoicePlayer voicePlayer){
+        mediaPlayer.setOnEndOfMedia(() -> {
+            voicePlayer.play();
+            voicePlayer.stop();
+        });
 
+    }
 }
