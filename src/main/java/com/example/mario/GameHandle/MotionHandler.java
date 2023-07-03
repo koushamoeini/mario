@@ -52,6 +52,7 @@ public class MotionHandler {
     private final EnemyCollision enemyCollision;
     private final ShotCollision shotCollision;
     private BowserMovement bowserMovement;
+    private double progressRisk=0;
     private final BowserAttack bowserAttack;
     private UsingAttacks usingAttacks;
     private final MapMover mapMover;
@@ -226,6 +227,7 @@ public class MotionHandler {
             public void handle(long l) {
                 checkSecretPipe();
                 checkSecretPipeBack();
+                updateProgressRisk();
                 itemMovement();
                 enemyMovement();
                 mapMover.setMapMoving(false);
@@ -320,9 +322,23 @@ public class MotionHandler {
     public void doDead() throws Exception {
         mario.setDead(false);
         mario.setMarioState(0);
-        if (gameData.getPoint() >= 20) {
-            gameData.setPoint(gameData.getPoint() - 20);
+        if (gameData.getPoint() >= 30) {
+            gameData.setPoint(gameData.getPoint() - 30);
             gameLabelController.setPointChange(gameData.getPoint());
+        }
+        else {
+            gameData.setPoint(0);
+            gameLabelController.setPointChange(gameData.getPoint());
+        }
+        int deathCoinLost=(int)(gameData.getCoin()+progressRisk)/4;
+        System.out.println(deathCoinLost);
+        if (gameData.getCoin() >= deathCoinLost) {
+            gameData.setCoin(gameData.getCoin() - deathCoinLost);
+            gameLabelController.setCoinChange(gameData.getCoin());
+        }
+        else {
+            gameData.setPoint(0);
+            gameLabelController.setCoinChange(gameData.getCoin());
         }
         mapMover.setMapMustMovingDown(false);
         marioAnimation.setDyingFinished(false);
@@ -542,9 +558,18 @@ public class MotionHandler {
         if(mario.isSit()&&mario.isOnSecretPipeBack()){
             mario.setLayoutY(60);
             mario.setLayoutX(90);
-            mapMover.mapMoverDown(-(281+mapMover.getMapMoveCounter()));
+            mapMover.mapMoverDown(-(mapMover.getMapMoveDownCounter()));
             mapMover.setMapMoveDownCounter(0);
             System.out.println(blocks.get(0).getLayoutY());
         }
+    }
+    public void updateProgressRisk(){
+        progressRisk=(mario.getLayoutX()/winBlockLayout());
+    }
+    public int winBlockLayout(){
+        for(Block block:blocks){
+            if(block instanceof WinBlock) return (int) block.getLayoutX();
+        }
+        return 0;
     }
 }

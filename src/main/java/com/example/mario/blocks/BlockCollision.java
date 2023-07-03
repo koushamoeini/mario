@@ -41,7 +41,7 @@ public class BlockCollision {
 
     public boolean coinBrickBreak(Block block) {
         if (block instanceof CoinBlock) {
-            Coin coin = new Coin(block.getEdgeX(), block.getEdgeY(), block.getBlockX(), block.getBlockY() - block.getEdgeY());
+            Coin coin = new Coin(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
             block.setVisible(false);
             pane.getChildren().add(coin);
             items.add(coin);

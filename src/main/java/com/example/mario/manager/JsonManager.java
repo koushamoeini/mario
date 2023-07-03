@@ -10,7 +10,7 @@ import java.util.List;
 
 public class JsonManager {
     public static TypeReference<List<User>> typeReference = new TypeReference<>() {};
-    public static TypeReference<List<Integer>> integerReference=new TypeReference<List<Integer>>() {};
+    public static TypeReference<List<Integer>> integerReference=new TypeReference<>() {};
     private ObjectMapper objectMapper;
     private String path;
     private File file;

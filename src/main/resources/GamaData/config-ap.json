@@ -1,0 +1,160 @@
+{
+  "sections": [
+    {
+      "length": 26,
+      "time": 100,
+      "blocks": [
+        {
+          "x": 10,
+          "y": 4,
+          "type": "QUESTION",
+        },
+        {
+          "x": 12,
+          "y": 4,
+          "type": "QUESTION",
+        },
+        {
+          "x": 14,
+          "y": 4,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 16,
+          "y": 4,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 18,
+          "y": 4,
+          "type": "SIMPLE"
+        }
+      ],
+      "enemies": [
+        {
+          "x": 10,
+          "y": 5,
+          "type": "GOOMBA"
+        },
+        {
+          "x": 16,
+          "y": 0,
+          "type": "KOOPA"
+        }
+      ]
+    },
+    {
+      "length": 23,
+      "time": 80,
+      "blocks": [
+        {
+          "x": 4,
+          "y": 4,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 5,
+          "y": 4,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 6,
+          "y": 4,
+          "type": "QUESTION"
+        },
+        {
+          "x": 7,
+          "y": 7,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 9,
+          "y": 7,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 12,
+          "y": 7,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 13,
+          "y": 7,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 14,
+          "y": 7,
+          "type": "SIMPLE"
+        }
+      ],
+      "enemies": [
+        {
+          "x": 4,
+          "y": 5,
+          "type": "GOOMBA"
+        },
+        {
+          "x": 7,
+          "y": 8,
+          "type": "KOOPA"
+        },
+        {
+          "x": 14,
+          "y": 8,
+          "type": "SPINY"
+        }
+      ],
+      "pipes": [
+        {
+          "x": 23,
+          "y": 0,
+          "type": "SIMPLE"
+        }
+      ]
+    },
+    {
+      "length": 25,
+      "time": 1000,
+      "blocks": [
+        {
+          "x": 2,
+          "y": 3,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 3,
+          "y": 3,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 4,
+          "y": 3,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 5,
+          "y": 3,
+          "type": "SIMPLE"
+        },
+        {
+          "x": 7,
+          "y": 6,
+          "type": "QUESTION",
+        },
+        {
+          "x": 21,
+          "y": 3,
+          "type": "SIMPLE"
+        }
+      ],
+      "enemies": [
+        {
+          "x": 20,
+          "y": 0,
+          "type": "BOWSER"
+        }
+      ]
+    }
+  ]
+}

@@ -66,6 +66,7 @@ public class BossFightCutScene {
         if(cutSceneCounter>=140){
             motionHandler.getBlocks().removeAll(bowser.getBowserBlocks());
             for(Block block:bowser.getBowserBlocks()) block.setVisible(false);
+            mario.setMarioState(2);
             gameStart();
             cutScene.stop();
         }
@@ -73,7 +74,7 @@ public class BossFightCutScene {
 
     });
 
-    public void gamePause() throws Exception {
+    public void gamePause() {
        motionHandler.gameStop();
     }
 

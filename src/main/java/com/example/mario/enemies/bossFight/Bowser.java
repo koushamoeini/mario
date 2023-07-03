@@ -28,6 +28,7 @@ public class Bowser extends Enemy {
     private int phase = 1;
     private Timeline checkDead;
     private Timeline checkPhase;
+
     public Bowser(int edgeX, int edgeY, int blockX, int blockY, List<Block> blocks, Pane pane) {
         super(edgeX, edgeY, blockX, blockY, true, 20, 100, 0);
         setProgressBar();
@@ -35,16 +36,14 @@ public class Bowser extends Enemy {
         Image image = new Image("Images/enemies/bowser/bowserLeft.png");
         this.setImage(image);
         this.blocks = blocks;
-        for (int i = blockX - 210; i < blockX - 120; i += 30) {
-            Stairs stairs = new Stairs(30, 30, i, 300);
-            this.blocks.add(stairs);
-            bowserBlocks.add(stairs);
-            pane.getChildren().add(stairs);
-        }
-        MysteryBlock mysteryBlock = new MysteryBlock(30, 30, blockX - 120, 300);
-        this.blocks.add(mysteryBlock);
-        bowserBlocks.add(mysteryBlock);
-        pane.getChildren().add(mysteryBlock);
+        Stairs stairs1 = new Stairs(30, 30, 0, 450);
+        this.blocks.add(stairs1);
+        bowserBlocks.add(stairs1);
+        pane.getChildren().add(stairs1);
+        Stairs stairs = new Stairs(30, 30, 60, 300);
+        this.blocks.add(stairs);
+        bowserBlocks.add(stairs);
+        pane.getChildren().add(stairs);
         this.updateXVelocity(4);
         checkPhase = new Timeline(checkPhaseKeyFrame);
         checkPhase.setCycleCount(Animation.INDEFINITE);
@@ -57,6 +56,7 @@ public class Bowser extends Enemy {
         progressBar.setProgress((double) this.getEnemyHp()/20);
         if(this.getEnemyHp()<1) {
             this.isDead=true;
+            blocks.add(new Block(90,1000,900,0));
             checkDead.stop();
         }
     });

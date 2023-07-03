@@ -16,9 +16,10 @@ public class SetLevel {
             if (level == 5) new Level2_1(state);
             if (level == 6) new Level2_2(state);
             if (level == 7) new Level2_3(state);
+            if (level == 8) new Level3_1(state);
         } catch (Exception ignored) {
         }
-        if (level < 8) return true;
+        if (level < 9) return true;
         return false;
     }
 
@@ -32,6 +33,7 @@ public class SetLevel {
             if (level == 6) new Level2_1(0);
             if (level == 7) new Level2_2(0);
             if (level == 8) new Level2_3(0);
+            if (level == 9) new Level3_1(0);
         } catch (Exception ignored) {
         }
     }
