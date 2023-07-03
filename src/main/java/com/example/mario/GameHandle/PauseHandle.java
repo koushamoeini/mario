@@ -92,14 +92,12 @@ public class PauseHandle implements Initializable {
     public void muteMusic() {
         if (urlEditor(music.getImage().getUrl()).equals("Images/backGrounds/unmute.png")) {
             music.setImage(new Image("Images/backGrounds/mute.png"));
+            motionHandler.getGameSound().setMuteListener(false);
         } else {
             music.setImage(new Image("Images/backGrounds/unmute.png"));
+            motionHandler.getGameSound().setMuteListener(false);
             //TODO
         }
-    }
-    public boolean isMute(){
-        if (urlEditor(music.getImage().getUrl()).equals("Images/backGrounds/unmute.png")) return true;
-        return false;
     }
     public void exitGame() throws Exception {
         motionHandler.saveGame();

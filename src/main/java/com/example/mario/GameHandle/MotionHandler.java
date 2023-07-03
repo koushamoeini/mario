@@ -56,7 +56,7 @@ public class MotionHandler {
     private BowserMovement bowserMovement;
     private final BowserAttack bowserAttack;
     private UsingAttacks usingAttacks;
-    private GameSound gameSound;
+    private GameSound gameSound=GameSound.getInstance(this);
     private SetLevel setLevel;
     private Bowser bowser;
     AnimationTimer timer;
@@ -89,20 +89,17 @@ public class MotionHandler {
         marioAnimation = new MarioAnimation(mario);
         marioCollision = new MarioCollision(mario, this.blocks, new BlockCollision(this.pane, this.items, mario));
         itemCollision = new ItemCollision(mario, items);
-        enemyCollision = new EnemyCollision(this.enemies, this.mario);
+        enemyCollision = new EnemyCollision(this);
         shotCollision = new ShotCollision(this.blocks, this.enemies, this.shots, enemyCollision);
         bowserMovement = new BowserMovement(this);
         bowserAttack = new BowserAttack(this);
         usingAttacks = new UsingAttacks(this);
-        gameSound=new GameSound(this,pauseHandle.isMute());
         setLevel=new SetLevel(level);
         bowser = bowserFounder();
         gameLabelController.setPointChange(gameData.getPoint());
         gameLabelController.setHpChange(gameData.getHp());
         gameLabelController.setCoinChange(gameData.getCoin());
-
-        bossMover = new Timeline();
-        bossMover.getKeyFrames().addAll(bossMoverKeyFrame);
+        bossMover=new Timeline(bossMoverKeyFrame);
         bossMover.setCycleCount(Animation.INDEFINITE);
         bossMover.play();
         jsonJob();

@@ -39,7 +39,7 @@
             <Image url="@../../../Images/Items/coin1.png" />
          </image>
       </ImageView>
-      <Label fx:id="userCoin" layoutX="94.0" layoutY="41.0" prefHeight="53.0" prefWidth="69.0" text="0" textFill="#fff600">
+      <Label fx:id="userCoin" layoutX="94.0" layoutY="41.0" prefHeight="53.0" prefWidth="125.0" text="0" textFill="#fff600">
          <font>
             <Font size="36.0" />
          </font>

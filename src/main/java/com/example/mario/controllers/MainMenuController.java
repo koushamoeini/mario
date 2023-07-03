@@ -1,6 +1,7 @@
 package com.example.mario.controllers;
 
 
+import com.example.mario.GameHandle.GameSound;
 import com.example.mario.user.GameData;
 import com.example.mario.SuperMario;
 import com.example.mario.manager.VoicePlayer;
@@ -17,17 +18,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainMenuController {
-    Timeline timerShop=new Timeline();
-    static VoicePlayer shopVoice=new VoicePlayer("./src/main/resources/Media/shopWelcome.wav");
-
-    KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), event -> shopVoice.stop());
+    private final VoicePlayer shopVoice=new VoicePlayer("./src/main/resources/Media/shopWelcome.wav");
     public void level1_1() throws Exception {
         GameData.resetInstance();
         new Level1_1();
     }
     public void Shop() throws IOException {
-        timerShop.getKeyFrames().addAll(keyFrame);
-        timerShop.play();
         shopVoice.play();
         Stage stage= SuperMario.getLevelStage();
         FXMLLoader loader = new FXMLLoader();

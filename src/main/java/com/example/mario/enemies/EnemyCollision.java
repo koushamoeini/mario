@@ -1,6 +1,8 @@
 package com.example.mario.enemies;
 
+import com.example.mario.GameHandle.MotionHandler;
 import com.example.mario.Mario.Mario;
+import com.example.mario.Mario.MarioCollision;
 import com.example.mario.controllers.GameLabelController;
 import com.example.mario.user.GameData;
 
@@ -8,13 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnemyCollision {
+    private MotionHandler motionHandler;
     private final List<Enemy> enemies;
     private final Mario mario;
     private final GameData gameData = GameData.getInstance();
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
-    public EnemyCollision(List<Enemy> enemies, Mario mario) {
-        this.enemies = enemies;
-        this.mario = mario;
+    public EnemyCollision(MotionHandler motionHandler) {
+        this.motionHandler=motionHandler;
+        this.enemies = motionHandler.getEnemies();
+        this.mario = motionHandler.getMario();
     }
 
     public void enemyActivator() {
@@ -51,6 +55,7 @@ public class EnemyCollision {
         if (!mario.isInvincible()) {
             for (Enemy enemy : enemies) {
                 if (enemy.getBoundsInParent().intersects(mario.getBoundsInParent())) {
+                    motionHandler.getGameSound().marioDamageSound();
                     if (mario.getMarioState() == 0) {
                         mario.setDead(true);
                         return;
@@ -83,6 +88,7 @@ public class EnemyCollision {
     public boolean enemyDamaged(Enemy enemy,int damage) {
         mario.doInvincible();
         if (!enemy.isInvincible()) {
+            motionHandler.getGameSound().enemyDamageSound();
             enemy.setEnemyHp(enemy.getEnemyHp() - damage);
             enemy.setInvincible(true);
             if (enemy instanceof Koopa) {

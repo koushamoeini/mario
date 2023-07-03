@@ -24,17 +24,17 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="point1" layoutX="36.0" layoutY="204.0" prefHeight="40.0" prefWidth="107.0" text="point1">
+      <Label fx:id="point1" layoutX="36.0" layoutY="204.0" prefHeight="40.0" prefWidth="166.0" text="point1">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="point2" layoutX="36.0" layoutY="264.0" prefHeight="40.0" prefWidth="107.0" text="point 2">
+      <Label fx:id="point2" layoutX="36.0" layoutY="264.0" prefHeight="40.0" prefWidth="166.0" text="point 2">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="point3" layoutX="36.0" layoutY="322.0" prefHeight="40.0" prefWidth="107.0" text="point 3">
+      <Label fx:id="point3" layoutX="36.0" layoutY="322.0" prefHeight="40.0" prefWidth="166.0" text="point 3">
          <font>
             <Font size="24.0" />
          </font>
