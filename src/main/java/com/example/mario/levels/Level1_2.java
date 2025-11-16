@@ -109,6 +109,12 @@ public class Level1_2 {
             root.setLayoutX(0);
             root.setLayoutY(0);
             pane.getChildren().add(root);
+            
+            // Add enemies after root so they appear on top
+            for (Enemy enemy : enemies) {
+                enemy.toFront();
+            }
+            
             Scene scene1 = new Scene(pane);
             stage.setScene(scene1);
             stage.show();
