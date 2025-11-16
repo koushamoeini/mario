@@ -63,6 +63,9 @@ A classic Super Mario-style 2D platformer game built with JavaFX, featuring smoo
 ![Boss Fight 1](docs/screenshots/boss-fight-1.png)
 ![Boss Fight 2](docs/screenshots/boss-fight-2.png)
 
+### Secret Level
+![Secret Level](docs/screenshots/secret-level.png)
+
 ### Gameplay
 ![Gameplay](https://via.placeholder.com/800x450.png?text=Gameplay+-+Coming+Soon)
 
