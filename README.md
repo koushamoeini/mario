@@ -64,6 +64,11 @@ Before running the game, ensure you have:
 - **Java Development Kit (JDK) 21** or higher
   - Download from: https://adoptium.net/ or https://www.oracle.com/java/technologies/downloads/
 - **Gradle 8.5** (optional - included via Gradle Wrapper)
+- **Minimum System Requirements**:
+  - OS: Windows 10/11, macOS 10.14+, or Linux
+  - RAM: 4GB minimum, 8GB recommended
+  - Graphics: OpenGL 2.0 compatible graphics card
+  - Display: 1024x768 minimum resolution
 
 ## 🚀 Installation & Setup
 
@@ -81,6 +86,12 @@ java -version
 ```
 
 You should see Java 21 or higher.
+
+### 3. Make Gradle Wrapper Executable (Linux/Mac only)
+
+```bash
+chmod +x gradlew
+```
 
 ## ▶️ How to Run
 
@@ -184,10 +195,22 @@ mario-pashe2/
 .\gradlew clean build
 ```
 
+### Compile Only
+```bash
+.\gradlew compileJava
+```
+
 ### Run Tests
 ```bash
 .\gradlew test
 ```
+
+### Create JAR
+```bash
+.\gradlew jar
+```
+
+The JAR file will be created in `build/libs/`
 
 ### Create Distribution
 ```bash
@@ -195,6 +218,34 @@ mario-pashe2/
 ```
 
 This creates a standalone distribution in `build/distributions/`
+
+### Common Build Issues & Solutions
+
+#### Issue: "Java version mismatch"
+**Solution**: Ensure you're using JDK 21+
+```bash
+# Check Java version
+java -version
+javac -version
+
+# Set JAVA_HOME if needed (Windows)
+setx JAVA_HOME "C:\Path\To\JDK21"
+
+# Set JAVA_HOME if needed (Linux/Mac)
+export JAVA_HOME=/path/to/jdk21
+```
+
+#### Issue: "Module not found" errors
+**Solution**: Clean and rebuild the project
+```bash
+.\gradlew clean build --refresh-dependencies
+```
+
+#### Issue: "JavaFX runtime components are missing"
+**Solution**: The project uses JavaFX plugin which handles dependencies automatically. Ensure you're running via Gradle:
+```bash
+.\gradlew run
+```
 
 ### IDE Setup
 
