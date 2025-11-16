@@ -134,12 +134,13 @@ The game window will open automatically!
 ## 🎮 Game Controls
 
 ### Keyboard Controls
-- **Arrow Keys** / **WASD**: Move character
-  - `←` / `A`: Move left
-  - `→` / `D`: Move right
-  - `↑` / `W`: Jump
-  - `↓` / `S`: Crouch/Sit
-- **SPACE**: Shoot/Attack (when powered up)
+- **Arrow Keys**: Move character
+  - `←` (Left Arrow): Move left
+  - `→` (Right Arrow): Move right
+  - `↑` (Up Arrow): Jump
+  - `↓` (Down Arrow): Crouch/Sit
+- **D**: Shoot fireball (when powered up)
+- **S**: Throw sword/pipe attack
 - **ESC**: Pause game
 - **ENTER**: Confirm selection in menus
 
