@@ -12,7 +12,7 @@ public class Coin extends Item {
     private int counter=0;
     KeyFrame keyFrame = new KeyFrame(Duration.millis(100), event -> {
         counter++;
-        setImage(new Image("Images/Items/coin"+(counter%4+1)+".png"));
+        setImage(new Image(getClass().getResource("/Images/Items/coin"+(counter%4+1)+".png").toExternalForm()));
     });
     public Coin(int edgeX, int edgeY, int blockX, int blockY) {
         super(edgeX,edgeY,blockX,blockY,0,0);
@@ -22,7 +22,7 @@ public class Coin extends Item {
         fallTimeline = new Timeline(fallKeyFrame);
         fallTimeline.setCycleCount(Animation.INDEFINITE);
         fallTimeline.play();
-        Image image=new Image("Images/Items/coin1.png");
+        Image image=new Image(getClass().getResource("/Images/Items/coin1.png").toExternalForm());
         setLayoutX(blockX);
         setLayoutY(blockY);
         setFitWidth(edgeX);

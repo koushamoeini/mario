@@ -10,7 +10,7 @@ public class MagicFlower extends Item {
     private Timeline timeline;
     public MagicFlower(int edgeX, int edgeY, int blockX, int blockY) {
         super(edgeX, edgeY, blockX, blockY,0,0);
-        Image image = new Image("Images/Items/magicFlower.png");
+        Image image = new Image(getClass().getResource("/Images/Items/magicFlower.png").toExternalForm());
         this.setImage(image);
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);

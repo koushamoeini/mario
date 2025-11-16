@@ -30,42 +30,42 @@ public class Level1_2 {
 
         //addBackGround
         {
-            BackGround backGround = new BackGround(1020, 600, 0, 0, new Image("Images/backGrounds/back.jpg"));
+            BackGround backGround = new BackGround(1020, 600, 0, 0, new Image(getClass().getResource("/Images/backGrounds/back.jpg").toExternalForm()));
             pane.getChildren().add(backGround);
-            BackGround cloud = new BackGround(170, 80, 200, 40, new Image("Images/backGrounds/cloud2.png"));
+            BackGround cloud = new BackGround(170, 80, 200, 40, new Image(getClass().getResource("/Images/backGrounds/cloud2.png").toExternalForm()));
             pane.getChildren().add(cloud);
             images.add(cloud);
-            BackGround cloud2 = new BackGround(160, 70, 620, -20, new Image("Images/backGrounds/cloud1.png"));
+            BackGround cloud2 = new BackGround(160, 70, 620, -20, new Image(getClass().getResource("/Images/backGrounds/cloud1.png").toExternalForm()));
             pane.getChildren().add(cloud2);
             images.add(cloud2);
-            BackGround cloud3 = new BackGround(160, 80, 990, 120, new Image("Images/backGrounds/cloud3.png"));
+            BackGround cloud3 = new BackGround(160, 80, 990, 120, new Image(getClass().getResource("/Images/backGrounds/cloud3.png").toExternalForm()));
             pane.getChildren().add(cloud3);
             images.add(cloud3);
-            BackGround cloud4 = new BackGround(170, 80, 1360, 60, new Image("Images/backGrounds/cloud1.png"));
+            BackGround cloud4 = new BackGround(170, 80, 1360, 60, new Image(getClass().getResource("/Images/backGrounds/cloud1.png").toExternalForm()));
             pane.getChildren().add(cloud4);
             images.add(cloud4);
-            BackGround cloud5 = new BackGround(160, 70, 1610, -30, new Image("Images/backGrounds/cloud2.png"));
+            BackGround cloud5 = new BackGround(160, 70, 1610, -30, new Image(getClass().getResource("/Images/backGrounds/cloud2.png").toExternalForm()));
             pane.getChildren().add(cloud5);
             images.add(cloud5);
-            BackGround cloud6 = new BackGround(160, 70, 1710, 110, new Image("Images/backGrounds/cloud3.png"));
+            BackGround cloud6 = new BackGround(160, 70, 1710, 110, new Image(getClass().getResource("/Images/backGrounds/cloud3.png").toExternalForm()));
             pane.getChildren().add(cloud6);
             images.add(cloud6);
-            BackGround hill1 = new BackGround(400, 200, 100, 410, new Image("Images/backGrounds/hill1.png"));
+            BackGround hill1 = new BackGround(400, 200, 100, 410, new Image(getClass().getResource("/Images/backGrounds/hill1.png").toExternalForm()));
             pane.getChildren().add(hill1);
             images.add(hill1);
-            BackGround bush1 = new BackGround(130, 60, 1490, 470, new Image("Images/backGrounds/bush1.png"));
+            BackGround bush1 = new BackGround(130, 60, 1490, 470, new Image(getClass().getResource("/Images/backGrounds/bush1.png").toExternalForm()));
             pane.getChildren().add(bush1);
             images.add(bush1);
-            BackGround bush2 = new BackGround(130, 60, 750, 470, new Image("Images/backGrounds/bush1.png"));
+            BackGround bush2 = new BackGround(130, 60, 750, 470, new Image(getClass().getResource("/Images/backGrounds/bush1.png").toExternalForm()));
             pane.getChildren().add(bush2);
             images.add(bush2);
-            BackGround eye1 = new BackGround(60, 60, 3310, 310, new Image("Images/backGrounds/white.png"));
+            BackGround eye1 = new BackGround(60, 60, 3310, 310, new Image(getClass().getResource("/Images/backGrounds/white.png").toExternalForm()));
             pane.getChildren().add(eye1);
             images.add(eye1);
-            BackGround eye2 = new BackGround(100, 100, 3070, 320, new Image("Images/backGrounds/white.png"));
+            BackGround eye2 = new BackGround(100, 100, 3070, 320, new Image(getClass().getResource("/Images/backGrounds/white.png").toExternalForm()));
             pane.getChildren().add(eye2);
             images.add(eye2);
-            BackGround castle = new BackGround(400, 400, 3000, 200, new Image("Images/backGrounds/castle.png"));
+            BackGround castle = new BackGround(400, 400, 3000, 200, new Image(getClass().getResource("/Images/backGrounds/castle.png").toExternalForm()));
             pane.getChildren().add(castle);
             images.add(castle);
         }

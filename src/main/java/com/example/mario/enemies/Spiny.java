@@ -17,7 +17,7 @@ public class Spiny extends Enemy {
     public Spiny(int edgeX, int edgeY, int blockX, int blockY) {
         super(edgeX, edgeY, blockX, blockY, false, 1, 3, 3);
 
-        Image image = new Image("Images/enemies/spiny.png");
+        Image image = new Image(getClass().getResource("/Images/enemies/spiny.png").toExternalForm());
         this.setImage(image);
         Timeline timeline = new Timeline(keyFrame0);
         timeline.setCycleCount(Animation.INDEFINITE);

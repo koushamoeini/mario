@@ -26,7 +26,7 @@ public class SuperMario extends Application {
     private static final int stageY = 0;
     private final UserData userData=UserData.getInstance();
     private static final String stageTitle = "super mario";
-    private static final Image icon=new Image("Images/backGrounds/icon.png");
+    private static final Image icon=new Image(SuperMario.class.getResource("/Images/backGrounds/icon.png").toExternalForm());
     Timeline timerMenu=new Timeline();
     public static VoicePlayer menuSong=new VoicePlayer("./src/main/resources/Media/menuSong.mp3");
 
@@ -52,7 +52,7 @@ public class SuperMario extends Application {
         stage.setHeight(SuperMario.getHeight());
         stage.setWidth(SuperMario.getWidth());
         stage.getIcons().add(SuperMario.getIcon());
-        stage.setResizable(false);
+        //stage.setResizable(false);
         stage.setTitle(SuperMario.getStageTitle());
         stage.setX(SuperMario.getStageX());
         stage.setY(SuperMario.getStageY());

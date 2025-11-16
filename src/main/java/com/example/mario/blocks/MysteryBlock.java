@@ -14,15 +14,15 @@ public class MysteryBlock extends Block{
         if(isActive) {
             counter++;
             if (counter % 18 < 9)
-                setImage(new Image("Images/blocks/prize_active.png"));
+                setImage(new Image(getClass().getResource("/Images/blocks/prize_active.png").toExternalForm()));
             else
-                setImage(new Image("Images/blocks/prize_normal.png"));
+                setImage(new Image(getClass().getResource("/Images/blocks/prize_normal.png").toExternalForm()));
         }
     });
 
     public MysteryBlock( int edgeX, int edgeY, int blockX, int blockY) {
         super( edgeX, edgeY, blockX, blockY);
-        Image image = new Image("Images/blocks/prize_active.png");
+        Image image = new Image(getClass().getResource("/Images/blocks/prize_active.png").toExternalForm());
         this.setImage(image);
         timeline=new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);

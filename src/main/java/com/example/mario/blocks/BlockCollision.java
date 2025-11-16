@@ -7,6 +7,7 @@ import com.example.mario.user.GameData;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import java.util.List;
+import java.util.Random;
 
 public class BlockCollision {
     private final Pane pane;
@@ -67,8 +68,8 @@ public class BlockCollision {
     public void mysteryBlockCollision(Block block) {
         if (block instanceof MysteryBlock mysteryBlock && (mysteryBlock.isActive())) {
                 mysteryBlock.setActive(false);
-                block.setImage(new Image("Images/blocks/prize_inactive.png"));
-                int randomNumber = (int) (Math.random() * 10) + 1;
+                block.setImage(new Image(getClass().getResource("/Images/blocks/prize_inactive.png").toExternalForm()));
+                int randomNumber = new Random().nextInt(10)+1;
                 if (randomNumber <5){
                     Coin coin = new Coin(block.getEdgeX(), block.getEdgeY(), (int) block.getLayoutX(), (int) (block.getLayoutY() - block.getEdgeY()));
                     pane.getChildren().add(coin);

@@ -20,7 +20,7 @@ public class NukeShot extends ImageView {
     private Bowser bowser;
     private MotionHandler motionHandler;
     private Timeline checkCollision;
-    private boolean isActive=false;
+   // private boolean isActive=false;
     private final BooleanProperty isVisible = new SimpleBooleanProperty(true);
 
     public NukeShot(int edgeX, int edgeY, int blockX, int blockY, MotionHandler motionHandler) {
@@ -29,7 +29,7 @@ public class NukeShot extends ImageView {
         this.setFitWidth(edgeX);
         this.setFitHeight(edgeY);
         this.motionHandler=motionHandler;
-        this.setImage(new Image("Images/Shots/nukeBomb.png"));
+        this.setImage(new Image(getClass().getResource("/Images/Shots/nukeBomb.png").toExternalForm()));
         this.blocks = motionHandler.getBlocks();
         this.mario = motionHandler.getMario();
         this.bowser = motionHandler.bowserFounder();
@@ -41,7 +41,6 @@ public class NukeShot extends ImageView {
         checkCollision.play();
         isVisible.addListener((observable, oldValue, newValue) -> {
             if ((Math.pow(Math.pow(mario.getLayoutY()+mario.getFitHeight()/2 - (this.getLayoutY()+this.getFitHeight()/2), 2) + Math.pow(mario.getLayoutX()+mario.getFitWidth()/2 - (this.getLayoutX()+this.getFitWidth()/2), 2), 0.5) < 90)){
-
                 if (mario.getMarioState() == 0) mario.setDead(true);
                 else mario.setMarioState(mario.getMarioState() - 1);
             }

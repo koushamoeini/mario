@@ -1,4 +1,4 @@
-module com.example.supermario {
+module com.example.mario {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.media;
@@ -29,4 +29,6 @@ module com.example.supermario {
     opens com.example.mario.GameHandle to com.fasterxml.jackson.databind, javafx.fxml;
     exports com.example.mario.enemies.bossFight;
     opens com.example.mario.enemies.bossFight to com.fasterxml.jackson.databind, javafx.fxml;
+    exports com.example.mario.utils;
+    opens com.example.mario.utils to com.fasterxml.jackson.databind, javafx.fxml;
 }

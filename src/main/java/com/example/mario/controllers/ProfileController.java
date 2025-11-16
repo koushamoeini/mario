@@ -38,7 +38,7 @@ public class ProfileController implements Initializable {
         else if(userData.getCurrentUser().isCurrentSkin2()) str="/mugman";
         else if(userData.getCurrentUser().isCurrentSkin3()) str="/chalice";
         else if (userData.getCurrentUser().isCurrentSkin4()) str="/plane";
-        chosenCharacter.setImage(new Image("Images"+str+"/runner.png"));
+        chosenCharacter.setImage(new Image(getClass().getResource("/Images"+str+"/runner.png").toExternalForm()));
     }
     public void back() throws Exception {
         Stage stage= SuperMario.getLevelStage();

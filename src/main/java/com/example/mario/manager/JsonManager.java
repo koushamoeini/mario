@@ -39,13 +39,7 @@ public class JsonManager {
         return objectMapper.readValue(file,clazz);
     }
 
-    public <T extends Enum<T>> T readEnum(String value, Class<T> enumClass) throws IOException {
-        return objectMapper.readValue("\"" + value + "\"", enumClass);
-    }
 
-    public void writeEnum(Enum<?> value) throws IOException {
-        objectMapper.writeValue(file, value);
-    }
     public void nothing() throws IOException {
         objectMapper.writeValue(file,emptyArr);
     }

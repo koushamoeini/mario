@@ -19,7 +19,7 @@ public class MarioAnimation {
     }
 
     public void falling() {
-        mario.setImage(new Image("Images" + mario.getStr() + "/marioFall.png"));
+        mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/marioFall.png").toExternalForm()));
     }
 
     public void startMoving() {
@@ -32,38 +32,38 @@ public class MarioAnimation {
     }
 
     public void stopMoving() {
-        mario.setImage(new Image("Images" + mario.getStr() + "/runner.png"));
+        mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/runner.png").toExternalForm()));
     }
 
     public void marioMoving() {
         counter++;
         if (!isMarioMovingLeft) {
             if (counter % 15 < 5) {
-                mario.setImage(new Image("Images" + mario.getStr() + "/run-1.png"));
+                mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/run-1.png").toExternalForm()));
             } else if (counter % 15 < 10) {
-                mario.setImage(new Image("Images" + mario.getStr() + "/run-2.png"));
+                mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/run-2.png").toExternalForm()));
             } else
-                mario.setImage(new Image("Images" + mario.getStr() + "/run-3.png"));
+                mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/run-3.png").toExternalForm()));
         } else {
             if (counter % 15 < 5) {
-                mario.setImage(new Image("Images" + mario.getStr() + "/runLeft-1.png"));
+                mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/runLeft-1.png").toExternalForm()));
             } else if (counter % 15 < 10) {
-                mario.setImage(new Image("Images" + mario.getStr() + "/runLeft-2.png"));
+                mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/runLeft-2.png").toExternalForm()));
             } else
-                mario.setImage(new Image("Images" + mario.getStr() + "/runLeft-3.png"));
+                mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/runLeft-3.png").toExternalForm()));
         }
     }
 
     public void marioJumping() {
-        if (!isMarioMovingLeft) mario.setImage(new Image("Images" + mario.getStr() + "/jump.png"));
-        else mario.setImage(new Image("Images" + mario.getStr() + "/jumpLeft.png"));
+        if (!isMarioMovingLeft) mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/jump.png").toExternalForm()));
+        else mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/jumpLeft.png").toExternalForm()));
     }
 
     public void marioDying() {
         dyingCounter++;
         if (dyingCounter % 10 < 5)
-            mario.setImage(new Image("Images" + mario.getStr() + "/marioDie.png"));
-        else mario.setImage(new Image("Images/blocks/null.png"));
+            mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/marioDie.png").toExternalForm()));
+        else mario.setImage(new Image(getClass().getResource("/Images/blocks/null.png").toExternalForm()));
         if (dyingCounter == 1 && mario.getLayoutY() > SuperMario.getHeight()) {
             mario.setLayoutY(SuperMario.getHeight() - 60);
         }
@@ -72,7 +72,7 @@ public class MarioAnimation {
         mario.setLayoutY(mario.getLayoutY() - dyingVelocity);
         if (mario.getLayoutY() > SuperMario.getHeight() + 130) {
             isDyingFinished = true;
-            mario.setImage(new Image("Images" + mario.getStr() + "/runner.png"));
+            mario.setImage(new Image(getClass().getResource("/Images" + mario.getStr() + "/runner.png").toExternalForm()));
             dyingCounter = 0;
             dyingVelocity = 15;
         }

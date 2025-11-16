@@ -32,7 +32,7 @@ public class BowserShot extends ImageView {
         this.setFitWidth(edgeX);
         this.setFitHeight(edgeY);
         this.motionHandler=motionHandler;
-        this.setImage(new Image("Images/Shots/fireball.png"));
+        this.setImage(new Image(getClass().getResource("/Images/Shots/fireball.png").toExternalForm()));
         this.blocks = motionHandler.getBlocks();
         this.mario = motionHandler.getMario();
         this.bowser = motionHandler.bowserFounder();

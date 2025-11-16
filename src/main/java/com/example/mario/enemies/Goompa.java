@@ -11,7 +11,7 @@ public class Goompa extends Enemy {
 
     public Goompa(int edgeX, int edgeY, int blockX, int blockY) {
         super(edgeX, edgeY, blockX, blockY, true, 1, 1, 2);
-        Image image = new Image("Images/enemies/goompa.png");
+        Image image = new Image(getClass().getResource("/Images/enemies/goompa.png").toExternalForm());
         this.setImage(image);
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);

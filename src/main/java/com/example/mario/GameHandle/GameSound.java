@@ -1,13 +1,9 @@
 package com.example.mario.GameHandle;
 
-import com.example.mario.controllers.GameLabelController;
+
 import com.example.mario.manager.VoicePlayer;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.util.Duration;
 
 public class GameSound {
     private MotionHandler motionHandler;

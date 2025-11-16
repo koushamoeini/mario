@@ -12,7 +12,7 @@ public class Star extends Item {
 
     public Star(int edgeX, int edgeY, int blockX, int blockY) {
         super(edgeX, edgeY, blockX, blockY,5,1);
-        Image image = new Image("Images/Items/star.png");
+        Image image = new Image(getClass().getResource("/Images/Items/star.png").toExternalForm());
         this.setImage(image);
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);

@@ -64,7 +64,7 @@ public class Mario extends ImageView {
         else if (userData.getCurrentUser().isCurrentSkin2()) str = "/mugman";
         else if (userData.getCurrentUser().isCurrentSkin3()) str = "/chalice";
         else str = "/plane";
-        Image marioImage = new Image("Images" + str + "/runner.png");
+        Image marioImage = new Image(getClass().getResource("/Images" + str + "/runner.png").toExternalForm());
         this.setImage(marioImage);
     }
 

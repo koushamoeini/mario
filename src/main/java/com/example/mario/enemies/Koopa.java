@@ -12,7 +12,7 @@ public class Koopa extends Enemy {
     private Timeline koopaAnimationStopper;
     public Koopa(int edgeX, int edgeY, int blockX, int blockY) {
         super(edgeX, edgeY, blockX, blockY,true,2,2,3);
-        Image image = new Image("Images/enemies/koopa.png");
+        Image image = new Image(getClass().getResource("/Images/enemies/koopa.png").toExternalForm());
         this.setImage(image);
         koopaTimeline=new Timeline(keyFrame);
         koopaTimeline.setCycleCount(Animation.INDEFINITE);

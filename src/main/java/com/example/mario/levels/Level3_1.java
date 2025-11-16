@@ -26,7 +26,7 @@ public class Level3_1 {
         ArrayList<BackGround> images = new ArrayList<>();
         ArrayList<Block> blocks = new ArrayList<>();
         ArrayList<Enemy> enemies = new ArrayList<>();
-        BackGround backGround = new BackGround(1020, 600, 0, 0, new Image("Images/backGrounds/back.jpg"));
+        BackGround backGround = new BackGround(1020, 600, 0, 0, new Image(getClass().getResource("/Images/backGrounds/back.jpg").toExternalForm()));
         pane.getChildren().add(backGround);
         for (int i = 510; i < 600; i += 30) {
             for (int j = 0; j <= 990; j += 30) {

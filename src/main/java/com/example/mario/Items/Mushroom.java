@@ -12,7 +12,7 @@ public class Mushroom extends Item {
 
     public Mushroom(int edgeX, int edgeY, int blockX, int blockY) {
         super(edgeX, edgeY, blockX, blockY,0,1);
-        Image image = new Image("Images/Items/mushroom.png");
+        Image image = new Image(getClass().getResource("/Images/Items/mushroom.png").toExternalForm());
         this.setImage(image);
         timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);

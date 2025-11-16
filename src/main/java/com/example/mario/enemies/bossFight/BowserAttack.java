@@ -36,7 +36,7 @@ public class BowserAttack {
 
     public void resetInstance() {
         motionHandler.getUsingAttacks().setUsingAnotherAttack(false);
-        bowser.setImage(new Image("Images/enemies/bowser/bowserLeft.png"));
+        bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/bowserLeft.png").toExternalForm()));
         mario.setInvincible(false);
         bowser.setInvincible(false);
     }
@@ -77,8 +77,8 @@ public class BowserAttack {
     });
 
     public void grabAttack() {
-        if (bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/grabAttackLeft.png"));
-        else bowser.setImage(new Image("Images/enemies/bowser/grabAttack.png"));
+        if (bowser.isBowerGoingLeft()) bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/grabAttackLeft.png").toExternalForm()));
+        else bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/grabAttack.png").toExternalForm()));
         grabStartTimer = new Timeline(grabStartKeyFrame);
         grabStartTimer.setCycleCount(Animation.INDEFINITE);
         grabAttackTimer = new Timeline(grabAttackKeyFrame);
@@ -124,7 +124,7 @@ public class BowserAttack {
                 nauseaTimer.play();
             }
             bowser.setFallVelocity(0);
-            bowser.setImage(new Image("Images/enemies/bowser/bowserLeft.png"));
+            bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/bowserLeft.png").toExternalForm()));
             bowser.setJumping(false);
             motionHandler.getUsingAttacks().setUsingAnotherAttack(false);
             finishJumpFounderTimer.stop();
@@ -140,10 +140,10 @@ public class BowserAttack {
         BowserShot bowserShot;
         int rand1 = 30 * (int) (Math.random() * 3);
         if (bowser.isBowerGoingLeft()) {
-            bowser.setImage(new Image("Images/enemies/bowser/fireballAttackLeft.png"));
+            bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/fireballAttackLeft.png").toExternalForm()));
             bowserShot = new BowserShot(60, 58, (int) (bowser.getLayoutX() - 60), (int) (bowser.getLayoutY() + rand1+1), motionHandler,true);
         } else {
-            bowser.setImage(new Image("Images/enemies/bowser/fireballAttack.png"));
+            bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/fireballAttack.png").toExternalForm()));
             bowserShot = new BowserShot(60, 58, (int) (bowser.getLayoutX() + bowser.getFitWidth()), (int) (bowser.getLayoutY() + rand1+1), motionHandler,false);
         }
         motionHandler.getPane().getChildren().add(bowserShot);
@@ -152,14 +152,14 @@ public class BowserAttack {
     KeyFrame fireBallAttackKeyFrame = new KeyFrame(Duration.millis(500), event -> {
         fireBallAttack();
         motionHandler.getUsingAttacks().setUsingAnotherAttack(false);
-        if (bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/bowserLeft.png"));
-        else bowser.setImage(new Image("Images/enemies/bowser/bowser.png"));
+        if (bowser.isBowerGoingLeft()) bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/bowserLeft.png").toExternalForm()));
+        else bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/bowser.png").toExternalForm()));
         fireBallTimer.stop();
     });
     KeyFrame fireBallAnimationKeyFrame = new KeyFrame(Duration.millis(1), event -> {
         useFireballAnimationCounter++;
-        if(bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/fireballAttackLeft.png"));
-        if(!bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/fireballAttack.png"));
+        if(bowser.isBowerGoingLeft()) bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/fireballAttackLeft.png").toExternalForm()));
+        if(!bowser.isBowerGoingLeft()) bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/fireballAttack.png").toExternalForm()));
         if(useFireballAnimationCounter>=300) {
             useFireballAnimationCounter=0;
             fireBallAnimationTimer.stop();
@@ -171,14 +171,14 @@ public class BowserAttack {
         nukeTimer.setCycleCount(Animation.INDEFINITE);
         NukeShot nukeShot;
         int rand1 = 30 * (int) (Math.random() * 30);
-        bowser.setImage(new Image("Images/enemies/bowser/nukeAttack.png"));
+        bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/nukeAttack.png").toExternalForm()));
         nukeShot = new NukeShot(30, 60, rand1, 0, motionHandler);
         motionHandler.getPane().getChildren().add(nukeShot);
         nukeTimer.play();
     }
     KeyFrame nukeAnimationKeyFrame = new KeyFrame(Duration.millis(500), event -> {
-        if (bowser.isBowerGoingLeft()) bowser.setImage(new Image("Images/enemies/bowser/bowserLeft.png"));
-        else bowser.setImage(new Image("Images/enemies/bowser/bowser.png"));
+        if (bowser.isBowerGoingLeft()) bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/bowserLeft.png").toExternalForm()));
+        else bowser.setImage(new Image(getClass().getResource("/Images/enemies/bowser/bowser.png").toExternalForm()));
         motionHandler.getUsingAttacks().setUsingAnotherAttack(false);
         nukeTimer.stop();
     });

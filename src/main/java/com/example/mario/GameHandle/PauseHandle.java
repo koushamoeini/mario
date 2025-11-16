@@ -29,7 +29,7 @@ public class PauseHandle implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(!motionHandler.getGameSound().isMuteListener()){
-            music.setImage(new Image("Images/backGrounds/mute.png"));
+            music.setImage(new Image(getClass().getResource("/Images/backGrounds/mute.png").toExternalForm()));
         }
         try {
             exit.setOnAction(e -> {
@@ -85,10 +85,10 @@ public class PauseHandle implements Initializable {
 
     public void muteMusic() {
         if (urlEditor(music.getImage().getUrl()).equals("Images/backGrounds/unmute.png")) {
-            music.setImage(new Image("Images/backGrounds/mute.png"));
+            music.setImage(new Image(getClass().getResource("/Images/backGrounds/mute.png").toExternalForm()));
             motionHandler.getGameSound().setMuteListener(false);
         } else {
-            music.setImage(new Image("Images/backGrounds/unmute.png"));
+            music.setImage(new Image(getClass().getResource("/Images/backGrounds/unmute.png").toExternalForm()));
             motionHandler.getGameSound().setMuteListener(true);
         }
     }

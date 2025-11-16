@@ -6,7 +6,7 @@ public class SuperCoinBlock extends Block{
     private int prizeNumbers=(int) (Math.random() * 4) + 2;
     public SuperCoinBlock( int edgeX, int edgeY, int blockX, int blockY) {
         super( edgeX, edgeY, blockX, blockY);
-        Image image = new Image("Images/blocks/brick.png");
+        Image image = new Image(getClass().getResource("/Images/blocks/brick.png").toExternalForm());
         this.setImage(image);
     }
 

@@ -15,7 +15,7 @@ public class Flower extends Enemy {
     public Flower(int edgeX, int edgeY, int blockX, int blockY) {
         super(edgeX, edgeY, blockX, blockY,false,1,1,0);
         this.firstLayOutY=blockY;
-        Image image = new Image("Images/enemies/flower(cagney).png");
+        Image image = new Image(getClass().getResource("/Images/enemies/flower(cagney).png").toExternalForm());
         this.setImage(image);
         timeline=new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);

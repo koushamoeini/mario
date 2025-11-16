@@ -42,7 +42,7 @@ public class ShopController implements Initializable {
     public void next() {
         counter++;
         if (counter % 5 == 0) {
-            characterImage.setImage(new Image("Images/runner.png"));
+            characterImage.setImage(new Image(getClass().getResource("/Images/runner.png").toExternalForm()));
             if (userData.getCurrentUser().isSkin0()) {
                 select.setVisible(true);
                 coin.setVisible(false);
@@ -56,7 +56,7 @@ public class ShopController implements Initializable {
             }
         }
         if (counter % 5 == 1) {
-            characterImage.setImage(new Image("Images/cuphead/runner.png"));
+            characterImage.setImage(new Image(getClass().getResource("/Images/cuphead/runner.png").toExternalForm()));
             if (userData.getCurrentUser().isSkin1()) {
                 select.setVisible(true);
                 coin.setVisible(false);
@@ -70,7 +70,7 @@ public class ShopController implements Initializable {
             }
         }
         if (counter % 5 == 2) {
-            characterImage.setImage(new Image("Images/mugman/runner.png"));
+            characterImage.setImage(new Image(getClass().getResource("/Images/mugman/runner.png").toExternalForm()));
             if (userData.getCurrentUser().isSkin2()) {
                 select.setVisible(true);
                 coin.setVisible(false);
@@ -84,7 +84,7 @@ public class ShopController implements Initializable {
             }
         }
         if (counter % 5 == 3) {
-            characterImage.setImage(new Image("Images/chalice/runner.png"));
+            characterImage.setImage(new Image(getClass().getResource("/Images/chalice/runner.png").toExternalForm()));
             if (userData.getCurrentUser().isSkin3()) {
                 select.setVisible(true);
                 buy.setVisible(false);
@@ -98,7 +98,7 @@ public class ShopController implements Initializable {
             }
         }
         if (counter % 5 == 4) {
-            characterImage.setImage(new Image("Images/plane/runner.png"));
+            characterImage.setImage(new Image(getClass().getResource("/Images/plane/runner.png").toExternalForm()));
             if (userData.getCurrentUser().isSkin4()) {
                 select.setVisible(true);
                 buy.setVisible(false);

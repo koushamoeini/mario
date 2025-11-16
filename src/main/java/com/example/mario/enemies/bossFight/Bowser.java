@@ -4,6 +4,7 @@ import com.example.mario.GameHandle.MotionHandler;
 import com.example.mario.blocks.Block;
 import com.example.mario.blocks.MysteryBlock;
 import com.example.mario.blocks.Stairs;
+import com.example.mario.blocks.WinBlock;
 import com.example.mario.enemies.Enemy;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -33,7 +34,7 @@ public class Bowser extends Enemy {
         super(edgeX, edgeY, blockX, blockY, true, 20, 100, 0);
         setProgressBar();
         pane.getChildren().add(progressBar);
-        Image image = new Image("Images/enemies/bowser/bowserLeft.png");
+        Image image = new Image(getClass().getResource("/Images/enemies/bowser/bowserLeft.png").toExternalForm());
         this.setImage(image);
         this.blocks = blocks;
         Stairs stairs1 = new Stairs(30, 30, 0, 450);
@@ -56,7 +57,7 @@ public class Bowser extends Enemy {
         progressBar.setProgress((double) this.getEnemyHp()/20);
         if(this.getEnemyHp()<1) {
             this.isDead=true;
-            blocks.add(new Block(90,1000,900,0));
+            blocks.add(new WinBlock(90,1000,900,0));
             checkDead.stop();
         }
     });

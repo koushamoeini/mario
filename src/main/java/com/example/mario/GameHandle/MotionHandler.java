@@ -42,7 +42,7 @@ public class MotionHandler {
     private final List<Gun> shots = new ArrayList<>();
     private final int level;
     private final GameLabelController gameLabelController = GameLabelController.getInstance();
-    private PauseHandle pauseHandle =new PauseHandle(this);
+    private PauseHandle pauseHandle = new PauseHandle(this);
     private GameData gameData = GameData.getInstance();
     private final UserData userData = UserData.getInstance();
     private final List<Integer> saveData = new ArrayList<>();
@@ -52,14 +52,14 @@ public class MotionHandler {
     private final EnemyCollision enemyCollision;
     private final ShotCollision shotCollision;
     private BowserMovement bowserMovement;
-    private double progressRisk=0;
+    private double progressRisk = 0;
     private final BowserAttack bowserAttack;
     private UsingAttacks usingAttacks;
     private final MapMover mapMover;
-    private  GameSound gameSound = GameSound.getInstance(this);
+    private GameSound gameSound = GameSound.getInstance(this);
     private final SetLevel setLevel;
     private Bowser bowser;
-    private final FxmlLoader fxmlLoader=new FxmlLoader();
+    private final FxmlLoader fxmlLoader = new FxmlLoader();
     AnimationTimer timer;
     Timeline bossMover;
 
@@ -104,7 +104,7 @@ public class MotionHandler {
         bossMover = new Timeline(bossMoverKeyFrame);
         bossMover.setCycleCount(Animation.INDEFINITE);
         bossMover.play();
-        stopScene=loadStopFxml();
+        stopScene = loadStopFxml();
         jsonJob();
         pane.getChildren().add(mario);
         stage.getScene().setOnKeyPressed(event -> {
@@ -244,7 +244,6 @@ public class MotionHandler {
                 }
                 if (!mario.isDead()) {
                     if (isWin()) {
-
                         timer.stop();
                         gameData.setPoint(gameData.getPoint() + gameData.getTime());
                         gameData.setTime(100);
@@ -325,18 +324,16 @@ public class MotionHandler {
         if (gameData.getPoint() >= 30) {
             gameData.setPoint(gameData.getPoint() - 30);
             gameLabelController.setPointChange(gameData.getPoint());
-        }
-        else {
+        } else {
             gameData.setPoint(0);
             gameLabelController.setPointChange(gameData.getPoint());
         }
-        int deathCoinLost=(int)(gameData.getCoin()+progressRisk)/4;
-        System.out.println(deathCoinLost);
+        int deathCoinLost = (int) (gameData.getCoin() + progressRisk) / 4;
+        // System.out.println(deathCoinLost);
         if (gameData.getCoin() >= deathCoinLost) {
             gameData.setCoin(gameData.getCoin() - deathCoinLost);
             gameLabelController.setCoinChange(gameData.getCoin());
-        }
-        else {
+        } else {
             gameData.setPoint(0);
             gameLabelController.setCoinChange(gameData.getCoin());
         }
@@ -418,6 +415,7 @@ public class MotionHandler {
     public void stopFxml() {
         stage.setScene(stopScene);
     }
+
     public Scene loadStopFxml() throws Exception {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(new File("./src/main/resources/com/example/mario/PauseGame.fxml").toURI().toURL());
@@ -426,6 +424,7 @@ public class MotionHandler {
         Scene scene = new Scene(content);
         return scene;
     }
+
     public void loadMainMenu() throws Exception {
         gameSound.setMuteListener(false);
         GameSound.setInstance(null);
@@ -473,7 +472,8 @@ public class MotionHandler {
             jsonHelper(jsonManager3);
         }
     }
-    public void jsonHelper(JsonManager jsonManager)throws Exception{
+
+    public void jsonHelper(JsonManager jsonManager) throws Exception {
         mapMover.mapMoverRight(jsonManager.readArray(JsonManager.integerReference).get(0));
         mapMover.mapMoverDown(jsonManager.readArray(JsonManager.integerReference).get(1));
         gameData.setPoint(jsonManager.readArray(JsonManager.integerReference).get(2));
@@ -486,6 +486,7 @@ public class MotionHandler {
         mapMover.setMapMoveDownCounter(jsonManager.readArray(JsonManager.integerReference).get(1));
         mario.setMarioState(jsonManager.readArray(JsonManager.integerReference).get(9));
     }
+
     public List<Enemy> getEnemies() {
         return enemies;
     }
@@ -548,27 +549,31 @@ public class MotionHandler {
     public MarioAnimation getMarioAnimation() {
         return marioAnimation;
     }
-    public void checkSecretPipe(){
-        if(mario.isSit()&&mario.isOnSecretPipe()){
+
+    public void checkSecretPipe() {
+        if (mario.isSit() && mario.isOnSecretPipe()) {
             mapMover.mapMoverDown(100);
             mapMover.setMapMoveDownCounter(100);
         }
     }
-    public void checkSecretPipeBack(){
-        if(mario.isSit()&&mario.isOnSecretPipeBack()){
+
+    public void checkSecretPipeBack() {
+        if (mario.isSit() && mario.isOnSecretPipeBack()) {
             mario.setLayoutY(60);
             mario.setLayoutX(90);
             mapMover.mapMoverDown(-(mapMover.getMapMoveDownCounter()));
             mapMover.setMapMoveDownCounter(0);
-            System.out.println(blocks.get(0).getLayoutY());
+            //System.out.println(blocks.get(0).getLayoutY());
         }
     }
-    public void updateProgressRisk(){
-        progressRisk=(mario.getLayoutX()/winBlockLayout());
+
+    public void updateProgressRisk() {
+        progressRisk = (mario.getLayoutX() / winBlockLayout());
     }
-    public int winBlockLayout(){
-        for(Block block:blocks){
-            if(block instanceof WinBlock) return (int) block.getLayoutX();
+
+    public int winBlockLayout() {
+        for (Block block : blocks) {
+            if (block instanceof WinBlock) return (int) block.getLayoutX();
         }
         return 0;
     }
