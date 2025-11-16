@@ -291,38 +291,6 @@ export JAVA_HOME=/path/to/jdk21
 3. VS Code will auto-detect Gradle
 4. Press F5 or use Run menu
 
-## 🔮 Future Improvements
-
-### Planned Features
-- [ ] More levels and worlds
-- [ ] Multiplayer mode
-- [ ] Level editor
-- [ ] More enemy types and boss fights
-- [ ] Enhanced power-up system
-- [ ] Leaderboard system
-- [ ] Game settings (difficulty levels)
-- [ ] Mobile/touch controls support
-- [ ] Additional character abilities
-
-### Technical Improvements
-- [ ] Optimize resource loading
-- [ ] Improve collision detection precision
-- [ ] Add unit tests
-- [ ] Refactor code for better maintainability
-- [ ] Add documentation (JavaDoc)
-- [ ] Performance profiling and optimization
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-Please follow the [Conventional Commits](https://www.conventionalcommits.org/) specification for commit messages.
 
 ## 📄 License
 
@@ -330,17 +298,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🙏 Acknowledgments
+## 👤 Author
 
-- Original Super Mario Bros. by Nintendo for inspiration
-- JavaFX community for excellent documentation
-- OpenJFX for the graphics framework
-- All contributors and testers
-
-## 📧 Contact
-
-**Author**: Kousha Moeini  
-**Repository**: [github.com/koushamoeini/mario](https://github.com/koushamoeini/mario)
+**Kousha Moeini**
+- Email: koushamoeini@gmail.com
+- GitHub: [@koushamoeini](https://github.com/koushamoeini)
 
 ---
 
