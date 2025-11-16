@@ -5,10 +5,10 @@ import com.example.mario.Mario.Mario;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 public class UsingAttacks {
+    @SuppressWarnings("unused")
     private final MotionHandler motionHandler;
     private Mario mario;
     private Bowser bowser;

@@ -12,6 +12,7 @@ public class JsonManager {
     public static TypeReference<List<User>> typeReference = new TypeReference<>() {};
     public static TypeReference<List<Integer>> integerReference=new TypeReference<>() {};
     private ObjectMapper objectMapper;
+    @SuppressWarnings("unused")
     private String path;
     private File file;
     private List<Integer>emptyArr=new ArrayList<>();

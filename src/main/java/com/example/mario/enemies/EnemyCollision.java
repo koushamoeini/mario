@@ -2,7 +2,6 @@ package com.example.mario.enemies;
 
 import com.example.mario.GameHandle.MotionHandler;
 import com.example.mario.Mario.Mario;
-import com.example.mario.Mario.MarioCollision;
 import com.example.mario.controllers.GameLabelController;
 import com.example.mario.user.GameData;
 

@@ -16,9 +16,9 @@ public class BowserShot extends ImageView {
     private final List<Block> blocks;
     private Mario mario;
     private Timeline timeline;
+    @SuppressWarnings("unused")
     private Bowser bowser;
     private int direction = 1;
-    private MotionHandler motionHandler;
     private Timeline checkCollision;
 
     public BowserShot(int edgeX, int edgeY, int blockX, int blockY, MotionHandler motionHandler, boolean direction) {
@@ -26,7 +26,6 @@ public class BowserShot extends ImageView {
         this.setLayoutY(blockY);
         this.setFitWidth(edgeX);
         this.setFitHeight(edgeY);
-        this.motionHandler=motionHandler;
         this.setImage(new Image(getClass().getResource("/Images/Shots/fireball.png").toExternalForm()));
         this.blocks = motionHandler.getBlocks();
         this.mario = motionHandler.getMario();

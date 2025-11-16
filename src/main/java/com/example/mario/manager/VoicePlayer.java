@@ -1,7 +1,5 @@
 package com.example.mario.manager;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -11,7 +9,6 @@ import java.io.File;
 
 public class VoicePlayer {
     private final MediaPlayer mediaPlayer;
-    private Timeline timeline;
     public VoicePlayer(String path){
         Media sound=new Media(new File(path).toURI().toString());
         mediaPlayer =new MediaPlayer(sound);
