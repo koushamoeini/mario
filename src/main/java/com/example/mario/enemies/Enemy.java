@@ -29,6 +29,7 @@ public abstract class Enemy extends ImageView {
         setFitWidth(edgeX);
         setFitHeight(edgeY);
         setVisible(true);
+        toFront();
         this.jumpDie = jumpDie;
         this.enemyHp = enemyHp;
         this.enemyScore = enemyScore;
