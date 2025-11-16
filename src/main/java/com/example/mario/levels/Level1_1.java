@@ -234,9 +234,7 @@ public class Level1_1 {
         Scene scene1 = new Scene(pane);
         stage.setScene(scene1);
         stage.show();
-        @SuppressWarnings("unused")
-
-        MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, items, stage, pane, 1,0);
+        @SuppressWarnings("unused") MotionHandler motionHandler = new MotionHandler(blocks, enemies, images, items, stage, pane, 1,0);
     }
 
     public void setStage(Stage stage) {
