@@ -47,7 +47,23 @@ A classic Super Mario-style 2D platformer game built with JavaFX, featuring smoo
 
 ## 📸 Screenshots
 
-_Screenshots will be added here_
+### Main Menu
+![Main Menu](docs/screenshots/main-menu.png)
+
+### Gameplay
+![Gameplay](docs/screenshots/gameplay.png)
+
+### Character Selection
+![Character Shop](docs/screenshots/character-shop.png)
+
+### Boss Fight
+![Boss Fight](docs/screenshots/boss-fight.png)
+
+> **Note**: To add your screenshots, create a `docs/screenshots/` folder in the repository and add images with these filenames:
+> - `main-menu.png`
+> - `gameplay.png`
+> - `character-shop.png`
+> - `boss-fight.png`
 
 ## 🛠 Technologies Used
 
