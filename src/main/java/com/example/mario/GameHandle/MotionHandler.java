@@ -167,11 +167,17 @@ public class MotionHandler {
                             pane.getChildren().add(sword);
                         }
                     }
+                    default -> {
+                        // Ignore other key codes
+                    }
                 }
             } else {
                 switch (event.getCode()) {
                     case RIGHT -> bowserAttack.setGrabRightCounter(bowserAttack.getGrabRightCounter() + 1);
                     case LEFT -> bowserAttack.setGrabLeftCounter(bowserAttack.getGrabLeftCounter() + 1);
+                    default -> {
+                        // Ignore other key codes
+                    }
                 }
             }
         });
@@ -196,6 +202,9 @@ public class MotionHandler {
                             marioAnimation.marioSiting();
                         }
                     }
+                    default -> {
+                        // Ignore other key codes
+                    }
                 }
             } else {
                 switch (event.getCode()) {
@@ -216,6 +225,9 @@ public class MotionHandler {
                             mario.setSit(false);
                             marioAnimation.marioSiting();
                         }
+                    }
+                    default -> {
+                        // Ignore other key codes
                     }
                 }
             }
