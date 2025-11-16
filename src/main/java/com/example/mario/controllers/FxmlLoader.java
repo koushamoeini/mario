@@ -1,6 +1,5 @@
 package com.example.mario.controllers;
 
-import com.example.mario.SuperMario;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

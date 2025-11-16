@@ -1,11 +1,8 @@
 package com.example.mario.enemies.bossFight;
 
 import com.example.mario.GameHandle.MotionHandler;
-import com.example.mario.Gun.Gun;
-import com.example.mario.Gun.Sword;
 import com.example.mario.Mario.Mario;
 import com.example.mario.blocks.Block;
-import com.example.mario.enemies.Enemy;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,8 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BowserShot extends ImageView {

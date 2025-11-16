@@ -1,8 +1,6 @@
 package com.example.mario.enemies.bossFight;
 
-import com.example.mario.GameHandle.MotionHandler;
 import com.example.mario.blocks.Block;
-import com.example.mario.blocks.MysteryBlock;
 import com.example.mario.blocks.Stairs;
 import com.example.mario.blocks.WinBlock;
 import com.example.mario.enemies.Enemy;
@@ -10,7 +8,6 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;

@@ -3,9 +3,6 @@ package com.example.mario.enemies.bossFight;
 import com.example.mario.GameHandle.MotionHandler;
 import com.example.mario.Mario.Mario;
 import com.example.mario.blocks.Block;
-import com.example.mario.blocks.KillBlock;
-import com.example.mario.blocks.WinBlock;
-import com.example.mario.enemies.Enemy;
 import javafx.scene.image.Image;
 
 import java.util.List;

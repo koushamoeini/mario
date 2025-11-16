@@ -1,21 +1,16 @@
 package com.example.mario.controllers;
 
 
-import com.example.mario.GameHandle.GameSound;
 import com.example.mario.user.GameData;
 import com.example.mario.SuperMario;
 import com.example.mario.manager.VoicePlayer;
 import com.example.mario.levels.*;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.File;
-import java.io.IOException;
 
 public class MainMenuController {
     private final VoicePlayer shopVoice=new VoicePlayer("./src/main/resources/Media/shopWelcome.wav");

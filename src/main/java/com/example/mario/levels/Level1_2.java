@@ -1,7 +1,6 @@
 package com.example.mario.levels;
 
 import com.example.mario.GameHandle.MotionHandler;
-import com.example.mario.Items.Coin;
 import com.example.mario.Items.Item;
 import com.example.mario.SuperMario;
 import com.example.mario.blocks.*;
