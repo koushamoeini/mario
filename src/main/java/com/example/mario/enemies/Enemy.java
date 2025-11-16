@@ -28,10 +28,12 @@ public abstract class Enemy extends ImageView {
         setLayoutY(blockY);
         setFitWidth(edgeX);
         setFitHeight(edgeY);
+        setVisible(true);
         this.jumpDie = jumpDie;
         this.enemyHp = enemyHp;
         this.enemyScore = enemyScore;
         this.xVelocity = xVelocity;
+        this.isActive = true;
         invincibleEnemy = new Timeline(invicibleEnemyKeyFrame);
         invincibleEnemy.setCycleCount(Animation.INDEFINITE);
     }
