@@ -3,7 +3,6 @@ package com.example.mario.enemies;
 import com.example.mario.blocks.Block;
 import com.example.mario.blocks.KillBlock;
 import com.example.mario.blocks.WinBlock;
-import com.example.mario.enemies.bossFight.Bowser;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

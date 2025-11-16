@@ -8,8 +8,6 @@ import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
-import java.io.IOException;
-
 public class BowserAttack {
     private MotionHandler motionHandler;
     private Mario mario;

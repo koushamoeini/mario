@@ -1,7 +1,8 @@
 module com.example.mario {
-    requires javafx.controls;
-    requires javafx.fxml;
-    requires javafx.media;
+    requires transitive javafx.controls;
+    requires transitive javafx.fxml;
+    requires transitive javafx.media;
+    requires javafx.graphics;
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;

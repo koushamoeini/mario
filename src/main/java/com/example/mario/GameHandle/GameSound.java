@@ -6,6 +6,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 public class GameSound {
+    @SuppressWarnings("unused")
     private MotionHandler motionHandler;
     private final VoicePlayer andBegin = new VoicePlayer("./src/main/resources/Media/and begin.mp3");
     private final VoicePlayer beppi = new VoicePlayer("./src/main/resources/Media/beppi.mp3");

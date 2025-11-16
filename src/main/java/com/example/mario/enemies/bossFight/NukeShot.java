@@ -18,6 +18,7 @@ public class NukeShot extends ImageView {
     private Mario mario;
     private Timeline timeline;
     private Bowser bowser;
+    @SuppressWarnings("unused")
     private MotionHandler motionHandler;
     private Timeline checkCollision;
    // private boolean isActive=false;
